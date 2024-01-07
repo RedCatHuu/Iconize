@@ -16,32 +16,32 @@ Rails.application.routes.draw do
     
     resources :clubs do
       collection do
-        get myclub
+        get :myclub
       end 
     end 
     
-    resources :reports, only[:new, :create] do
+    resources :reports, only: [:new, :create] do
       collection do
-        post confirm
-        get accepted
+        post :confirm
+        get :accepted
       end
     end
       
-    resources :works, only[:show, :index, :create, :edit, :update, :destroy] do
+    resources :works, only: [:show, :index, :create, :edit, :update, :destroy] do
       collection do
-        get bookmarks
+        get :bookmarks
       end
     end
     
-    resources :users, only[:show, :edit, :update] do
+    resources :users, only: [:show, :edit, :update] do
       resource :relationship, only: [:create, :destroy]
       member do
         get 'following' => "relationships#following", as:"following"
         get 'followers' => "relationships#followers", as:"followers"
       end
       collection do
-        post confirm
-        patch unsubscribe
+        post :confirm
+        patch :unsubscribe
       end
     end
     
@@ -52,19 +52,19 @@ Rails.application.routes.draw do
     
     get 'homes/top'
     
-    resources :works, only:[:index, :show, :update] do
+    resources :works, only: [:index, :show, :update] do
       collection do
-        post confirm
+        post :confirm
       end
     end
     
-    resources :users, only:[:index, :show, :update] do
+    resources :users, only: [:index, :show, :update] do
       collection do
-        post confirm
+        post :confirm
       end 
     end 
     
-    resources :reports, only:[:show, :update]
+    resources :reports, only: [:show, :update]
     
   end
   
