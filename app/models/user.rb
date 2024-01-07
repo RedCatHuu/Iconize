@@ -5,9 +5,10 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
          
   validates :name, presence: true, length: {minimum: 2, maximum: 20}, uniqueness: true
-  validates :introduction, length: {maximum: 4}
+  validates :introduction, length: {maximum: 400}
   
   has_one_attached :profile_image
+  has_many :works
   
   def get_image(width, height)
     unless profile_image.attached?
