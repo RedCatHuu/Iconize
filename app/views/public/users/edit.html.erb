@@ -1,2 +1,21 @@
-<h1>Public::Users#edit</h1>
-<p>Find me in app/views/public/users/edit.html.erb</p>
+<%= form_with model: @user, local: false do |f| %>
+  <%= render 'public/shared/error_messages', resource: @user %>
+  <!--エラーメッセージが出ない。しかもframeを消しても呼び出そうとする。-->
+    <div>
+      <%= f.label :profile_image, 'プロフィール画像' %><br>
+      <%= f.file_field :profile_image, accept: "image/*" %>
+    </div>
+    <div>
+      <%= f.label :name, 'ニックネーム' %><br>
+      <%= f.text_field :name %>
+    </div>
+    <div>
+      <%= f.label :introduction, '自己紹介' %><br>
+      <%= f.text_field :introduction %>
+    </div>
+    <%= f.submit '変更を保存' %>
+  
+    
+    <%= link_to 'キャンセル', my_page_user_path %>
+  
+<% end %>

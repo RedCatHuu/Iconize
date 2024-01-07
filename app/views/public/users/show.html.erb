@@ -1,2 +1,7 @@
-<h1>Public::Users#show</h1>
-<p>Find me in app/views/public/users/show.html.erb</p>
+<%= render 'layouts/frame' do %>
+  <h1>マイページ</h1>
+  
+  <%= image_tag @user.get_image(200, 200) %>
+  <p><%= @user.name %></p>
+  <%= link_to 'プロフィールを編集', edit_user_path %>
+<% end %>

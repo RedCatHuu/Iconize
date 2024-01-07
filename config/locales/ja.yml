@@ -1,0 +1,11 @@
+ja:
+  enums:
+    
+
+  activerecord:
+    errors:
+      messages:
+        invalid: "が正しくありません。"
+        blank: "を入力してください。"
+        too_short: "は%{count}文字以上で入力してください。"
+        not_saved: "保存できませんでした。"
