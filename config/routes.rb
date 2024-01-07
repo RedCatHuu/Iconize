@@ -27,15 +27,16 @@ Rails.application.routes.draw do
       end
     end
       
-    resources :works, only: [:show, :index, :create, :edit, :update, :destroy] do
+    resources :works do
       collection do
         get :bookmarks
       end
     end
     
-    resources :users, only: [:show, :edit, :update] do
+    resources :users, only: [ :edit, :update] do
       resource :relationship, only: [:create, :destroy]
       member do
+        get 'my_page' => "users#show", as:"my_page"
         get 'following' => "relationships#following", as:"following"
         get 'followers' => "relationships#followers", as:"followers"
       end
