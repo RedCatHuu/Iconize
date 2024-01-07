@@ -1,14 +1,65 @@
 <%= render 'layouts/frame' do %>
-  <%= image_tag @work.base_image %>
-  <% @work.items.each do |item| %>
+  <%= link_to "作品一覧に戻る", works_path %><br>
   
-    <% item.images.each do |image| %>
-      <%= image_tag image %>
-    <% end %>
-    <br>
-    <% item.thumbnails.each do |thumbnail| %>
-      <%= image_tag thumbnail %>
+  <!--実際に画像が動くところ-->
+  <!--変数名はimage_numよりもnth_imageのほうがいいね-->
+  <div class="position-relative">
+    <%= image_tag @work.base_image, class:"position-absolute a", style:"z-index: -1" %>
+    <% for nth_item in 0..@work.qty_item %>
+      <% for nth_image in 0..@work.items[nth_item].qty_image do %>
+        <span class="image_<%= nth_item %>_<%= nth_image %>" style="display: none">
+          <%= image_tag @work.items[nth_item].images[nth_image], class:"position-absolute" %>
+        </span>
+      <% end %>
     <% end %>
     
+    <!--% @work.items.each do |item| %>-->
+    <!--  % for nth_image in 0..item.qty_image do %>-->
+    <!--    <span class="image_%= nth_image %>" style="display: none">-->
+    <!--      %= image_tag item.images[nth_image], class:"position-absolute" %>-->
+    <!--    </span>-->
+    <!--  % end %>-->
+    <!--% end %>-->
+  </div>
+  
+  <!--スペース用の空div-->
+  <div style="height: 200px"></div>
+  <div>
+   <!--チェックボックスで選択した画像の合成-->
+  <%= form_with model: @work, url: download_works_path, method: :post do |f| %>
+    <% for nth_item in 0..@work.qty_item %>
+      <% for nth_thumbnail in 0..@work.items[nth_item].qty_image do %>
+        <%= f.check_box :image_number, { multiple: true }, nth_image, nil %>
+        <%= f.label :"image_number_#{nth_item}_#{nth_thumbnail}", class:"image_number_#{nth_item}_#{nth_thumbnail}" do %>
+          <%= image_tag @work.items[nth_item].thumbnails[nth_thumbnail] %>
+        <% end %>
+      <% end %>
+    <% end %>
+    <br>
+    <%= f.submit 'チェックボックスで選択した画像の合成' %>
   <% end %>
+  </div>
+  
+ 
+  <script>
+    // チェックボックスをクリックして画像の表示、非表示
+    let item.size = "<%= @work.qty_item %>";
+    
+    $(document).ready(function(){
+      $('.button').on('click', function(){
+          console.log('button clicked!');
+        })
+        for (let item = 0; item <= item.size; item++){
+          let image.size = "<%= @work.items[item].qty_image %>"
+          for (let image = 0; image <= size; image++){
+            $('.image_number_' + item + '_' + image ).on('click', function(){
+              console.log(image + 'button clicked!');
+            $('.image_' + item + '_' + image ).toggle();
+            })
+          }
+        }
+      
+    })
+  </script>
+
 <% end %>

@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     resources :works do
       collection do
         get :bookmarks
+        post :download
       end
     end
     
