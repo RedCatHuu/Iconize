@@ -4,12 +4,19 @@
   <%= form_with model: Work.new do |f| %>
     <div>
       <%= f.label :base_image, 'ベース画像' %><br>
-      <%= f.file_field :base_image %>
+      <%= f.file_field :base_image, accept: "image/*" %>
     </div>
-    <div>
-      <%= f.label :images, 'アイテム画像' %><br>
-      <%= f.file_field :images %>
-    </div>
+    <%= f.fields_for :items, Work.new.items.build do |item| %>
+      <div>
+        <%= item.label :genre, 'アイテムグループ名' %><br>
+        <%= item.text_field :genre %>
+      </div>
+      <div>
+        <%= item.label :images, 'アイテム画像' %><br>
+        <%= item.file_field :images, multiple: true, accept: "image/*" %>
+      </div>
+    <% end %>
+      
     <div>
       <%= f.label :name, '作品名' %><br>
       <%= f.text_field :name %>
@@ -18,6 +25,10 @@
       <%= f.label :caption, 'キャプション' %><br>
       <%= f.text_area :caption, class:"form-control", size: "1x5" %>
     </div>
+    <div>
+      <%= f.submit '作品を投稿', class:"btn btn-success mt-3" %>
+    </div>
+    
   <% end %>
 
 <% end %>

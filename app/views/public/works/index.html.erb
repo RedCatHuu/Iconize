@@ -1,2 +1,7 @@
-<h1>Public::Works#index</h1>
-<p>Find me in app/views/public/works/index.html.erb</p>
+<%= render 'layouts/frame' do %>
+  <% @works.each do |work| %>
+    <%= link_to work_path(work) do %>
+      <%= image_tag work.base_image %>
+    <% end %>
+  <% end %>
+<% end %>
