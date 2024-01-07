@@ -1,0 +1,14 @@
+<%= render 'layouts/frame' do %>
+  <%= image_tag @work.base_image %>
+  <% @work.items.each do |item| %>
+  
+    <% item.images.each do |image| %>
+      <%= image_tag image %>
+    <% end %>
+    <br>
+    <% item.thumbnails.each do |thumbnail| %>
+      <%= image_tag thumbnail %>
+    <% end %>
+    
+  <% end %>
+<% end %>

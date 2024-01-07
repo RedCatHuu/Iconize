@@ -1,0 +1,7 @@
+<%= render 'layouts/frame' do %>
+  <% @works.each do |work| %>
+    <%= link_to work_path(work) do %>
+      <%= image_tag work.base_image %>
+    <% end %>
+  <% end %>
+<% end %>

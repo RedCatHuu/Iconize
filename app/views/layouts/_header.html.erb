@@ -1,0 +1,30 @@
+<header class="mb-3">
+  <nav class="navbar navbar-expand-lg navbar-dark " style="background-color: #0e357f; height: 50px;">
+    <div class="container">
+      
+      <a class="navbar-brand" href="/">
+        <!--ロゴを入れる-->
+      </a>
+      
+      <% if user_signed_in? %>
+        <div>
+          <p class="text-light mt-3">ようこそ、<%= current_user.name %>さん！</p>
+        </div>
+      <% end %>
+      
+      <button class="navbar-toggler openbtn" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <%= render "layouts/navitems" %>
+        </ul>
+      </div>
+      
+    </div>
+  </nav>
+  
+  <div style="height: 10px; background-color: #f9bb02"></div>
+  <%= render "layouts/flash" %>
+</header>
