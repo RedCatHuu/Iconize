@@ -56,6 +56,27 @@ class Public::WorksController < ApplicationController
   def bookmarks
   end
   
+  def download
+    require "mini_magick"
+    which_images = params[:work][:images_d]
+    # size = which_images.size
+    
+    post_image = PostImage.find(params[:id])
+    base_image = post_image.base_image
+    base_image = base_image.download
+    base_image = MiniMagick::Image.read(base_image)
+    
+    which_images.each do |nth_image|
+      input = post_image.images[nth_image.to_i]
+      base_image = base_image.composite(MiniMagick::Image.open(input)) do |config|
+        config.compose "Over"
+        config.gravity "NorthWest"
+      end 
+    end
+    result = base_image
+    send_data result.to_blob, type: "image/png", disposition: "attachment; filename = fine.png"
+  end
+  
   private
   
   def work_params
