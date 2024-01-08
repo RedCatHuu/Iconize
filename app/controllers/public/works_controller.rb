@@ -58,21 +58,25 @@ class Public::WorksController < ApplicationController
   
   def download
     require "mini_magick"
-    which_images = params[:work][:images_d]
+    which_items = params[:work][:item_number]
+    which_images = params[:work][:image_number]
     # size = which_images.size
     
-    post_image = PostImage.find(params[:id])
-    base_image = post_image.base_image
+    work = Work.find(params[:work][:id])
+    base_image = work.base_image
     base_image = base_image.download
     base_image = MiniMagick::Image.read(base_image)
     
-    which_images.each do |nth_image|
-      input = post_image.images[nth_image.to_i]
-      base_image = base_image.composite(MiniMagick::Image.open(input)) do |config|
-        config.compose "Over"
-        config.gravity "NorthWest"
-      end 
-    end
+    # 現状itemが一つしかないから、配列で取得できない。後で直す。
+    # which_items.each do |nth_item|
+      which_images.each do |nth_image|
+        input = work.items[which_items.to_i].images[nth_image.to_i]
+        base_image = base_image.composite(MiniMagick::Image.open(input)) do |config|
+          config.compose "Over"
+          config.gravity "NorthWest"
+        end 
+      end
+    # end 
     result = base_image
     send_data result.to_blob, type: "image/png", disposition: "attachment; filename = fine.png"
   end
