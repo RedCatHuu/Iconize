@@ -1,15 +1,15 @@
 <li>
-  <%= link_to "ログイン", user_session_path %>
+  <%= link_to "ログイン", user_session_path, class: 'nav-link text-light' %>
 </li>
 <li>
-  <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+  <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'nav-link text-light' %>
 </li>
 <li>
-  <%= link_to "新規登録", new_user_registration_path %>
+  <%= link_to "新規登録", new_user_registration_path, class: 'nav-link text-light' %>
 </li>
 <li>
-  <%= link_to "作品一覧", works_path %>
+  <%= link_to "作品一覧", works_path, class: 'nav-link text-light' %>
 </li>
 <li>
-  <%= link_to "作品投稿", new_work_path %>
+  <%= link_to "作品投稿", new_work_path, class: 'nav-link text-light' %>
 </li>
