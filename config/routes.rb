@@ -20,7 +20,7 @@ Rails.application.routes.draw do
       end 
     end 
     
-    resources :reports, only: [:new, :create] do
+    resources :reports, only: [:create] do
       collection do
         post :confirm
         get :accepted
@@ -28,6 +28,9 @@ Rails.application.routes.draw do
     end
       
     resources :works do
+      member do 
+        get 'report' => "reports#new", as:"report"
+      end
       collection do
         get :bookmarks
         post :download

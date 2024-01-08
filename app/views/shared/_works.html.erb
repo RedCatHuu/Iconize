@@ -1,0 +1,13 @@
+<% works.each_slice(4) do |works_row| %>
+  <div class="row">
+    <% works_row.each do |work| %>
+      <div class="col">
+        <%= link_to work_path(work) do %>
+          <%= image_tag work.base_image %>
+        <% end %><br>
+        <%= work.user.name %>
+        <%= work.name %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

@@ -16,6 +16,11 @@
   <!--スペース用の空div-->
   <div style="height: 200px"></div>
   <div>
+    <% @work.items.each do |item| %>
+      <%= item.genre %>
+    <% end %>
+  </div>
+  <div>
    <!--チェックボックスで選択した画像の合成-->
   <%= form_with model: @work, url: download_works_path, method: :post do |f| %>
     <% for nth_item in 0..@work.qty_item %>
@@ -50,5 +55,6 @@
     <%= f.submit 'チェックボックスで選択した画像の合成' %>
   <% end %>
   </div>
-
+  <%= @work.caption %><br>
+  <%= link_to '通報', report_work_path %>
 <% end %>

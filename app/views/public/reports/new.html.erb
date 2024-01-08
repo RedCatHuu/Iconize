@@ -1,2 +1,14 @@
-<h1>Public::Reports#new</h1>
-<p>Find me in app/views/public/reports/new.html.erb</p>
+<%= render 'layouts/frame' do %>
+  
+  <h2>問題を報告する</h2>
+  
+  <%= form_with model: Report.new, local: true do |f| %>
+    <h4>どのような問題が起きていますか？</h4>
+    <%= f.select :type, [["無断転載をしている", 0], ["反社会的内容を含んでいる", 1], ["性的表現を含んでいる", 2], ["その他", 3]] %>
+    <%= f.text_area :comment, class:"form-control", size: "1x5" %>
+    <%= f.hidden_field :which_work, :value => @work.id %>
+    <%= f.submit '報告する'%>
+    <%= link_to 'キャンセル', work_path(@work) %>
+  <% end %>
+  
+<% end %>
