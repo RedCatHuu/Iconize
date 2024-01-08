@@ -55,8 +55,6 @@ Rails.application.routes.draw do
   
   namespace :admin do
     
-    get 'homes/top'
-    
     resources :works, only: [:index, :show, :update] do
       collection do
         post :confirm
@@ -69,7 +67,7 @@ Rails.application.routes.draw do
       end 
     end 
     
-    resources :reports, only: [:show, :update]
+    resources :reports, only: [:index, :show, :update]
     
   end
   

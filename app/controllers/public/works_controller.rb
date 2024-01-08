@@ -37,7 +37,7 @@ class Public::WorksController < ApplicationController
       end
       redirect_to works_path
     else
-      @works = PostImage.all
+      @works = Work.all
       flash.now[:notice] = "失敗しました。"
       render :new
     end
@@ -84,7 +84,7 @@ class Public::WorksController < ApplicationController
   private
   
   def work_params
-    params.require(:work).permit(:name,
+    params.require(:work).permit(:title,
                                  :caption, 
                                  :base_image,
                                  items_attributes: [
