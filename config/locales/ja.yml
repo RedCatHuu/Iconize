@@ -1,7 +1,17 @@
 ja:
   enums:
     report:
-      anti-social: "反社会的内容を含んでいる"
+      type:
+        reprint: "無断転載をしている"
+        anti_social: "反社会的内容を含んでいる"
+        sexual: "性的表現を含んでいる"
+        others: "その他"
+      status:
+        waiting: "未処理"
+        working: "処理中"
+        solved: "解決済み"
+      
+    
   activerecord:
     errors:
       messages:

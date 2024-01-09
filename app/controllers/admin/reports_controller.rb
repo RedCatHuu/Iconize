@@ -5,6 +5,9 @@ class Admin::ReportsController < ApplicationController
   end 
   
   def show
+    @report = Report.find(params[:id])
+    @user = @report.user
+    @work = @report.work
   end
 
   def update

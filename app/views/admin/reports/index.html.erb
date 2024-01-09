@@ -12,10 +12,14 @@
     <tbody>
       <% @reports.each do |report| %>
         <tr>
-          <td><%= report.y_to_s %></td>
+          <td>
+            <%= link_to admin_report_path(report) do %>
+              <%= report.y_to_s %>
+            <% end %>
+          </td>
           <td><%= report.id %></td>
-          <td><%= report.which_type %></td>
-          <td><%= report.solved? %></td>
+          <td><%= I18n.t("enums.report.type.#{report.type}") %></td>
+          <td><%= I18n.t("enums.report.status.#{report.status}") %></td>
         </tr>
       <% end %>
     </tbody>
