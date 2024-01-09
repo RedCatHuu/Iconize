@@ -2,9 +2,13 @@
   <nav class="navbar navbar-expand-lg navbar-dark " style="background-color: #0e357f;">
     <div class="container">
       
-      <a class="navbar-brand" href="/">
-        <!--ロゴを入れる-->
+      <a class="navbar-brand mr-5" href="/">
+        Iconize
       </a>
+      
+      <div class="mr">
+        <%= render 'layouts/search' %>
+      </div>
       
       <% if user_signed_in? %>
         <div>

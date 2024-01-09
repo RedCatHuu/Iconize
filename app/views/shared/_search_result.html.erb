@@ -1,0 +1,41 @@
+<%= render 'layouts/frame' do %>
+  
+  <ul id="tab-menu">
+    <li><a href="#tab1" class="active">イラスト</a></li>
+    <li><a href="#tab2">ユーザー</a></li>
+    <!--<li>グループ</li>-->
+  </ul>
+  
+  <div id="tab-contents">
+    
+    <div id="tab1" class="area">
+      <p><%= works.size %></p>
+      <%= render 'shared/works', works: works %>
+    </div>
+    
+    <div id="tab2" class="area">
+      <% users.each do |user| %>
+        <%= image_tag user.get_image(50, 50) %>
+        <%= user.introduction %><br>
+        <%= user.name %><br>
+      <% end %>
+    </div>
+    
+  </div>
+  
+<% end %>
+
+<!--タブの切り替え-->
+<script>
+  $(document).ready(function(event){
+    $('#tab-contents .area[id != "tab1"]').hide();
+
+    $('#tab-menu a').on('click', function(event) {
+      $("#tab-contents .area").hide();
+      $("#tab-menu .active").removeClass("active");
+      $(this).addClass("active");
+      $($(this).attr("href")).show();
+      event.preventDefault();
+    });
+  })
+</script>

@@ -2,18 +2,18 @@
   
   <!--実際に画像が動くところ-->
   <div class="position-relative">
-    <%= image_tag work.base_image, class:"position-absolute a", style:"z-index: -1" %>
+    <%= image_tag work.base_image, class:"position-absolute a", style:"z-index: -1", size:"350x350" %>
     <% for nth_item in 0..work.qty_item %>
       <% for nth_image in 0..work.items[nth_item].qty_image do %>
         <span class="image_<%= nth_image %>" style="display: none">
-          <%= image_tag work.items[nth_item].images[nth_image], class:"position-absolute" %>
+          <%= image_tag work.items[nth_item].images[nth_image], class:"position-absolute", size:"350x350" %>
         </span>
       <% end %>
     <% end %>
   </div>
   
   <!--スペース用の空div-->
-  <div style="height: 200px"></div>
+  <div style="height: 350px"></div>
   <div>
     <% work.items.each do |item| %>
       <%= item.genre %>
@@ -27,7 +27,7 @@
         <%= f.hidden_field :item_number, :value => nth_item %>
         <%= f.check_box :image_number, { multiple: true }, nth_thumbnail, nil %>
         <%= f.label :"image_number_#{nth_thumbnail}", class:"image_number_#{nth_thumbnail}" do %>
-          <%= image_tag work.items[nth_item].thumbnails[nth_thumbnail] %>
+          <%= image_tag work.items[nth_item].thumbnails[nth_thumbnail], size:"80x80" %>
         <% end %>
       <% end %>
   

@@ -25,4 +25,8 @@ class Work < ApplicationRecord
     end 
   end 
   
+  def get_base_image(width, height)
+    base_image.variant(resize_to_limit: [width, height]).processed
+  end 
+  
 end
