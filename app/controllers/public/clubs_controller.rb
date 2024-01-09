@@ -1,6 +1,7 @@
 class Public::ClubsController < ApplicationController
   
   before_action :ensure_correct_user, only: [:edit, :update]
+  before_action :authenticate_user!, except: [:index, ]
 
   def new
   end
@@ -14,7 +15,7 @@ class Public::ClubsController < ApplicationController
   end
   
   def create
-    club = club.new(club_params)
+    club = Club.new(club_params)
     club.owner_id = current_user.id
     club.users << current_user
     if club.save

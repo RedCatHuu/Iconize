@@ -6,6 +6,7 @@
       <%= f.label :base_image, 'ベース画像' %><br>
       <%= f.file_field :base_image, accept: "image/*" %>
     </div>
+    
     <%= f.fields_for :items, Work.new.items.build do |item| %>
       <div>
         <%= item.label :genre, 'アイテムグループ名' %><br>

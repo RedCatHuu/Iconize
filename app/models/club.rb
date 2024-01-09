@@ -4,7 +4,7 @@ class Club < ApplicationRecord
   validates :introduction, presence: true, length: {maximum: 400}
   
   has_many :user_clubs
-  has_many :users, through: :user_club
+  has_many :users, through: :user_clubs
   
   has_one_attached :club_image
   

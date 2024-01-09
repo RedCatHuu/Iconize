@@ -1,2 +1,18 @@
-<h1>Public::Clubs#new</h1>
-<p>Find me in app/views/public/clubs/new.html.erb</p>
+<%= render 'layouts/frame' do %>
+  
+  <h2>サークル作成画面</h2>
+  <%= form_with model: Club.new do |f| %>
+    <div>
+      <%= f.label :name, 'サークル名' %><br>
+      <%= f.text_field :name %>
+    </div>
+    <div>
+      <%= f.label :introduction, 'サークル紹介' %><br>
+      <%= f.text_area :introduction, size:"100x5" %>
+    </div>
+    <div>
+      <%= f.submit "サークルを作成する", class:"" %>
+    </div>
+  <% end %>
+  
+<% end %>
