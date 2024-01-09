@@ -2,6 +2,12 @@
   <li>
     <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: 'nav-link text-light' %>
   </li>
+  <li>
+    <%= link_to "作品一覧", admin_works_path, class: 'nav-link text-light' %>
+  </li>
+  <li>
+    <%= link_to "通報一覧", admin_reports_path, class: 'nav-link text-light' %>
+  </li>
 <% else %>
   <li>
     <%= link_to "ログイン", admin_session_path, class: 'nav-link text-light' %>

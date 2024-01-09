@@ -2,9 +2,16 @@
   <div class="row">
     <% works_row.each do |work| %>
       <div class="col">
-        <%= link_to work_path(work) do %>
-          <%= image_tag work.base_image %>
-        <% end %><br>
+        <!--管理者か一般ユーザーかでリンク先分岐-->
+        <% if admin_signed_in? %>
+          <%= link_to admin_work_path(work) do %>
+            <%= image_tag work.base_image %>
+          <% end %><br>
+        <% else %>
+          <%= link_to work_path(work) do %>
+            <%= image_tag work.base_image %>
+          <% end %><br>
+        <% end %>
         <%= work.user.name %>
         <%= work.title %>
       </div>
