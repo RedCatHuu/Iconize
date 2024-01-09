@@ -26,16 +26,5 @@ class Report < ApplicationRecord
     self.created_at.strftime('%Y/%m/%d %H:%M:%S')
   end
   
-  def solved?
-    case self.status
-    when 0
-      "未処理"
-    when 1
-      "処理中"
-    when 2
-      "解決済み"
-    end 
-  end 
-    
   
 end

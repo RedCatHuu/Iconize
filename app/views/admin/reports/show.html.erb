@@ -3,11 +3,14 @@
   <h2>通報詳細</h2>
   <div>
     <h5>問題のタイプ</h5>
-    <p><%= @report.which_type %></p>
+    <p><%= I18n.t("enums.report.type.#{@report.type}") %></p>
     <h5>内容</h5>
     <p><%= @report.comment %></p>
     <p>通報者:<%= @user.name %></p>
-    <p><%= link_to '該当の作品', admin_work_path(@work) %></p>
+    <p>
+      <%= link_to '通報一覧', admin_reports_path %>/
+      <%= link_to '該当の作品', admin_work_path(@work) %>
+    </p>
     <%= form_with model: @report, url: admin_report_path, method: :patch, local: true do |f| %>
       　<%= f.select :status, Report.statuses.keys.map { |status| [I18n.t("enums.report.status.#{status}"), status] } %>
       <%= f.submit "更新",class:"ml-4 btn btn-success" %>
