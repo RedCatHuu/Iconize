@@ -9,6 +9,7 @@ class Public::WorksController < ApplicationController
 
   def show
     @work = Work.find(params[:id])
+    
   end
   
   def create
@@ -36,7 +37,7 @@ class Public::WorksController < ApplicationController
       end
       redirect_to works_path
     else
-      @works = PostImage.all
+      @works = Work.all
       flash.now[:notice] = "失敗しました。"
       render :new
     end
@@ -55,10 +56,35 @@ class Public::WorksController < ApplicationController
   def bookmarks
   end
   
+  def download
+    require "mini_magick"
+    which_items = params[:work][:item_number]
+    which_images = params[:work][:image_number]
+    # size = which_images.size
+    
+    work = Work.find(params[:work][:id])
+    base_image = work.base_image
+    base_image = base_image.download
+    base_image = MiniMagick::Image.read(base_image)
+    
+    # 現状itemが一つしかないから、配列で取得できない。後で直す。
+    # which_items.each do |nth_item|
+      which_images.each do |nth_image|
+        input = work.items[which_items.to_i].images[nth_image.to_i]
+        base_image = base_image.composite(MiniMagick::Image.open(input)) do |config|
+          config.compose "Over"
+          config.gravity "NorthWest"
+        end 
+      end
+    # end 
+    result = base_image
+    send_data result.to_blob, type: "image/png", disposition: "attachment; filename = fine.png"
+  end
+  
   private
   
   def work_params
-    params.require(:work).permit(:name,
+    params.require(:work).permit(:title,
                                  :caption, 
                                  :base_image,
                                  items_attributes: [

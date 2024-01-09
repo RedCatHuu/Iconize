@@ -5,10 +5,11 @@ class Work < ApplicationRecord
   accepts_nested_attributes_for :items, reject_if: :all_blank
   has_one_attached :base_image
   
-  validates :name, :base_image, presence: true
+  validates :title, :base_image, presence: true
   
-  def size
-    self.images.count
+  def qty_item
+    quantity = self.items.size
+    quantity = quantity - 1
   end 
   
 end

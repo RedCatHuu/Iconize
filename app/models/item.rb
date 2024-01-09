@@ -5,4 +5,10 @@ class Item < ApplicationRecord
   has_many_attached :thumbnails
   
   validates :genre, presence: true
+  
+  def qty_image
+    quantity = self.images.size
+    quantity = quantity - 1
+  end 
+  
 end

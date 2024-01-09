@@ -1,7 +1,7 @@
 ja:
   enums:
-    
-
+    report:
+      anti-social: "反社会的内容を含んでいる"
   activerecord:
     errors:
       messages:

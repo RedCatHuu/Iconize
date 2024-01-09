@@ -1,1 +1,6 @@
 @use '~bootstrap/scss/bootstrap';
+@use './layouts/header';
+// チェックボックスを消す
+input[type="checkbox"] {
+  display: none;
+}

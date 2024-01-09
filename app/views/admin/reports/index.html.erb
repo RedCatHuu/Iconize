@@ -1,0 +1,27 @@
+<%= render 'layouts/frame' do %>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>通報時間</th>
+        <th>通報id</th>
+        <th>タイプ</th>
+        <th>フラグ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @reports.each do |report| %>
+        <tr>
+          <td><%= report.y_to_s %></td>
+          <td><%= report.id %></td>
+          <td><%= report.which_type %></td>
+          <td><%= report.solved? %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+    
+    
+    
+
+<% end %>
