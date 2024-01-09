@@ -9,15 +9,17 @@
   <div id="tab-contents">
     
     <div id="tab1" class="area">
-      <p><%= works.size %></p>
+      <p>検索結果: <%= works.size %> 作品</p>
       <%= render 'shared/works', works: works %>
     </div>
     
     <div id="tab2" class="area">
       <% users.each do |user| %>
-        <%= image_tag user.get_image(50, 50) %>
-        <%= user.introduction %><br>
-        <%= user.name %><br>
+        <%= user.name %>
+        <%= link_to user_path(user) do %>
+          <%= image_tag user.get_image(70, 70) %>
+        <% end %>
+        <%= user.introduction %>
       <% end %>
     </div>
     
