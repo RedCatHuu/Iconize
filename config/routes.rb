@@ -15,10 +15,13 @@ Rails.application.routes.draw do
     get 'homes/about'
     
     resources :clubs do
-      get "invite" => "groups#invite"
+      get "join" => "groups#join"
       get "leave" => "groups#leave"
       collection do
         get :myclub
+      end 
+      member do 
+        get :member
       end 
     end 
     

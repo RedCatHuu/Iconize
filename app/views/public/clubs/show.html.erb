@@ -14,7 +14,9 @@
   <div class="row">
     <div class="col-3">
       <%= @owner.name %><br>
-      メンバー数:<%= @club.users.count %><br>
+      メンバー数:<%= link_to member_club_path do %>
+                   <%= @club.users.count %>
+                 <% end %><br>
       作品数:<%= @club.works.count %>
       
     </div>
