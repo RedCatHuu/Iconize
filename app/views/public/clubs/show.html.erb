@@ -1,2 +1,28 @@
-<h1>Public::Clubs#show</h1>
-<p>Find me in app/views/public/clubs/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    
+    <div class="col-9">
+      <p><%= @club.name %></p>
+      <p><%= @club.introduction %></p>
+    </div>
+    <div class="col-auto">
+      <% if current_user == @owner %>
+        <%= link_to 'サークル情報の編集', edit_club_path %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-3">
+      <%= @owner.name %><br>
+      メンバー数:<%= @club.users.count %><br>
+      作品数:<%= @club.works.count %>
+      
+    </div>
+    
+    <div class="col">
+      
+    </div>
+    
+  </div>
+</div>
+  

@@ -6,6 +6,8 @@ class Club < ApplicationRecord
   has_many :user_clubs
   has_many :users, through: :user_clubs
   
+  has_many :works
+  
   has_one_attached :club_image
   
   def get_club_image(width, height)

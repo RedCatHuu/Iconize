@@ -12,6 +12,7 @@ class Public::ClubsController < ApplicationController
 
   def show
     @club = Club.find(params[:id])
+    @owner = User.find_by(id: @club.owner_id)
   end
   
   def create
@@ -56,7 +57,7 @@ class Public::ClubsController < ApplicationController
   end 
   
   def ensure_correct_user
-    @club = club.find(params[:id])
+    @club = Club.find(params[:id])
     unless @club.owner_id == current_user.id
       redirect_to clubs_path
     end
