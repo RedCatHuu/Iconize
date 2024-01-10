@@ -1,0 +1,20 @@
+<% clubs.each_slice(4) do |clubs_row| %>
+  <div class="row">
+    <% clubs_row.each do |club| %>
+      <div class="col">
+        <!--管理者か一般ユーザーかでリンク先分岐-->
+        <% if admin_signed_in? %>
+          <%= link_to admin_club_path(club) do %>
+            <%= image_tag club.get_club_image(150, 150) %>
+          <% end %><br>
+        <% else %>
+          <%= link_to club_path(club) do %>
+            <%= image_tag club.get_club_image(150, 150) %>
+          <% end %><br>
+        <% end %>
+        <%= club.name %>
+        <%= club.introduction %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

@@ -15,6 +15,8 @@ Rails.application.routes.draw do
     get 'homes/about'
     
     resources :clubs do
+      get "invite" => "groups#invite"
+      get "leave" => "groups#leave"
       collection do
         get :myclub
       end 
@@ -50,6 +52,8 @@ Rails.application.routes.draw do
       end
     end
     
+    get "search" => "searches#search"
+    
   end 
   
   
@@ -68,6 +72,8 @@ Rails.application.routes.draw do
     end 
     
     resources :reports, only: [:index, :show, :update]
+    
+    get "search" => "searches#search"
     
   end
   

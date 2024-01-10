@@ -2,6 +2,12 @@
   <li>
     <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: 'nav-link text-light' %>
   </li>
+  <li>
+    <%= link_to "作品一覧", admin_works_path, class: 'nav-link text-light' %>
+  </li>
+  <li>
+    <%= link_to "通報一覧", admin_reports_path, class: 'nav-link text-light' %>
+  </li>
 <% else %>
   <li>
     <%= link_to "ログイン", admin_session_path, class: 'nav-link text-light' %>
@@ -10,18 +16,29 @@
 <li>
   ユーザー
 </li>
-<li>
+<% if user_signed_in? %>
+  <li>
+    <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'nav-link text-light' %>
+  </li>
+  <li>
+    <%= link_to "マイページ", my_page_user_path(current_user), class: 'nav-link text-light' %>
+  </li>
+<% else %>
+  <li>
   <%= link_to "ログイン", user_session_path, class: 'nav-link text-light' %>
-</li>
-<li>
-  <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'nav-link text-light' %>
-</li>
-<li>
-  <%= link_to "新規登録", new_user_registration_path, class: 'nav-link text-light' %>
-</li>
+  </li>
+  <li>
+    <%= link_to "新規登録", new_user_registration_path, class: 'nav-link text-light' %>
+  </li>
+<% end %>
+
+
 <li>
   <%= link_to "作品一覧", works_path, class: 'nav-link text-light' %>
 </li>
 <li>
   <%= link_to "作品投稿", new_work_path, class: 'nav-link text-light' %>
+</li>
+<li>
+  <%= link_to "サークル一覧", clubs_path, class: 'nav-link text-light' %>
 </li>

@@ -4,10 +4,10 @@
   
   <%= form_with model: Report.new, local: true do |f| %>
     <h4>どのような問題が起きていますか？</h4>
-    <%= f.select :type, [["無断転載をしている", 0], ["反社会的内容を含んでいる", 1], ["性的表現を含んでいる", 2], ["その他", 3]] %>
+    <%= f.select :type, Report.types.keys.map { |type| [I18n.t("enums.report.type.#{type}"), type] } %>
     <%= f.text_area :comment, class:"form-control", size: "1x5" %>
     <%= f.hidden_field :which_work, :value => @work.id %>
-    <%= f.submit '報告する', 'data-confirm': "報告しますか？"%>
+    <%= f.submit '報告する', 'data-confirm': "報告しますか？" %>
     <%= link_to 'キャンセル', work_path(@work) %>
   <% end %>
   

@@ -1,60 +1,8 @@
 <%= render 'layouts/frame' do %>
-  <%= link_to "作品一覧に戻る", works_path %><br>
-  
-  <!--実際に画像が動くところ-->
-  <div class="position-relative">
-    <%= image_tag @work.base_image, class:"position-absolute a", style:"z-index: -1" %>
-    <% for nth_item in 0..@work.qty_item %>
-      <% for nth_image in 0..@work.items[nth_item].qty_image do %>
-        <span class="image_<%= nth_image %>" style="display: none">
-          <%= image_tag @work.items[nth_item].images[nth_image], class:"position-absolute" %>
-        </span>
-      <% end %>
-    <% end %>
-  </div>
-  
-  <!--スペース用の空div-->
-  <div style="height: 200px"></div>
-  <div>
-    <% @work.items.each do |item| %>
-      <%= item.genre %>
-    <% end %>
-  </div>
-  <div>
-   <!--チェックボックスで選択した画像の合成-->
-  <%= form_with model: @work, url: download_works_path, method: :post do |f| %>
-    <% for nth_item in 0..@work.qty_item %>
-      <% for nth_thumbnail in 0..@work.items[nth_item].qty_image do %>
-        <%= f.hidden_field :item_number, :value => nth_item %>
-        <%= f.check_box :image_number, { multiple: true }, nth_thumbnail, nil %>
-        <%= f.label :"image_number_#{nth_thumbnail}", class:"image_number_#{nth_thumbnail}" do %>
-          <%= image_tag @work.items[nth_item].thumbnails[nth_thumbnail] %>
-        <% end %>
-      <% end %>
-  
-       <!--for nth_item inのループの中にscriptを組み込むことで、49行目のnth_itemが使えるようになる。rubyにjsの変数を渡す簡単な方法があればもっと綺麗に書けるだろうけど。-->
-      <script>
-        // チェックボックスをクリックして画像の表示、非表示
-        let item_size = "<%= @work.qty_item %>";
-        
-        $(document).ready(function(){
-          for (let item = 0; item <= item_size; item++){
-            let thumbnail_size = "<%= @work.items[nth_item].qty_image %>"
-            for (let thumbnail = 0; thumbnail <= thumbnail_size; thumbnail++){
-              $('.image_number_' + thumbnail ).on('click', function(){
-                console.log(thumbnail + 'button clicked!');
-              $('.image_' + thumbnail ).toggle();
-              })
-            }
-          }
-        })
-      </script>
-    <% end %>
-    <br>
-    <%= f.hidden_field :id, :value => @work.id %>
-    <%= f.submit 'チェックボックスで選択した画像の合成' %>
-  <% end %>
-  </div>
-  <%= @work.caption %><br>
+  <%= render 'shared/work', work: @work %>
   <%= link_to '通報', report_work_path %>
+  <% if @work.user == current_user %>
+    <%= link_to '作品の編集', edit_work_path(@work) %>
+  <% end %>
+  <p4>非公開の場合リンクから検索しても表示しないようにしたい。</p4>
 <% end %>

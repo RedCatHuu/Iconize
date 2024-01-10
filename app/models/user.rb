@@ -10,6 +10,9 @@ class User < ApplicationRecord
   has_one_attached :profile_image
   has_many :works
   
+  has_many :user_clubs
+  has_many :clubs, through: :user_club
+  
   def get_image(width, height)
     unless profile_image.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')
