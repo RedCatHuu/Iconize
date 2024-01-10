@@ -1,5 +1,8 @@
 <%= render 'layouts/frame' do %>
   <%= render 'shared/work', work: @work %>
   <%= link_to '通報', report_work_path %>
+  <% if @work.user == current_user %>
+    <%= link_to '作品の編集', edit_work_path(@work) %>
+  <% end %>
   <p4>非公開の場合リンクから検索しても表示しないようにしたい。</p4>
 <% end %>

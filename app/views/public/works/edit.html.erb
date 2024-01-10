@@ -1,0 +1,37 @@
+<%= render 'layouts/frame' do %>
+
+  <h2>作品投稿</h2>
+  <%= form_with model: @work do |f| %>
+    <div>
+      <%= f.label :base_image, 'ベース画像' %><br>
+      <p>現在のベース画像</p>
+      <%= image_tag @work.get_base_image(200, 200) %><br>
+      <%= f.file_field :base_image, accept: "image/*" %>
+    </div>
+    
+    <%= f.fields_for :items, @work.items.build do |item| %>
+      <div>
+        <%= item.label :genre, 'アイテムグループ名' %><br>
+        <%= item.text_field :genre %>
+      </div>
+      <div>
+        <%= item.label :images, 'アイテム画像' %><br>
+        <%= item.file_field :images, multiple: true, accept: "image/*" %>
+      </div>
+    <% end %>
+      
+    <div>
+      <%= f.label :title, '作品名' %><br>
+      <%= f.text_field :title %>
+    </div>
+    <div>
+      <%= f.label :caption, 'キャプション' %><br>
+      <%= f.text_area :caption, class:"form-control", size: "1x5" %>
+    </div>
+    <div>
+      <%= f.submit '作品を編集', class:"btn btn-success mt-3" %>
+    </div>
+    
+  <% end %>
+
+<% end %>

@@ -1,5 +1,8 @@
 class Public::WorksController < ApplicationController
   
+  before_action :ensure_correct_user, only: [:edit, :update]
+  before_action :authenticate_user!, except: [:index, :show ]
+  
   def new
   end
   
@@ -44,6 +47,7 @@ class Public::WorksController < ApplicationController
   end
   
   def edit
+    @work = Work.find(params[:id])
   end 
   
 
@@ -92,6 +96,13 @@ class Public::WorksController < ApplicationController
                                    images: []
                                    ]
                                  )
+  end
+  
+  def ensure_correct_user
+    @work = Work.find(params[:id])
+    unless @work.user == current_user
+      redirect_to works_path
+    end
   end
   
 end
