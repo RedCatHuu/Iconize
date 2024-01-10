@@ -1,12 +1,12 @@
 <%= render 'layouts/frame' do %>
   
-  <ul id="tab-menu">
+  <ul class="tab-menu">
     <li><a href="#tab1" class="active">イラスト</a></li>
     <li><a href="#tab2">ユーザー</a></li>
     <!--<li>グループ</li>-->
   </ul>
   
-  <div id="tab-contents">
+  <div class="tab-contents">
     
     <div id="tab1" class="area">
       <p>検索結果: <%= works.size %> 作品</p>
@@ -30,11 +30,11 @@
 <!--タブの切り替え-->
 <script>
   $(document).ready(function(event){
-    $('#tab-contents .area[id != "tab1"]').hide();
+    $('.tab-contents .area[id != "tab1"]').hide();
 
-    $('#tab-menu a').on('click', function(event) {
-      $("#tab-contents .area").hide();
-      $("#tab-menu .active").removeClass("active");
+    $('.tab-menu a').on('click', function(event) {
+      $(".tab-contents .area").hide();
+      $(".tab-menu .active").removeClass("active");
       $(this).addClass("active");
       $($(this).attr("href")).show();
       event.preventDefault();
