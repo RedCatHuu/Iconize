@@ -1,4 +1,5 @@
 <%= render 'layouts/frame' do %>
+  <%= render 'public/shared/error_messages', resource: Club.new %>
   
   <h2>サークル作成画面</h2>
   <%= form_with model: Club.new do |f| %>

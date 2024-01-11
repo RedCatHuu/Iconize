@@ -16,13 +16,14 @@ Rails.application.routes.draw do
     
     resources :clubs do
       resource :permits, only: [:create, :destroy]
-      get "leave" => "groups#leave"
       collection do
         get :myclub
-        get :permit
+        get :accept
       end 
       member do 
         get :member
+        get :permit
+        get :leave
       end 
     end 
     
