@@ -49,6 +49,9 @@ class Public::ClubsController < ApplicationController
     @club = Club.find(params[:id])
   end
   
+  def permit
+  end 
+  
   def join
     club = club.find(params[:club_id])
     club.users << current_user

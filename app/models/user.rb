@@ -8,8 +8,8 @@ class User < ApplicationRecord
   validates :introduction, length: {maximum: 400}
   
   has_one_attached :profile_image
-  has_many :works
-  
+  has_many :works,        dependent: :destroy
+  has_many :permits,      dependent: :destroy
   has_many :user_clubs
   has_many :clubs, through: :user_club
   

@@ -15,10 +15,11 @@ Rails.application.routes.draw do
     get 'homes/about'
     
     resources :clubs do
-      get "join" => "groups#join"
+      resource :permits, only: [:create, :destroy]
       get "leave" => "groups#leave"
       collection do
         get :myclub
+        get :permit
       end 
       member do 
         get :member
