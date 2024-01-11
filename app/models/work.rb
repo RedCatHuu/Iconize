@@ -1,12 +1,15 @@
 class Work < ApplicationRecord
   
   belongs_to :user
-  belongs_to :club
+  # optional: trueによってclubのnilを許可する
+  belongs_to :club, optional: true
+  
   has_many :items, dependent: :destroy
   accepts_nested_attributes_for :items, reject_if: :all_blank
   has_one_attached :base_image
   
   validates :title, :base_image, presence: true
+  validates :club, presence: false
   
   def qty_item
     quantity = self.items.size

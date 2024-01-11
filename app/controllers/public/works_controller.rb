@@ -24,8 +24,9 @@ class Public::WorksController < ApplicationController
     work.user_id = nil
     club_id = params[:work][:club_id]
     if club_id == nil
-      work.user_id == current_user.id
+      work.user_id = current_user.id
     end
+    
     # サムネイルを作成し保存
     if work.save
       work.items.each do |item|
