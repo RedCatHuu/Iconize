@@ -8,7 +8,7 @@
   
   <div class="tab-contents">
     
-    <div id="tab1" class="area">
+    <div id="tab1" class="area active">
       <p>検索結果: <%= works.size %> 作品</p>
       <%= render 'shared/works', works: works %>
     </div>
@@ -26,18 +26,3 @@
   </div>
   
 <% end %>
-
-<!--タブの切り替え-->
-<script>
-  $(document).ready(function(event){
-    $('.tab-contents .area[id != "tab1"]').hide();
-
-    $('.tab-menu a').on('click', function(event) {
-      $(".tab-contents .area").hide();
-      $(".tab-menu .active").removeClass("active");
-      $(this).addClass("active");
-      $($(this).attr("href")).show();
-      event.preventDefault();
-    });
-  })
-</script>

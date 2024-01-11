@@ -54,5 +54,19 @@
     <%= f.submit 'チェックボックスで選択した画像の合成' %>
   <% end %>
   </div>
-  <p><%= work.caption %></p>
+  <p>
+    <% if work.club_id == nil %>
+      <%= link_to user_path(work.user) do %>
+        <%= work.user.name %>
+      <% end %>
+    <% else %>
+      <%= link_to club_path(work.club) do %>
+        <%= work.club.name %>
+      <% end %>
+    <% end %>
+    <br>
+    <%= work.title %>
+    <br><%= work.caption %>
+  </p>
+  <p></p>
   <p>投稿時間:<%= work.y_to_s %></p>

@@ -40,7 +40,8 @@ class Public::ClubsController < ApplicationController
     end
   end
 
-  def myclub
+  def club_works
+    @works = Work
   end
   
   def member

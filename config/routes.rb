@@ -17,10 +17,11 @@ Rails.application.routes.draw do
     resources :clubs do
       resource :permits, only: [:create, :destroy]
       collection do
-        get :myclub
+        
         get :accept
       end 
       member do 
+        get :club_works
         get :member
         get :permit
         get :leave
