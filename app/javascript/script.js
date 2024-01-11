@@ -6,6 +6,7 @@ $(document).ready(function(){
 })
 
 // タブの切り替え
+document.addEventListener("turbolinks:load", function() {
   $(document).ready(function(event){
     $('.tab-menu a').on('click', function(event) {
       $(".tab-contents .area").hide();
@@ -15,3 +16,4 @@ $(document).ready(function(){
       event.preventDefault();
     });
   })
+})
