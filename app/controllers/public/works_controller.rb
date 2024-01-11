@@ -16,7 +16,9 @@ class Public::WorksController < ApplicationController
 
   def show
     @work = Work.find(params[:id])
-    
+    unless ReadCount.where(created_at: Time.zone.now.all_day).find_by(user_id: current_user, work_id: @work.id)
+      current_user.read_counts.create(work_id: @work.id)
+    end 
   end
   
   def create
@@ -68,9 +70,6 @@ class Public::WorksController < ApplicationController
   def destroy
   end
 
-  def bookmarks
-  end
-  
   def download
     require "mini_magick"
     which_items = params[:work][:item_number]

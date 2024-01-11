@@ -4,6 +4,7 @@
   <div id="favorite-buttons-<%= @work.id %>">
     <%= render 'public/favorites/favorite', work: @work %>
   </div>
+  閲覧数: <%= @work.read_counts.size %>
   
   <% if @work.user == current_user %>
     <%= link_to '作品の編集', edit_work_path(@work) %>

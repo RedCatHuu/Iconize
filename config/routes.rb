@@ -41,7 +41,6 @@ Rails.application.routes.draw do
         get 'report' => "reports#new", as:"report"
       end
       collection do
-        get :bookmarks
         post :download
       end
     end

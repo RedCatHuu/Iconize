@@ -1,9 +1,4 @@
 /* global $*/
-$(document).ready(function(){
-  $(".openbtn").click(function () {
-      $(this).toggleClass('active');
-  });
-})
 
 // タブの切り替え
 document.addEventListener("turbolinks:load", function() {

@@ -14,6 +14,7 @@ class User < ApplicationRecord
   has_many :clubs, through: :user_club
   has_many :favorites,    dependent: :destroy
   has_many :favorited_works, through: :favorites, source: :work
+  has_many :read_counts,  dependent: :destroy
   
   def get_profile_image(width, height)
     unless profile_image.attached?
