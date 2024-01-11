@@ -3,7 +3,7 @@
     <% clubs.each do |club| %>
       <tr>
         
-        <td>
+        <td style="width: 5%">
            <!--管理者か一般ユーザーかでリンク先分岐-->
           <% if admin_signed_in? %>
             <%= link_to admin_club_path(club) do %>

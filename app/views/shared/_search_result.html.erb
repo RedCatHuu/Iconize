@@ -3,7 +3,7 @@
   <ul class="tab-menu">
     <li><a href="#tab1" class="active">イラスト</a></li>
     <li><a href="#tab2">ユーザー</a></li>
-    <!--<li>グループ</li>-->
+    <li><a href="#tab3">サークル</a></li>
   </ul>
   
   <div class="tab-contents">
@@ -14,13 +14,13 @@
     </div>
     
     <div id="tab2" class="area">
-      <% users.each do |user| %>
-        <%= user.name %>
-        <%= link_to user_path(user) do %>
-          <%= image_tag user.get_image(70, 70) %>
-        <% end %>
-        <%= user.introduction %>
-      <% end %>
+      <p>検索結果: <%= users.size %> 人</p>
+      <%= render 'shared/users', users: users %>
+    </div>
+    
+    <div id="tab3" class="area">
+      <p>検索結果: <%= clubs.size %> サークル</p>
+      <%= render 'shared/clubs', clubs: clubs %>
     </div>
     
   </div>

@@ -5,6 +5,7 @@ class Public::SearchesController < ApplicationController
       
     @users = User.where("name LIKE ?", "%#{search_word}%")
     @works = Work.where("title LIKE ?", "%#{search_word}%")
+    @clubs = Club.where("name LIKE ?", "%#{search_word}%")
   end
   
 end
