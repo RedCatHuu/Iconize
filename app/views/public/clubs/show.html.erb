@@ -10,7 +10,8 @@
         <%= link_to 'サークル情報の編集', edit_club_path %>
         <%= link_to '承認待ち一覧', permit_club_path(@club) %>
       <% elsif @club.users.exists?(id: current_user.id) %>
-        <%= link_to '退出', leave_club_path %>
+        <%= link_to '退出', leave_club_path %><br>
+        <%= link_to '作品投稿', new_work_path(club_id: @club.id) %>
       <% elsif @club.permits.exists?(user_id: current_user.id) %>
         <%= link_to '申請取消', club_permits_path(@club), method: :delete %>
       <% else %>

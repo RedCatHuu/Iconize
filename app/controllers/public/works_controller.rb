@@ -4,6 +4,10 @@ class Public::WorksController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show ]
   
   def new
+    club_id = params[:club_id]
+    if club_id != nil
+      @club = Club.find(params[:club_id])
+    end
   end
   
   def index
@@ -17,7 +21,7 @@ class Public::WorksController < ApplicationController
   
   def create
     work = current_user.works.build(work_params)
-    
+    club_id = params[:work][:club_id]
     # サムネイルを作成し保存
     if work.save
       work.items.each do |item|
@@ -40,8 +44,10 @@ class Public::WorksController < ApplicationController
       end
       redirect_to works_path
     else
-      @works = Work.all
-      flash.now[:notice] = "失敗しました。"
+      if club_id != nil
+        @club = Club.find(club_id)
+      end
+      flash.now[:alert] = "失敗しました。"
       render :new
     end
   end
@@ -91,6 +97,7 @@ class Public::WorksController < ApplicationController
     params.require(:work).permit(:title,
                                  :caption, 
                                  :base_image,
+                                 :club_id,
                                  items_attributes: [
                                    :genre,
                                    images: []
