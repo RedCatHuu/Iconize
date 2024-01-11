@@ -30,7 +30,7 @@
         
         <div id="my-work" class="tab1 area active">
           <p>検索結果: <%= @user.works.size %> 作品</p>
-          <%= render 'shared/works', works: @user.works %>
+          <%= render 'shared/works', works: @user.works, name: false %>
         </div>
         
         <div id="my-favorite" class="tab2 area">

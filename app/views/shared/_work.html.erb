@@ -2,7 +2,7 @@
   
   <!--実際に画像が動くところ-->
   <div class="position-relative">
-    <%= image_tag work.base_image, class:"position-absolute a", style:"z-index: -1", size:"350x350" %>
+    <%= image_tag work.get_base_image(350, 350), class:"position-absolute" %>
     <% for nth_item in 0..work.qty_item %>
       <% for nth_image in 0..work.items[nth_item].qty_image do %>
         <span class="image_<%= nth_image %>" style="display: none">

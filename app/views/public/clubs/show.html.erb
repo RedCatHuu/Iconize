@@ -9,9 +9,7 @@
         メンバー数:<%= link_to member_club_path do %>
                      <%= @club.users.count %>
                    <% end %><br>
-        作品数:<%= link_to club_works_club_path do %>
-                  <%= @club.works.count %>
-               <% end %>
+        作品数:<%= @club.works.count %>
       </p>
     </div>
     <div class="col-7">
@@ -33,12 +31,27 @@
     </div>
   </div>
   <div class="row">
-    
-    
     <div class="col">
       
+      <ul class="tab-menu">
+        <li><a href="#works" class="active">サークルの作品</a></li>
+        <li><a href="#comments">コミュニティ</a></li>
+      </ul>
+  
+      <div class="tab-contents">
+        
+        <div id="works" class="tab1 area active">
+          <%= render 'shared/works', works: @club.works, name: false %>
+        </div>
+        
+        <div id="comments" class="tab2 area">
+          コメント欄
+        </div>
+        
+      </div>
+      
     </div>
-    
   </div>
+  
 </div>
   

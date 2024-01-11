@@ -21,7 +21,11 @@ class Public::WorksController < ApplicationController
   
   def create
     work = current_user.works.build(work_params)
+    work.user_id = nil
     club_id = params[:work][:club_id]
+    if club_id == nil
+      work.user_id == current_user.id
+    end
     # サムネイルを作成し保存
     if work.save
       work.items.each do |item|
@@ -42,7 +46,7 @@ class Public::WorksController < ApplicationController
           tmp_file.unlink
         end
       end
-      redirect_to works_path
+      redirect_to work_path(work)
     else
       if club_id != nil
         @club = Club.find(club_id)
