@@ -1,7 +1,7 @@
 <%= render 'layouts/frame' do %>
   <%= render 'shared/work', work: @work %>
   <%= link_to '通報', report_work_path %>
-  <div id="favorite_buttons<%= @work.id %>">
+  <div id="favorite-buttons-<%= @work.id %>">
     <%= render 'public/favorites/favorite', work: @work %>
   </div>
   

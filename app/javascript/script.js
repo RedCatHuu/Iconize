@@ -6,7 +6,6 @@ $(document).ready(function(){
 })
 
 // タブの切り替え
-
   $(document).ready(function(event){
     $('.tab-menu a').on('click', function(event) {
       $(".tab-contents .area").hide();

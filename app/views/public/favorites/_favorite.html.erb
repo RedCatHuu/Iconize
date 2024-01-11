@@ -6,7 +6,7 @@
   </p>
 <% else %>
   <p>
-    <%= link_to work_favorites_path(work), method: :post, remote: true do %>
+    <%= link_to work_favorites_path(work), remote: true, method: :post do %>
      ♡<%= work.favorites.count %>
     <% end %>
   </p>
