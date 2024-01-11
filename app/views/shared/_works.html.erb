@@ -12,7 +12,7 @@
             <%= image_tag work.get_base_image(150, 150) %>
           <% end %><br>
         <% end %>
-        <%= work.title %>
+        <%= work.title %><br>
         <% if name %>
           <% if work.club_id == nil %>
             <%= work.user.name %>

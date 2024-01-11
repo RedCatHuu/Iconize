@@ -1,6 +1,10 @@
 <%= render 'layouts/frame' do %>
   <%= render 'shared/work', work: @work %>
   <%= link_to '通報', report_work_path %>
+  <div id="favorite_buttons<%= @work.id %>">
+    <%= render 'public/favorites/favorite', work: @work %>
+  </div>
+  
   <% if @work.user == current_user %>
     <%= link_to '作品の編集', edit_work_path(@work) %>
   <% end %>

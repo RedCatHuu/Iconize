@@ -36,6 +36,7 @@ Rails.application.routes.draw do
     end
       
     resources :works do
+      resource :favorites, only:[:create, :destroy]
       member do 
         get 'report' => "reports#new", as:"report"
       end

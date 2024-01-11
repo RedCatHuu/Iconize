@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_01_10_130116) do
+ActiveRecord::Schema.define(version: 2024_01_11_083237) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -58,6 +58,15 @@ ActiveRecord::Schema.define(version: 2024_01_10_130116) do
     t.text "introduction"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "favorites", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "work_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_favorites_on_user_id"
+    t.index ["work_id"], name: "index_favorites_on_work_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -122,6 +131,8 @@ ActiveRecord::Schema.define(version: 2024_01_10_130116) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "favorites", "users"
+  add_foreign_key "favorites", "works"
   add_foreign_key "permits", "clubs"
   add_foreign_key "permits", "users"
   add_foreign_key "user_clubs", "clubs"
