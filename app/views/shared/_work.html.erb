@@ -56,7 +56,7 @@
   </div>
   <p>
     <% if work.club_id == nil %>
-      <%= link_to user_path(work.user) do %>
+      <%= link_to my_page_user_path(work.user) do %>
         <%= work.user.name %>
       <% end %>
     <% else %>

@@ -15,9 +15,13 @@
         <%= work.title %><br>
         <% if name %>
           <% if work.club_id == nil %>
-            <%= work.user.name %>
+            <%= link_to my_page_user_path(work.user) do %>
+              <%= work.user.name %>
+            <% end %>
           <% else %>
-            <%= work.club.name %>
+            <%= link_to club_path(work.club) do %>
+              <%= work.club.name %>
+            <% end %>
           <% end %>
         <% end %>
       </div>
