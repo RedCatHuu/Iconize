@@ -20,23 +20,26 @@
   
   <div class="row">
     <div class="col">
+      
       <ul class="tab-menu">
         <li><a href="#my-work" class="active">私の作品</a></li>
         <li><a href="#my-favorite">ブックマーク</a></li>
-        <!--<li>グループ</li>-->
       </ul>
   
       <div class="tab-contents">
         
-        <div id="my-work" class="tab1 area active">
-          <p>検索結果: <%= @user.works.size %> 作品</p>
+        <div id="my-work" class="area active">
+          <p>投稿数: <%= @user.works.size %> 作品</p>
           <%= render 'shared/works', works: @user.works, name: false %>
         </div>
         
-        <div id="my-favorite" class="tab2 area">
-          お気に入り作品
+        <div id="my-favorite" class="area">
+          <p>ブックマーク数: <%= @user.favorited_works.count %> 作品</p>
+          <%= render 'shared/works', works: @user.favorited_works, name: false %>
         </div>
+        
       </div>
+      
     </div>
   </div>
 </div>
