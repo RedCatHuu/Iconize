@@ -15,10 +15,14 @@ Rails.application.routes.draw do
     get 'homes/about'
     
     resources :clubs do
-      get "invite" => "groups#invite"
+      resource :permits, only: [:create, :destroy]
       get "leave" => "groups#leave"
       collection do
         get :myclub
+        get :permit
+      end 
+      member do 
+        get :member
       end 
     end 
     

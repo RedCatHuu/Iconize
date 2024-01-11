@@ -1,6 +1,7 @@
 class Work < ApplicationRecord
   
   belongs_to :user
+  belongs_to :club
   has_many :items, dependent: :destroy
   accepts_nested_attributes_for :items, reject_if: :all_blank
   has_one_attached :base_image

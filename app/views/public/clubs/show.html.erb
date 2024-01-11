@@ -1,2 +1,37 @@
-<h1>Public::Clubs#show</h1>
-<p>Find me in app/views/public/clubs/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    
+    <div class="col-9">
+      <p><%= @club.name %></p>
+      <p><%= @club.introduction %></p>
+    </div>
+    <div class="col-auto">
+      <% if current_user == @owner %>
+        <%= link_to 'サークル情報の編集', edit_club_path %>
+        <%= link_to '承認待ち一覧', permit_clubs_path(@club) %>
+      <% elsif @club.users.exists?(id: current_user.id) %>
+        退出
+      <% elsif @club.permits.exists?(user_id: current_user.id) %>
+        <%= link_to '申請取消', club_permits_path(@club), method: :delete %>
+      <% else %>
+        <%= link_to '加入申請', club_permits_path(@club), method: :post %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-3">
+      <%= @owner.name %><br>
+      メンバー数:<%= link_to member_club_path do %>
+                   <%= @club.users.count %>
+                 <% end %><br>
+      作品数:<%= @club.works.count %>
+      
+    </div>
+    
+    <div class="col">
+      
+    </div>
+    
+  </div>
+</div>
+  

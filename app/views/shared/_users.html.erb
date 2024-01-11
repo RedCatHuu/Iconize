@@ -1,24 +1,24 @@
 <table class="table">
   <tbody>
-    <% clubs.each do |club| %>
+    <% users.each do |user| %>
       <tr>
         
         <td>
            <!--管理者か一般ユーザーかでリンク先分岐-->
           <% if admin_signed_in? %>
-            <%= link_to admin_club_path(club) do %>
-              <%= image_tag club.get_club_image(100, 100) %>
+            <%= link_to admin_user_path(user) do %>
+              <%= image_tag user.get_profile_image(100, 100) %>
             <% end %><br>
           <% else %>
-            <%= link_to club_path(club) do %>
-              <%= image_tag club.get_club_image(100, 100) %>
+            <%= link_to user_path(user) do %>
+              <%= image_tag user.get_profile_image(100, 100) %>
             <% end %><br>
           <% end %>
         </td>
         
-        <td style="width: 25%">
-          <%= club.name %><br>
-          <%= club.introduction.truncate(40) %>
+        <td>
+          <%= user.name %><br>
+          <%= user.introduction %>
         </td>
         <td>
           4つ最新の作品を並べる。

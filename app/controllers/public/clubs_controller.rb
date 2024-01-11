@@ -1,7 +1,7 @@
 class Public::ClubsController < ApplicationController
   
   before_action :ensure_correct_user, only: [:edit, :update]
-  before_action :authenticate_user!, except: [:index, ]
+  before_action :authenticate_user!, except: [:index, :show]
 
   def new
   end
@@ -12,6 +12,7 @@ class Public::ClubsController < ApplicationController
 
   def show
     @club = Club.find(params[:id])
+    @owner = User.find_by(id: @club.owner_id)
   end
   
   def create
@@ -32,12 +33,26 @@ class Public::ClubsController < ApplicationController
   end
 
   def update
+    @club = Club.find(params[:id])
+    if @club.update(club_params)
+      flash[:notice] = "サークル情報を編集しました。"
+      redirect_to club_path(@club)
+    else
+      render :edit
+    end
   end
 
   def myclub
   end
   
-  def invite
+  def member
+    @club = Club.find(params[:id])
+  end
+  
+  def permit
+  end 
+  
+  def join
     club = club.find(params[:club_id])
     club.users << current_user
     redirect_to club_path(club)
@@ -56,7 +71,7 @@ class Public::ClubsController < ApplicationController
   end 
   
   def ensure_correct_user
-    @club = club.find(params[:id])
+    @club = Club.find(params[:id])
     unless @club.owner_id == current_user.id
       redirect_to clubs_path
     end

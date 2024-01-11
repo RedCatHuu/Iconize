@@ -1,9 +1,57 @@
-<%= render 'layouts/frame' do %>
-  <h2>マイページ</h2>
+<div class="container">
   
-  <%= image_tag @user.get_image(200, 200) %>
-  <p><%= @user.name %></p>
-  <% if @user == current_user %>
-    <%= link_to 'プロフィールを編集', edit_user_path %>
-  <% end %>
-<% end %>
+  <div class="row">
+    <h2><%= @user.name %>のマイページ</h2>
+  </div>
+  
+  <div class="row">
+    <div class="col-auto">
+      <%= image_tag @user.get_profile_image(200, 200) %>
+    </div>
+    <div class="col-7">
+      <p><%= @user.introduction %></p>
+    </div>
+    <div class="col-auto">
+      <% if @user == current_user %>
+        <%= link_to 'プロフィールを編集', edit_user_path %>
+      <% end %>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col">
+      <ul class="tab-menu">
+        <li><a href="#my-work" class="active">私の作品</a></li>
+        <li><a href="#my-favorite">ブックマーク</a></li>
+        <!--<li>グループ</li>-->
+      </ul>
+  
+      <div class="tab-contents">
+        
+        <div id="my-work" class="tab1 area">
+          <p>検索結果: <%= @user.works.size %> 作品</p>
+          <%= render 'shared/works', works: @user.works %>
+        </div>
+        
+        <div id="my-favorite" class="tab2 area">
+          お気に入り作品
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+<!--タブの切り替え-->
+<script>
+  $(document).ready(function(event){
+    $('.tab-contents .area[id != "my-work"]').hide();
+
+    $('.tab-menu a').on('click', function(event) {
+      $(".tab-contents .area").hide();
+      $(".tab-menu .active").removeClass("active");
+      $(this).addClass("active");
+      $($(this).attr("href")).show();
+      event.preventDefault();
+    });
+  })
+</script>
