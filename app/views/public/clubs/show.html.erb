@@ -24,9 +24,9 @@
         <%= link_to '退出', leave_club_path %><br>
         <%= link_to '作品投稿', new_work_path(club_id: @club.id) %>
       <% elsif @club.permits.exists?(user_id: current_user.id) %>
-        <%= link_to '申請取消', club_permits_path(@club), method: :delete %>
+        <%= link_to '申請取消', club_permits_path(@club), method: :delete, 'data-confirm': "申請を取り消しますか？" %>
       <% else %>
-        <%= link_to '加入申請', club_permits_path(@club), method: :post %>
+        <%= link_to '加入申請', club_permits_path(@club), method: :post, 'data-confirm': "申請を送りますか？" %>
       <% end %>
     </div>
   </div>

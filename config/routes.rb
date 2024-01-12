@@ -52,10 +52,10 @@ Rails.application.routes.draw do
         get 'my_page' => "users#show", as:"my_page"
         get 'following' => "relationships#following", as:"following"
         get 'followers' => "relationships#followers", as:"followers"
+        get :confirm
+        patch :unsubscribe
       end
       collection do
-        post :confirm
-        patch :unsubscribe
       end
     end
     

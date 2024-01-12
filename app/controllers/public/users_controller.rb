@@ -23,7 +23,11 @@ class Public::UsersController < ApplicationController
   def confirm
   end
 
-  def exit
+  def unsubscribe
+    user = User.find(params[:id])
+    user.update(is_active: false)
+    reset_session
+    redirect_to root_path, notice: "退会しました。ご利用ありがとうございました。"
   end
 
   def following
