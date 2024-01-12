@@ -8,9 +8,10 @@ class Work < ApplicationRecord
   # optional: trueによってclubのnilを許可する
   belongs_to :club,         optional: true
   has_many :items,          dependent: :destroy
-  has_many :favorites
+  has_many :favorites,      dependent: :destroy
   has_many :read_counts,    dependent: :destroy
   has_many :work_comments,  dependent: :destroy
+  
   
   accepts_nested_attributes_for :items, reject_if: :all_blank
   has_one_attached :base_image

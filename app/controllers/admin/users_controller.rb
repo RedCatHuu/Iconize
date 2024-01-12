@@ -19,13 +19,9 @@ class Admin::UsersController < ApplicationController
   
   def destroy
     user = User.find(params[:id])
-    if user.destroy
-      redirect_to admin_users_path, notice: "ユーザーを削除しました。"
-    else
-      # エラーをログに記録するか、適切に処理する
-      Rails.logger.error "ユーザーの削除中にエラーが発生しました: #{user.errors.full_messages.join(', ')}"
-      redirect_to admin_users_path, alert: "ユーザーの削除中にエラーが発生しました。"
-  end
+    user.destroy
+    redirect_to admin_users_path, notice: "ユーザーを削除しました。"
+    
   end 
 
   def confirm

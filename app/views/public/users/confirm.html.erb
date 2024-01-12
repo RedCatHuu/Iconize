@@ -5,7 +5,7 @@
     退会するとユーザー情報及び投稿した作品が完全に削除されます。<br>
     退会する場合は、「退会する」をクリックしてください。
   </p>
-  <%= link_to '退会する', unsubscribe_user_path, method: :patch, data: {confirm: "本当に退会しますか？"} %>
+  <%= link_to '退会する', user_path, method: :delete, data: {confirm: "本当に退会しますか？"} %>
   <%= link_to '戻る', request.referer %>
   
 <% end %>
