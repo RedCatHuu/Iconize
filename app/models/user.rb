@@ -19,6 +19,7 @@ class User < ApplicationRecord
   has_many :following, through: :active_relationships, source: :followed
   has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
   has_many :followers, through: :passive_relationships
+  has_many :work_comments,    dependent: :destroy
   
   def get_profile_image(width, height)
     unless profile_image.attached?

@@ -16,6 +16,7 @@ class Public::WorksController < ApplicationController
 
   def show
     @work = Work.find(params[:id])
+    @comment = WorkComment.new
     unless ReadCount.where(created_at: Time.zone.now.all_day).find_by(user_id: current_user, work_id: @work.id)
       current_user.read_counts.create(work_id: @work.id)
     end 

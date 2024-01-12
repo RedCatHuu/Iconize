@@ -1,0 +1,22 @@
+<table>
+  <tbody>
+    <% work.work_comments.each do |work_comment| %>
+      <tr>
+        <td>
+          <%= link_to user_path(work_comment.user_id) do %>
+            <%= image_tag work_comment.user.get_profile_image(70, 70) %><br>
+            <%= work_comment.user.name %>
+          <% end %>
+        </td>
+        <td>
+          <%= work_comment.comment %>
+        </td>
+        <% if work_comment.user_id == current_user.id || work.user.id %>
+          <td>
+            <%= link_to '削除', work_work_comment_path(work_id: work.id, id: work_comment.id), remote: true, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger" %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
