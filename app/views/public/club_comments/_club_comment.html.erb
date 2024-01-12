@@ -11,10 +11,12 @@
         <td>
           <%= club_comment.comment %>
         </td>
-        <% if club_comment.user_id == current_user.id || club.owner_id %>
-          <td>
-            <%= link_to '削除', club_club_comment_path(club_id: club.id, id: club_comment.id), remote: true, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger" %>
-          </td>
+        <% if not admin_signed_in? %>
+          <% if club_comment.user_id == current_user.id || club.owner_id %>
+            <td>
+              <%= link_to '削除', club_club_comment_path(club_id: club.id, id: club_comment.id), remote: true, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger" %>
+            </td>
+          <% end %>
         <% end %>
       </tr>
     <% end %>

@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="row">
+    
+    <div class="col-2">
+      <p><%= @club.name %></p>
+      
+      <p>
+        サークル作成者:<%= @owner.name %><br>
+        メンバー数:<%= link_to member_admin_club_path do %>
+                     <%= @club.users.count %>
+                   <% end %><br>
+        作品数:<%= @club.works.count %>
+      </p>
+    </div>
+    <div class="col-7">
+      <p class="mt-5"><%= @club.introduction %></p>
+    </div>
+    <div class="col-auto mt-5">
+      
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      
+      <ul class="tab-menu">
+        <li><a href="#works" class="active">サークルの作品</a></li>
+        <li><a href="#community">コミュニティ</a></li>
+      </ul>
+  
+      <div class="tab-contents">
+        
+        <div id="works" class="tab1 area active">
+          <%= render 'shared/works', works: @club.works, name: false %>
+        </div>
+        
+        <div id="community" class="tab2 area">
+          
+          <div id="club-comments">
+            <%= render 'public/club_comments/club_comment', club: @club %>
+          </div>
+        </div>
+        
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+  

@@ -18,7 +18,6 @@ Rails.application.routes.draw do
       resource :permits, only: [:create, :destroy]
       resources :club_comments, only:[:create, :destroy]
       collection do
-        
         get :accept
       end 
       member do 
@@ -67,6 +66,12 @@ Rails.application.routes.draw do
   
   namespace :admin do
     
+    resources :clubs, only: [:index, :show] do
+      member do
+        get :member
+      end
+    end
+    
     resources :works, only: [:index, :show, :update] do
       collection do
         post :confirm
@@ -74,8 +79,8 @@ Rails.application.routes.draw do
     end
     
     resources :users, only: [:index, :show, :update] do
-      collection do
-        post :confirm
+      member do
+        get :confirm
       end 
     end 
     

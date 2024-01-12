@@ -1,7 +1,7 @@
 class Public::ClubsController < ApplicationController
   
   before_action :ensure_correct_user, only: [:edit, :update, :permit]
-  before_action :authenticate_user!, except: [:index]
+  before_action :authenticate_user!, except: [:index, :show]
 
   def new
   end

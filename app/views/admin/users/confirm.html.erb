@@ -1,2 +1,18 @@
-<h1>Admin::Users#confirm</h1>
-<p>Find me in app/views/admin/users/confirm.html.erb</p>
+<%= render 'layouts/frame' do %>
+  <% if @active %>
+    <div>
+      <%= @user.name %>さんのアカウントを凍結しますか？
+    </div>
+  <% else %>
+    <div>
+      <%= @user.name %>さんのアカウントを復活させますか？
+    </div>
+  <% end %>
+  <span>
+    <%= link_to 'はい', admin_user_path(@user.id), method: :patch %>/
+  </span>
+  <span>
+    <%= link_to '戻る', admin_user_path(@user) %>
+  </span>
+  
+<% end %>

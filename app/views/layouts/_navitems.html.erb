@@ -3,10 +3,13 @@
     <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: 'nav-link text-light' %>
   </li>
   <li>
+    <%= link_to "通報一覧", admin_reports_path, class: 'nav-link text-light' %>
+  </li>
+  <li>
     <%= link_to "作品一覧", admin_works_path, class: 'nav-link text-light' %>
   </li>
   <li>
-    <%= link_to "通報一覧", admin_reports_path, class: 'nav-link text-light' %>
+    <%= link_to "サークル一覧", admin_clubs_path, class: 'nav-link text-light' %>
   </li>
   <li>
     <%= link_to "ユーザー一覧", admin_users_path, class: 'nav-link text-light' %>
