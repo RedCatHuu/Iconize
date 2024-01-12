@@ -1,0 +1,22 @@
+<table>
+  <tbody>
+    <% club.club_comments.each do |club_comment| %>
+      <tr>
+        <td>
+          <%= link_to user_path(club_comment.user_id) do %>
+            <%= image_tag club_comment.user.get_profile_image(70, 70) %><br>
+            <%= club_comment.user.name %>
+          <% end %>
+        </td>
+        <td>
+          <%= club_comment.comment %>
+        </td>
+        <% if club_comment.user_id == current_user.id || club.owner_id %>
+          <td>
+            <%= link_to '削除', club_club_comment_path(club_id: club.id, id: club_comment.id), remote: true, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger" %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

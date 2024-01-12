@@ -11,7 +11,7 @@
   <% end %>
   <p4>非公開の場合リンクから検索しても表示しないようにしたい。</p4>
   <div id="comment_form">
-    <%= form_with model: [@work, @comment], local: false, method: :post do |f| %>
+    <%= form_with model: [@work, WorkComment.new], local: false, method: :post do |f| %>
       <%= f.text_area :comment, style: "width: 100%;", rows: '5', class: "comment_textarea" %>
       <%= f.submit "送信" %>
     <% end %>

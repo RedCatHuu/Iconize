@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     
     resources :clubs do
       resource :permits, only: [:create, :destroy]
+      resources :club_comments, only:[:create, :destroy]
       collection do
         
         get :accept
