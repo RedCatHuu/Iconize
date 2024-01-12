@@ -10,8 +10,8 @@ class User < ApplicationRecord
   has_one_attached :profile_image
   has_many :works,            dependent: :destroy
   has_many :permits,          dependent: :destroy
-  has_many :user_clubs
-  has_many :clubs,            through: :user_club
+  has_many :user_clubs,       dependent: :destroy
+  has_many :clubs,            through: :user_clubs
   has_many :favorites,        dependent: :destroy
   has_many :favorited_works,  through: :favorites, source: :work
   has_many :read_counts,      dependent: :destroy

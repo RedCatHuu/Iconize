@@ -12,9 +12,18 @@
       <p><%= @user.introduction %></p>
     </div>
     <div class="col-2">
-      <%= link_to confirm_admin_user_path, method: :get do %>
-        <% @user.status %>
+      <% if @user.is_active %>
+        <div>
+          <%= link_to 'アカウントの無効', confirm_admin_user_path(way: "invalidate") %>
+        </div>
+      <% else %>
+        <div>
+          <%= link_to 'アカウントの有効', confirm_admin_user_path(way: "validate") %>
+        </div>
       <% end %>
+      <span>
+        <%= link_to 'アカウントの削除', confirm_admin_user_path(way: "destroy") %>
+      </span>
     </div>
   </div>
   

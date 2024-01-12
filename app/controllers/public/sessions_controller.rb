@@ -29,7 +29,7 @@ class Public::SessionsController < Devise::SessionsController
   
   def user_state
     user = User.find_by(email: params[:user][:email])
-    retrun if user.nil?
+    return if user.nil?
     return unless user.valid_password?(params[:user][:password])
     if not user.is_active
       redirect_to user_session_path, alert: "既に退会済みです。"

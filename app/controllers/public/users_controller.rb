@@ -30,12 +30,6 @@ class Public::UsersController < ApplicationController
     redirect_to root_path, notice: "退会しました。ご利用ありがとうございました。"
   end
 
-  def following
-  end
-
-  def followers
-  end
-  
   private
   
   def user_params

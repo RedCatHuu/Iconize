@@ -1,18 +1,20 @@
 <%= render 'layouts/frame' do %>
-  <% if @user.is_active %>
+  <h2>本当に<%= @user.name %>さんのアカウントを<%= @way_ja %>しますか？</h2>
+  <% case @way %>
+  <% when "invalidate" %>
     <div>
-      <%= @user.name %>さんのアカウントを無効にしますか？
+      <%= link_to 'アカウントの無効', admin_user_path(@user.id), method: :patch, data: {confirm: "本当に無効にしますか？"} %>
     </div>
-  <% else %>
+  <% when "validate" %>
     <div>
-      <%= @user.name %>さんのアカウントを有効にしますか？
+      <%= link_to 'アカウントの有効', admin_user_path(@user.id), method: :patch, data: {confirm: "本当に有効にしますか？"} %>
     </div>
-  <% end %>
+  <% when "destroy" %>
   <span>
-    <%= link_to 'はい', admin_user_path(@user.id), method: :patch %>/
+    <%= link_to 'アカウントの削除', admin_user_path(@user.id), method: :delete, data: {confirm: "本当に削除しますか？"} %>/
   </span>
+  <% end %>
   <span>
     <%= link_to '戻る', admin_user_path(@user) %>
   </span>
-  
 <% end %>
