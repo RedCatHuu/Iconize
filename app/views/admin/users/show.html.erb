@@ -13,11 +13,7 @@
     </div>
     <div class="col-2">
       <%= link_to confirm_admin_user_path, method: :get do %>
-        <% if @user.is_active %>
-          凍結する
-        <% else %>
-          凍結中
-        <% end %>
+        <% @user.status %>
       <% end %>
     </div>
   </div>

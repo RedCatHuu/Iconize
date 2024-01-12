@@ -14,8 +14,7 @@ class Public::UsersController < ApplicationController
     @user = User.find(params[:id])
     # @にしないとエラーに送れない
     if @user.update(user_params)
-      redirect_to my_page_user_path(@user)
-      flash[:notice] = "編集完了。フラッシュメッセージはいらないかも"
+      redirect_to my_page_user_path(@user), notice: "編集完了。"
     else
       render :edit
     end

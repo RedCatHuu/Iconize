@@ -1,11 +1,11 @@
 <%= render 'layouts/frame' do %>
-  <% if @active %>
+  <% if @user.is_active %>
     <div>
-      <%= @user.name %>さんのアカウントを凍結しますか？
+      <%= @user.name %>さんのアカウントを無効にしますか？
     </div>
   <% else %>
     <div>
-      <%= @user.name %>さんのアカウントを復活させますか？
+      <%= @user.name %>さんのアカウントを有効にしますか？
     </div>
   <% end %>
   <span>

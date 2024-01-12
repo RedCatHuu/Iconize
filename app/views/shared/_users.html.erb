@@ -2,19 +2,21 @@
   <tbody>
     <% users.each do |user| %>
       <tr>
-        
-        <td style="width: 5%">
-           <!--管理者か一般ユーザーかでリンク先分岐-->
-          <% if admin_signed_in? %>
+        <!--管理者か一般ユーザーかでリンク先分岐-->
+        <% if admin_signed_in? %>
+          <td><%= user.status %>marginいじって中央寄せにする</td>
+          <td style="width: 5%">
             <%= link_to admin_user_path(user) do %>
               <%= image_tag user.get_profile_image(100, 100) %>
             <% end %><br>
-          <% else %>
+          </td>
+        <% else %>
+          <td>
             <%= link_to my_page_user_path(user) do %>
               <%= image_tag user.get_profile_image(100, 100) %>
             <% end %><br>
-          <% end %>
-        </td>
+          </td>
+        <% end %>
         
         <td>
           <%= user.name %><br>

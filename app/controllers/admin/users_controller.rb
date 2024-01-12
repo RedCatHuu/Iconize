@@ -19,7 +19,6 @@ class Admin::UsersController < ApplicationController
 
   def confirm
     @user = User.find(params[:id])
-    @status = @user.is_active
   end
   
 end
