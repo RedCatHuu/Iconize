@@ -1,12 +1,18 @@
 class Work < ApplicationRecord
   
-  belongs_to :user
-  belongs_to :club
-  has_many :items, dependent: :destroy
-  accepts_nested_attributes_for :items, reject_if: :all_blank
-  has_one_attached :base_image
   
   validates :title, :base_image, presence: true
+  validates :club, presence: false
+  
+  belongs_to :user
+  # optional: trueによってclubのnilを許可する
+  belongs_to :club,       optional: true
+  has_many :items,        dependent: :destroy
+  has_many :favorites
+  has_many :read_counts,  dependent: :destroy
+  
+  accepts_nested_attributes_for :items, reject_if: :all_blank
+  has_one_attached :base_image
   
   def qty_item
     quantity = self.items.size
@@ -28,6 +34,10 @@ class Work < ApplicationRecord
   
   def get_base_image(width, height)
     base_image.variant(resize_to_limit: [width, height]).processed
+  end 
+  
+  def favorited_by?(user)
+    self.favorites.exists?(user_id: user.id)
   end 
   
 end

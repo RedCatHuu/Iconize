@@ -1,16 +1,28 @@
 <div class="container">
   <div class="row">
     
-    <div class="col-9">
+    <div class="col-2">
       <p><%= @club.name %></p>
-      <p><%= @club.introduction %></p>
+      
+      <p>
+        サークル作成者:<%= @owner.name %><br>
+        メンバー数:<%= link_to member_club_path do %>
+                     <%= @club.users.count %>
+                   <% end %><br>
+        作品数:<%= @club.works.count %>
+      </p>
     </div>
-    <div class="col-auto">
+    <div class="col-7">
+      <p class="mt-5"><%= @club.introduction %></p>
+    </div>
+    <div class="col-auto mt-5">
       <% if current_user == @owner %>
-        <%= link_to 'サークル情報の編集', edit_club_path %>
-        <%= link_to '承認待ち一覧', permit_clubs_path(@club) %>
+        <%= link_to 'サークル情報の編集', edit_club_path %><br>
+        <%= link_to '承認待ち一覧', permit_club_path(@club) %><br>
+        <%= link_to '作品投稿', new_work_path(club_id: @club.id) %>
       <% elsif @club.users.exists?(id: current_user.id) %>
-        退出
+        <%= link_to '退出', leave_club_path %><br>
+        <%= link_to '作品投稿', new_work_path(club_id: @club.id) %>
       <% elsif @club.permits.exists?(user_id: current_user.id) %>
         <%= link_to '申請取消', club_permits_path(@club), method: :delete %>
       <% else %>
@@ -19,19 +31,27 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-3">
-      <%= @owner.name %><br>
-      メンバー数:<%= link_to member_club_path do %>
-                   <%= @club.users.count %>
-                 <% end %><br>
-      作品数:<%= @club.works.count %>
-      
-    </div>
-    
     <div class="col">
       
+      <ul class="tab-menu">
+        <li><a href="#works" class="active">サークルの作品</a></li>
+        <li><a href="#comments">コミュニティ</a></li>
+      </ul>
+  
+      <div class="tab-contents">
+        
+        <div id="works" class="tab1 area active">
+          <%= render 'shared/works', works: @club.works, name: false %>
+        </div>
+        
+        <div id="comments" class="tab2 area">
+          コメント欄
+        </div>
+        
+      </div>
+      
     </div>
-    
   </div>
+  
 </div>
   

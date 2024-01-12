@@ -2,7 +2,7 @@
   
   <!--実際に画像が動くところ-->
   <div class="position-relative">
-    <%= image_tag work.base_image, class:"position-absolute a", style:"z-index: -1", size:"350x350" %>
+    <%= image_tag work.base_image, class:"position-absolute", size:"350x350" %>
     <% for nth_item in 0..work.qty_item %>
       <% for nth_image in 0..work.items[nth_item].qty_image do %>
         <span class="image_<%= nth_image %>" style="display: none">
@@ -54,5 +54,19 @@
     <%= f.submit 'チェックボックスで選択した画像の合成' %>
   <% end %>
   </div>
-  <p><%= work.caption %></p>
+  <p>
+    <% if work.club_id == nil %>
+      <%= link_to my_page_user_path(work.user) do %>
+        <%= work.user.name %>
+      <% end %>
+    <% else %>
+      <%= link_to club_path(work.club) do %>
+        <%= work.club.name %>
+      <% end %>
+    <% end %>
+    <br>
+    <%= work.title %>
+    <br><%= work.caption %>
+  </p>
+  <p></p>
   <p>投稿時間:<%= work.y_to_s %></p>

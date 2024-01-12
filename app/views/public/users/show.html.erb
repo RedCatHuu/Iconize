@@ -14,44 +14,48 @@
     <div class="col-auto">
       <% if @user == current_user %>
         <%= link_to 'プロフィールを編集', edit_user_path %>
+      <% elsif current_user.following?(@user) %>
+        <%= link_to 'フォロー中', user_relationship_path(@user), method: :delete, class: "btn btn-success" %>
+      <% else %>
+        <%= link_to 'フォローする', user_relationship_path(@user), method: :post, class: "btn btn-success" %>
+      <% end %>
+      <br>
+      フォロー数: 
+      <%= link_to following_user_path do %>
+        <%= @user.following.count %>
+      <% end %>
+      <br>
+      フォロワー数: 
+      <%= link_to followers_user_path do %>
+        <%= @user.followers.count %>
       <% end %>
     </div>
   </div>
   
   <div class="row">
     <div class="col">
+      
       <ul class="tab-menu">
         <li><a href="#my-work" class="active">私の作品</a></li>
         <li><a href="#my-favorite">ブックマーク</a></li>
-        <!--<li>グループ</li>-->
       </ul>
   
       <div class="tab-contents">
         
-        <div id="my-work" class="tab1 area">
-          <p>検索結果: <%= @user.works.size %> 作品</p>
-          <%= render 'shared/works', works: @user.works %>
+        <div id="my-work" class="area active">
+          <p>投稿数: <%= @user.works.size %> 作品</p>
+          <%= render 'shared/works', works: @user.works, name: false %>
         </div>
         
-        <div id="my-favorite" class="tab2 area">
-          お気に入り作品
+        <div id="my-favorite" class="area">
+          <p>ブックマーク数: <%= @user.favorited_works.count %> 作品</p>
+          <%= render 'shared/works', works: @user.favorited_works, name: false %>
         </div>
+        
       </div>
+      
     </div>
   </div>
+  
 </div>
   
-<!--タブの切り替え-->
-<script>
-  $(document).ready(function(event){
-    $('.tab-contents .area[id != "my-work"]').hide();
-
-    $('.tab-menu a').on('click', function(event) {
-      $(".tab-contents .area").hide();
-      $(".tab-menu .active").removeClass("active");
-      $(this).addClass("active");
-      $($(this).attr("href")).show();
-      event.preventDefault();
-    });
-  })
-</script>

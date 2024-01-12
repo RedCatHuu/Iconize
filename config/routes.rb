@@ -16,13 +16,15 @@ Rails.application.routes.draw do
     
     resources :clubs do
       resource :permits, only: [:create, :destroy]
-      get "leave" => "groups#leave"
       collection do
-        get :myclub
-        get :permit
+        
+        get :accept
       end 
       member do 
+        get :club_works
         get :member
+        get :permit
+        get :leave
       end 
     end 
     
@@ -34,16 +36,16 @@ Rails.application.routes.draw do
     end
       
     resources :works do
+      resource :favorites, only:[:create, :destroy]
       member do 
         get 'report' => "reports#new", as:"report"
       end
       collection do
-        get :bookmarks
         post :download
       end
     end
     
-    resources :users, only: [ :edit, :update] do
+    resources :users, only: [:edit, :update] do
       resource :relationship, only: [:create, :destroy]
       member do
         get 'my_page' => "users#show", as:"my_page"

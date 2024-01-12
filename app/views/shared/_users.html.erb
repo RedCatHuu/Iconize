@@ -3,14 +3,14 @@
     <% users.each do |user| %>
       <tr>
         
-        <td>
+        <td style="width: 5%">
            <!--管理者か一般ユーザーかでリンク先分岐-->
           <% if admin_signed_in? %>
             <%= link_to admin_user_path(user) do %>
               <%= image_tag user.get_profile_image(100, 100) %>
             <% end %><br>
           <% else %>
-            <%= link_to user_path(user) do %>
+            <%= link_to my_page_user_path(user) do %>
               <%= image_tag user.get_profile_image(100, 100) %>
             <% end %><br>
           <% end %>

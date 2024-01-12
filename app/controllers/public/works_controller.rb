@@ -4,6 +4,10 @@ class Public::WorksController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show ]
   
   def new
+    club_id = params[:club_id]
+    if club_id != nil
+      @club = Club.find(params[:club_id])
+    end
   end
   
   def index
@@ -12,11 +16,18 @@ class Public::WorksController < ApplicationController
 
   def show
     @work = Work.find(params[:id])
-    
+    unless ReadCount.where(created_at: Time.zone.now.all_day).find_by(user_id: current_user, work_id: @work.id)
+      current_user.read_counts.create(work_id: @work.id)
+    end 
   end
   
   def create
     work = current_user.works.build(work_params)
+    work.user_id = nil
+    club_id = params[:work][:club_id]
+    if club_id == nil
+      work.user_id = current_user.id
+    end
     
     # サムネイルを作成し保存
     if work.save
@@ -38,10 +49,12 @@ class Public::WorksController < ApplicationController
           tmp_file.unlink
         end
       end
-      redirect_to works_path
+      redirect_to work_path(work)
     else
-      @works = Work.all
-      flash.now[:notice] = "失敗しました。"
+      if club_id != nil
+        @club = Club.find(club_id)
+      end
+      flash.now[:alert] = "失敗しました。"
       render :new
     end
   end
@@ -57,9 +70,6 @@ class Public::WorksController < ApplicationController
   def destroy
   end
 
-  def bookmarks
-  end
-  
   def download
     require "mini_magick"
     which_items = params[:work][:item_number]
@@ -91,6 +101,7 @@ class Public::WorksController < ApplicationController
     params.require(:work).permit(:title,
                                  :caption, 
                                  :base_image,
+                                 :club_id,
                                  items_attributes: [
                                    :genre,
                                    images: []

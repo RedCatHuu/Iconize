@@ -1,7 +1,7 @@
 class Public::ClubsController < ApplicationController
   
-  before_action :ensure_correct_user, only: [:edit, :update]
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :ensure_correct_user, only: [:edit, :update, :permit]
+  before_action :authenticate_user!, except: [:index]
 
   def new
   end
@@ -20,8 +20,7 @@ class Public::ClubsController < ApplicationController
     club.owner_id = current_user.id
     club.users << current_user
     if club.save
-      flash[:notice] = "サークルを作成しました。"
-      redirect_to club_path(club)
+      redirect_to club_path(club), notice: "サークルを作成しました。"
     else
       flash[:alert] = "サークルの作成に失敗しました。"
       render :new
@@ -35,14 +34,14 @@ class Public::ClubsController < ApplicationController
   def update
     @club = Club.find(params[:id])
     if @club.update(club_params)
-      flash[:notice] = "サークル情報を編集しました。"
-      redirect_to club_path(@club)
+      redirect_to club_path(@club), notice: "サークル情報を編集しました。"
     else
       render :edit
     end
   end
 
-  def myclub
+  def club_works
+    @works = Work
   end
   
   def member
@@ -50,18 +49,22 @@ class Public::ClubsController < ApplicationController
   end
   
   def permit
+    @club = Club.find(params[:id])
+    @permits = @club.permits
   end 
   
-  def join
-    club = club.find(params[:club_id])
-    club.users << current_user
-    redirect_to club_path(club)
+  def accept
+    club = Club.find(params[:club_id])
+    permit = Permit.find(params[:permit_id])
+    club.users << permit.user
+    permit.destroy
+    redirect_to permit_club_path(club)
   end 
   
   def leave
-    club = club.find(params[:club_id])
+    club = Club.find(params[:id])
     club.users.delete(current_user)
-    redirect_to clubs_path
+    redirect_to clubs_path, notice: "サークルを脱退しました。"
   end 
   
   private

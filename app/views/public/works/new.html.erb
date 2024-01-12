@@ -1,6 +1,9 @@
 <%= render 'layouts/frame' do %>
 
   <h2>作品投稿</h2>
+  <% if @club != nil %>
+    <p><%= @club.name %>の作品を投稿します。</p>
+  <% end %>
   <%= form_with model: Work.new do |f| %>
     <div>
       <%= f.label :base_image, 'ベース画像' %><br>
@@ -27,6 +30,9 @@
       <%= f.text_area :caption, class:"form-control", size: "1x5" %>
     </div>
     <div>
+      <% if @club != nil %>
+        <%= f.hidden_field :club_id, :value => @club.id %>
+      <% end %>
       <%= f.submit '作品を投稿', class:"btn btn-success mt-3" %>
     </div>
     

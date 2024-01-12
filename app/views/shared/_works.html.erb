@@ -12,8 +12,18 @@
             <%= image_tag work.get_base_image(150, 150) %>
           <% end %><br>
         <% end %>
-        <%= work.user.name %>
-        <%= work.title %>
+        <%= work.title %><br>
+        <% if name %>
+          <% if work.club_id == nil %>
+            <%= link_to my_page_user_path(work.user) do %>
+              <%= work.user.name %>
+            <% end %>
+          <% else %>
+            <%= link_to club_path(work.club) do %>
+              <%= work.club.name %>
+            <% end %>
+          <% end %>
+        <% end %>
       </div>
     <% end %>
   </div>
