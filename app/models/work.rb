@@ -2,7 +2,7 @@ class Work < ApplicationRecord
   
   
   validates :title, :base_image, presence: true
-  validates :club, presence: false
+  validates :caption, length: {maximum: 400}
   
   belongs_to :user
   # optional: trueによってclubのnilを許可する

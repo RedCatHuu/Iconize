@@ -5,14 +5,12 @@ class Public::WorkCommentsController < ApplicationController
     @comment = current_user.work_comments.new(work_comment_params)
     @comment.work_id = @work.id
     @comment.save
-    # redirect_to work_path(@work)
   end
 
   def destroy
     comment = WorkComment.find(params[:id])
     @work = comment.work
     comment.destroy
-    # redirect_to work_path(@work)
   end
   
   private
