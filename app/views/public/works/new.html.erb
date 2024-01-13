@@ -9,15 +9,18 @@
       <%= f.label :base_image, 'ベース画像' %><br>
       <%= f.file_field :base_image, accept: "image/*" %>
     </div>
-    
-    <%= f.fields_for :items, Work.new.items.build do |item| %>
-      <div>
-        <%= item.label :genre, 'アイテムグループ名' %><br>
-        <%= item.text_field :genre %>
-      </div>
-      <div>
-        <%= item.label :images, 'アイテム画像' %><br>
-        <%= item.file_field :images, multiple: true, accept: "image/*" %>
+    <% for nth_form in 1..2 %>
+      <div style="border: 1px solid">
+        <%= f.fields_for :items, Work.new.items.build do |item| %>
+          <div>
+            <%= item.label :genre, 'アイテムグループ名' %><br>
+            <%= item.text_field :genre %>
+          </div>
+          <div>
+            <%= item.label :images, 'アイテム画像' %><br>
+            <%= item.file_field :images, multiple: true, accept: "image/*" %>
+          </div>
+        <% end %>
       </div>
     <% end %>
       

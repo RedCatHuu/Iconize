@@ -43,7 +43,7 @@ class User < ApplicationRecord
   end 
   
   def status
-    if self.is_active
+    if is_active
       "有効"
     else
       "無効"

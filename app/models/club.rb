@@ -19,4 +19,8 @@ class Club < ApplicationRecord
     club_image.variant(resize_to_limit: [width, height]).processed
   end 
   
+  def member?(user)
+    users.include?(user)
+  end
+  
 end

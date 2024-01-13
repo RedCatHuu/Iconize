@@ -4,6 +4,7 @@ class Public::WorksController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show ]
   
   def new
+    # サークル詳細から投稿画面に遷移してきた場合
     club_id = params[:club_id]
     if club_id != nil
       @club = Club.find(params[:club_id])
@@ -51,6 +52,7 @@ class Public::WorksController < ApplicationController
       end
       redirect_to work_path(work)
     else
+      # サークル詳細から来たならサークル情報を送る
       if club_id != nil
         @club = Club.find(club_id)
       end
