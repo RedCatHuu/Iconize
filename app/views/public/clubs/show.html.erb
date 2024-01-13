@@ -24,9 +24,9 @@
         <%= link_to '退出', leave_club_path %><br>
         <%= link_to '作品投稿', new_work_path(club_id: @club.id) %>
       <% elsif @club.permits.exists?(user_id: current_user.id) %>
-        <%= link_to '申請取消', club_permits_path(@club), method: :delete %>
+        <%= link_to '申請取消', club_permits_path(@club), method: :delete, 'data-confirm': "申請を取り消しますか？" %>
       <% else %>
-        <%= link_to '加入申請', club_permits_path(@club), method: :post %>
+        <%= link_to '加入申請', club_permits_path(@club), method: :post, 'data-confirm': "申請を送りますか？" %>
       <% end %>
     </div>
   </div>
@@ -35,7 +35,7 @@
       
       <ul class="tab-menu">
         <li><a href="#works" class="active">サークルの作品</a></li>
-        <li><a href="#comments">コミュニティ</a></li>
+        <li><a href="#community">コミュニティ</a></li>
       </ul>
   
       <div class="tab-contents">
@@ -44,12 +44,61 @@
           <%= render 'shared/works', works: @club.works, name: false %>
         </div>
         
-        <div id="comments" class="tab2 area">
-          コメント欄
+        <div id="community" class="tab2 area">
+          
+          <div id="club-comments">
+            <%= render 'public/club_comments/club_comment', club: @club %>
+          </div>
+          <div id="club-comment-form">
+            <%= form_with model: [@club, ClubComment.new], local: false, method: :post do |f| %>
+              <%= f.text_area :comment, style: "width: 100%;", rows: '5', class: "comment_textarea" %>
+              <%= f.submit "送信" %>
+            <% end %>
+          </div>
         </div>
         
       </div>
       
+    </div>
+  </div>
+  
+  <p>こっちはbootstrap</p>
+  <div class="row">
+    <div class="col">
+      
+      <div class="tabs">
+        
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#tab1">セクション1</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#tab2">セクション2</a>
+          </li>
+        </ul>
+        
+        <div class="tab-content">
+          
+          <div id="tab1" class="tab-pane fade show active">
+            <%= render 'shared/works', works: @club.works, name: false %>
+          </div>
+          
+          <div id="tab2" class="tab-pane fade show">
+            <div id="-comments">
+              <%= render 'public/club_comments/club_comment', club: @club %>
+            </div>
+            
+            <div id="club-comment-form">
+              <%= form_with model: [@club, ClubComment.new], local: false, method: :post do |f| %>
+                <%= f.text_area :comment, style: "width: 100%;", rows: '5', class: "comment_textarea" %>
+                <%= f.submit "送信" %>
+              <% end %>
+            </div>
+          </div>
+          
+        </div>
+        
+      </div>
     </div>
   </div>
   

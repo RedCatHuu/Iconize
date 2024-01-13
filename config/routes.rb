@@ -16,8 +16,8 @@ Rails.application.routes.draw do
     
     resources :clubs do
       resource :permits, only: [:create, :destroy]
+      resources :club_comments, only:[:create, :destroy]
       collection do
-        
         get :accept
       end 
       member do 
@@ -37,6 +37,7 @@ Rails.application.routes.draw do
       
     resources :works do
       resource :favorites, only:[:create, :destroy]
+      resources :work_comments, only:[:create, :destroy]
       member do 
         get 'report' => "reports#new", as:"report"
       end
@@ -45,16 +46,15 @@ Rails.application.routes.draw do
       end
     end
     
-    resources :users, only: [:edit, :update] do
+    resources :users, only: [:edit, :update, :destroy] do
       resource :relationship, only: [:create, :destroy]
       member do
         get 'my_page' => "users#show", as:"my_page"
         get 'following' => "relationships#following", as:"following"
         get 'followers' => "relationships#followers", as:"followers"
+        get :confirm
       end
       collection do
-        post :confirm
-        patch :unsubscribe
       end
     end
     
@@ -65,15 +65,21 @@ Rails.application.routes.draw do
   
   namespace :admin do
     
+    resources :clubs, only: [:index, :show] do
+      member do
+        get :member
+      end
+    end
+    
     resources :works, only: [:index, :show, :update] do
       collection do
         post :confirm
       end
     end
     
-    resources :users, only: [:index, :show, :update] do
-      collection do
-        post :confirm
+    resources :users, only: [:index, :show, :update, :destroy] do
+      member do
+        get :confirm
       end 
     end 
     

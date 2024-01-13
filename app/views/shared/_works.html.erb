@@ -13,16 +13,47 @@
           <% end %><br>
         <% end %>
         <%= work.title %><br>
+        
+        <!--名前は必要か-->
         <% if name %>
-          <% if work.club_id == nil %>
-            <%= link_to my_page_user_path(work.user) do %>
-              <%= work.user.name %>
+          
+          <!--ログインしているのは管理者か-->
+          <% if admin_signed_in? %>
+          
+            <!--作品はサークルが投稿したものか-->
+            <% if work.club_id == nil %>
+            
+              <%= link_to admin_user_path(work.user) do %>
+                <%= work.user.name %>
+              <% end %>
+              
+            <% else %>
+            
+              <%= link_to club_path(work.club) do %>
+                <%= work.club.name %>
+              <% end %>
+              
             <% end %>
+            
           <% else %>
-            <%= link_to club_path(work.club) do %>
-              <%= work.club.name %>
+          <!--ユーザーがログインしている場合-->
+          <!--作品はサークルが投稿したものか-->
+            <% if work.club_id == nil %>
+            
+              <%= link_to my_page_user_path(work.user) do %>
+                <%= work.user.name %>
+              <% end %>
+              
+            <% else %>
+            
+              <%= link_to club_path(work.club) do %>
+                <%= work.club.name %>
+              <% end %>
+              
             <% end %>
+            
           <% end %>
+          
         <% end %>
       </div>
     <% end %>

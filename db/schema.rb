@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_01_11_134941) do
+ActiveRecord::Schema.define(version: 2024_01_12_023209) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -50,6 +50,16 @@ ActiveRecord::Schema.define(version: 2024_01_11_134941) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+  end
+
+  create_table "club_comments", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "club_id", null: false
+    t.text "comment"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["club_id"], name: "index_club_comments_on_club_id"
+    t.index ["user_id"], name: "index_club_comments_on_user_id"
   end
 
   create_table "clubs", force: :cascade do |t|
@@ -135,6 +145,16 @@ ActiveRecord::Schema.define(version: 2024_01_11_134941) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "work_comments", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "work_id", null: false
+    t.text "comment"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_work_comments_on_user_id"
+    t.index ["work_id"], name: "index_work_comments_on_work_id"
+  end
+
   create_table "works", force: :cascade do |t|
     t.integer "user_id"
     t.integer "club_id"
@@ -147,6 +167,8 @@ ActiveRecord::Schema.define(version: 2024_01_11_134941) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "club_comments", "clubs"
+  add_foreign_key "club_comments", "users"
   add_foreign_key "favorites", "users"
   add_foreign_key "favorites", "works"
   add_foreign_key "permits", "clubs"
@@ -155,4 +177,6 @@ ActiveRecord::Schema.define(version: 2024_01_11_134941) do
   add_foreign_key "read_counts", "works"
   add_foreign_key "user_clubs", "clubs"
   add_foreign_key "user_clubs", "users"
+  add_foreign_key "work_comments", "users"
+  add_foreign_key "work_comments", "works"
 end

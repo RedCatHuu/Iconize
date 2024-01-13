@@ -14,8 +14,7 @@ class Public::UsersController < ApplicationController
     @user = User.find(params[:id])
     # @にしないとエラーに送れない
     if @user.update(user_params)
-      redirect_to my_page_user_path(@user)
-      flash[:notice] = "編集完了。フラッシュメッセージはいらないかも"
+      redirect_to my_page_user_path(@user), notice: "編集完了。"
     else
       render :edit
     end
@@ -24,15 +23,13 @@ class Public::UsersController < ApplicationController
   def confirm
   end
 
-  def exit
+  def destroy
+    user = User.find(params[:id])
+    user.destroy
+    reset_session
+    redirect_to root_path, notice: "退会しました。ご利用ありがとうございました。"
   end
 
-  def following
-  end
-
-  def followers
-  end
-  
   private
   
   def user_params

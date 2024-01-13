@@ -13,7 +13,9 @@
     </div>
     <div class="col-auto">
       <% if @user == current_user %>
-        <%= link_to 'プロフィールを編集', edit_user_path %>
+        <%= link_to 'プロフィールを編集', edit_user_path %><br>
+        とりまここに置く。<br>
+        <%= link_to '退会する', confirm_user_path %>
       <% elsif current_user.following?(@user) %>
         <%= link_to 'フォロー中', user_relationship_path(@user), method: :delete, class: "btn btn-success" %>
       <% else %>
@@ -37,7 +39,7 @@
       
       <ul class="tab-menu">
         <li><a href="#my-work" class="active">私の作品</a></li>
-        <li><a href="#my-favorite">ブックマーク</a></li>
+        <li><a href="#my-favorite">お気に入り</a></li>
       </ul>
   
       <div class="tab-contents">

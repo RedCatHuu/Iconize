@@ -10,8 +10,8 @@ class User < ApplicationRecord
   has_one_attached :profile_image
   has_many :works,            dependent: :destroy
   has_many :permits,          dependent: :destroy
-  has_many :user_clubs
-  has_many :clubs,            through: :user_club
+  has_many :user_clubs,       dependent: :destroy
+  has_many :clubs,            through: :user_clubs
   has_many :favorites,        dependent: :destroy
   has_many :favorited_works,  through: :favorites, source: :work
   has_many :read_counts,      dependent: :destroy
@@ -19,6 +19,8 @@ class User < ApplicationRecord
   has_many :following, through: :active_relationships, source: :followed
   has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
   has_many :followers, through: :passive_relationships
+  has_many :work_comments,    dependent: :destroy
+  has_many :club_comments,    dependent: :destroy
   
   def get_profile_image(width, height)
     unless profile_image.attached?
@@ -38,6 +40,14 @@ class User < ApplicationRecord
   
   def following?(user)
     following.include?(user)
+  end 
+  
+  def status
+    if self.is_active
+      "有効"
+    else
+      "無効"
+    end 
   end 
   
 end

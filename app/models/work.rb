@@ -2,14 +2,16 @@ class Work < ApplicationRecord
   
   
   validates :title, :base_image, presence: true
-  validates :club, presence: false
+  validates :caption, length: {maximum: 400}
   
   belongs_to :user
   # optional: trueによってclubのnilを許可する
-  belongs_to :club,       optional: true
-  has_many :items,        dependent: :destroy
-  has_many :favorites
-  has_many :read_counts,  dependent: :destroy
+  belongs_to :club,         optional: true
+  has_many :items,          dependent: :destroy
+  has_many :favorites,      dependent: :destroy
+  has_many :read_counts,    dependent: :destroy
+  has_many :work_comments,  dependent: :destroy
+  
   
   accepts_nested_attributes_for :items, reject_if: :all_blank
   has_one_attached :base_image
