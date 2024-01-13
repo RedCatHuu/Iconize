@@ -41,9 +41,8 @@
             
              <!--for nth_item inのループの中にscriptを組み込むことで、49行目のnth_itemが使えるようになる。rubyにjsの変数を渡す簡単な方法があればもっと綺麗に書けるだろうけど。-->
               <script>
-              // チェックボックスをクリックして画像の表示、非表示
+              // ラジオボックスをクリックして画像の表示、非表示
               let item_size = "<%= work.items_qty %>";
-              
               $(document).ready(function(){
                 for (let item = 0; item <= item_size; item++){
                   let thumbnail_size = "<%= work.items[nth_item].images_qty %>"         // workのn番目のitemのimageの数を代入
