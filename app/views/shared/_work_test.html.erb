@@ -29,36 +29,36 @@
        <!--ラジオボックスで選択した画像の合成-->
       <%= form_with model: work, url: download_works_path, method: :post do |f| %>
         <% for nth_item in 0..work.items_qty %>                                     <!--work.itemsの数だけ繰り返し。-->
-          <span id="<%= work.items[nth_item].genre %>" class="tab-pane <% if nth_item == 0 %>ac<% end %>">        <!--item.imagesの数だけ繰り返し-->
-           <%= work.items[nth_item].genre %>
-            <% for nth_thumbnail in 0..work.items[nth_item].images_qty do %>          <!--item.imagesの数だけ繰り返し-->
-              <%= f.hidden_field :item_number, :value => nth_item %>
-              <%= f.radio_button :image_number, [[which_item: nth_item], [which_image: nth_thumbnail]] %>
-              <%= f.label :"image_number_which_item#{nth_item}_which_image#{nth_thumbnail}", class:"image_number_which_item#{nth_item}_which_image#{nth_thumbnail}" do %>
-                <%= image_tag work.items[nth_item].thumbnails[nth_thumbnail], size:"80x80" %>
+          <span id="<%= work.items[nth_item].genre %>" class="tab-pane <% if nth_item == 0 %>acti<% end %>">        <!--item.imagesの数だけ繰り返し-->
+            <%= work.items[nth_item].genre %>
+              <% for nth_thumbnail in 0..work.items[nth_item].images_qty do %>          <!--item.imagesの数だけ繰り返し-->
+                <%= f.hidden_field :item_number, :value => nth_item %>
+                <%= f.radio_button :"item_number_#{nth_item}", nth_thumbnail %>
+                <%= f.label :"item_number_#{nth_item}_#{nth_thumbnail}", class:"item_number_#{nth_item}_#{nth_thumbnail}" do %>
+                  <%= image_tag work.items[nth_item].thumbnails[nth_thumbnail], size:"80x80" %>
+                <% end %>
               <% end %>
-            <% end %>
-          
-           <!--for nth_item inのループの中にscriptを組み込むことで、49行目のnth_itemが使えるようになる。rubyにjsの変数を渡す簡単な方法があればもっと綺麗に書けるだろうけど。-->
-          <script>
-            // チェックボックスをクリックして画像の表示、非表示
-            let item_size = "<%= work.items_qty %>";
             
-            $(document).ready(function(){
-              for (let item = 0; item <= item_size; item++){
-                let thumbnail_size = "<%= work.items[nth_item].images_qty %>"         // workのn番目のitemのimageの数を代入
-                for (let thumbnail = 0; thumbnail <= thumbnail_size; thumbnail++){    // thumbnail_sizeの数になるまで繰り返し
-                  $('.image_number_which_item' + item + '_which_image' + thumbnail ).on('click', function(){
-                    console.log(thumbnail + 'button clicked!');
-                    for (let all_images_hide = 0; all_images_hide <= thumbnail_size; all_images_hide++){ // activeでない画像を消す。
-                      $('.image_' + item + '_' + all_images_hide ).hide();
-                    }
-                  $('.image_' + item + '_' + thumbnail ).toggle();
-                  })
+             <!--for nth_item inのループの中にscriptを組み込むことで、49行目のnth_itemが使えるようになる。rubyにjsの変数を渡す簡単な方法があればもっと綺麗に書けるだろうけど。-->
+              <script>
+              // チェックボックスをクリックして画像の表示、非表示
+              let item_size = "<%= work.items_qty %>";
+              
+              $(document).ready(function(){
+                for (let item = 0; item <= item_size; item++){
+                  let thumbnail_size = "<%= work.items[nth_item].images_qty %>"         // workのn番目のitemのimageの数を代入
+                  for (let thumbnail = 0; thumbnail <= thumbnail_size; thumbnail++){    // thumbnail_sizeの数になるまで繰り返し
+                    $('.item_number_' + item + '_' + thumbnail ).on('click', function(){
+                      console.log(thumbnail + 'button clicked!');
+                      for (let all_images_hide = 0; all_images_hide <= thumbnail_size; all_images_hide++){ // activeでない画像を消す。
+                        $('.image_' + item + '_' + all_images_hide ).hide();
+                      }
+                    $('.image_' + item + '_' + thumbnail ).toggle();
+                    })
+                  }
                 }
-              }
-            })
-          </script>
+              })
+            </script>
           </span>
         <% end %>
         <br>
