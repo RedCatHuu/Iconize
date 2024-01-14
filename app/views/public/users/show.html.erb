@@ -12,15 +12,9 @@
       <p><%= @user.introduction %></p>
     </div>
     <div class="col-auto">
-      <% if @user == current_user %>
-        <%= link_to 'プロフィールを編集', edit_user_path %><br>
-        とりまここに置く。<br>
-        <%= link_to '退会する', confirm_user_path %>
-      <% elsif current_user.following?(@user) %>
-        <%= link_to 'フォロー中', user_relationship_path(@user), method: :delete, class: "btn btn-success" %>
-      <% else %>
-        <%= link_to 'フォローする', user_relationship_path(@user), method: :post, class: "btn btn-success" %>
-      <% end %>
+      <span id="relationships">
+        <%= render 'public/users/relationships', user: @user %>
+      </span>
       <br>
       フォロー数: 
       <%= link_to following_user_path do %>
@@ -29,7 +23,9 @@
       <br>
       フォロワー数: 
       <%= link_to followers_user_path do %>
-        <%= @user.followers.count %>
+        <span id="followers-count">
+          <%= @user.followers.count %>
+        </span>
       <% end %>
     </div>
   </div>

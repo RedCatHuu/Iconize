@@ -50,9 +50,11 @@
             <%= render 'public/club_comments/club_comment', club: @club %>
           </div>
           <div id="club-comment-form">
-            <%= form_with model: [@club, ClubComment.new], local: false, method: :post do |f| %>
-              <%= f.text_area :comment, style: "width: 100%;", rows: '5', class: "comment_textarea" %>
-              <%= f.submit "送信" %>
+            <% if @club.member?(current_user) %>
+              <%= form_with model: [@club, ClubComment.new], local: false, method: :post do |f| %>
+                <%= f.text_area :comment, style: "width: 100%;", rows: '5', class: "comment_textarea" %>
+                <%= f.submit "送信" %>
+              <% end %>
             <% end %>
           </div>
         </div>

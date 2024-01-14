@@ -6,7 +6,7 @@ class Item < ApplicationRecord
   
   validates :genre, presence: true
   
-  def qty_image
+  def images_qty
     quantity = self.images.size
     quantity = quantity - 1
   end 

@@ -4,6 +4,7 @@ class Public::WorksController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show ]
   
   def new
+    # サークル詳細から投稿画面に遷移してきた場合
     club_id = params[:club_id]
     if club_id != nil
       @club = Club.find(params[:club_id])
@@ -51,6 +52,7 @@ class Public::WorksController < ApplicationController
       end
       redirect_to work_path(work)
     else
+      # サークル詳細から来たならサークル情報を送る
       if club_id != nil
         @club = Club.find(club_id)
       end
@@ -72,24 +74,37 @@ class Public::WorksController < ApplicationController
 
   def download
     require "mini_magick"
-    which_items = params[:work][:item_number]
-    which_images = params[:work][:image_number]
-    # size = which_images.size
-    
     work = Work.find(params[:work][:id])
+    items_size = work.items_qty
+    image_numbers = []
+    for nth_image in 0..items_size
+      image_numbers << [params[:work]["item_number_#{nth_image}"]]
+    # image_numbers = [params[:work][:item_number_0],
+    #                 params[:work][:item_number_1],
+    #               params[:work][:item_number_2],
+    #               params[:work][:item_number_3],
+    #               params[:work][:item_number_4],
+    #               params[:work][:item_number_5],
+    #               params[:work][:item_number_6],
+    #               params[:work][:item_number_7],
+    #               params[:work][:item_number_8],
+    #               params[:work][:item_number_9]]
+    end
     base_image = work.base_image
     base_image = base_image.download
     base_image = MiniMagick::Image.read(base_image)
     
     # 現状itemが一つしかないから、配列で取得できない。後で直す。
     # which_items.each do |nth_item|
-      which_images.each do |nth_image|
-        input = work.items[which_items.to_i].images[nth_image.to_i]
-        base_image = base_image.composite(MiniMagick::Image.open(input)) do |config|
-          config.compose "Over"
-          config.gravity "NorthWest"
-        end 
-      end
+    for nth in 0..items_size
+      nth_image = image_numbers[nth][0].to_i
+      input = work.items[nth].images[nth_image]
+      # byebug
+      base_image = base_image.composite(MiniMagick::Image.open(input)) do |config|
+        config.compose "Over"
+        config.gravity "NorthWest"
+      end 
+    end
     # end 
     result = base_image
     send_data result.to_blob, type: "image/png", disposition: "attachment; filename = fine.png"

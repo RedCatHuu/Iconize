@@ -35,7 +35,7 @@ class User < ApplicationRecord
   end 
   
   def unfollow(user)
-    passive_relationships.find_by(follow_id: user.id).destroy
+    active_relationships.find_by(followed_id: user.id).destroy
   end 
   
   def following?(user)
@@ -43,11 +43,23 @@ class User < ApplicationRecord
   end 
   
   def status
-    if self.is_active
+    if is_active
       "有効"
     else
       "無効"
     end 
   end 
+  
+  GUEST_USER_EMAIL = "guest@example.com"
+  def self.guest
+    find_or_create_by!(email: GUEST_USER_EMAIL) do |user|
+      user.password = SecureRandom.urlsafe_base64
+      user.name = "guestuser"
+    end 
+  end 
+
+  def guest_user?
+    email == GUEST_USER_EMAIL
+  end
   
 end
