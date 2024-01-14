@@ -1,70 +1,11 @@
 @use '~bootstrap/scss/bootstrap';
-@use './layouts/header';
-@use './layouts/work_new';
+@use './global/layouts';
+@use './global/header';
+@use './global/footer';
+@use './global/tab';
+@use './public/work_new';
+
 // チェックボックスを消す
 input[type="checkbox"] {
   display: non;
-}
-
-.FooterFixed{
-  min-height: 100vh; /* ←コンテンツの高さの最小値＝ブラウザの高さに指定 */
-  position: relative;
-  padding-bottom: 160px; /* ←フッターの高さを指定 */
-  box-sizing: border-box;
-  
-}
-
-footer{
-    position: absolute;
-    bottom: 0;
-    min-width: 100%;
-    text-align: center;
-}
-
-// tabを横並びにする
-.tab-menu {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-// tabの元の装飾を取る
-.tab-menu li {
-  list-style-type: none;
-}
-
-// tabの装飾
-.tab-menu li a {
-  text-decoration: none;
-  display: block;
-  padding: 20px;
-  padding-bottom: 5px;
-  text-align: center;
-}
-
-// tab選択時の装飾
-.tab-menu .active {
-  border-bottom: 3px solid;
-}
-
-// tabの内容の並び
-.tab-contents {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-// tabの内容の表示
-.tab-contents .area {
-  display: none;
-  // width: 100%;
-  // padding: 30px;
-  // background: #fff;
-}
-
-.tab-contents .active {
-  display: block;
-}
-
-.tab-contents p {
-  color: #000;
-  line-height: 2.5;
 }

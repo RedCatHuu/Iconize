@@ -1,8 +1,6 @@
 // Bootstrap の Sass mixin を使えるようにするための記述
 @use "~bootstrap/scss/bootstrap" as *;
 
-@use "../layouts/variables" as *;
-
 .openbtn{
 	/*ボタン内側の基点となるためrelativeを指定。
 追従するナビゲーションの場合はfixed＋top、rightといった位置をセットで指定*/
@@ -59,56 +57,4 @@
     transform: translateY(-6px) rotate(45deg);
     width: 30%;
     height: 2px;
-}
-
-// ナビゲーション回り。余裕があれば実装
-@include media-breakpoint-down(md) {
-  #nav-menu {
-    position: relative;
-  }
-
-  #navbarSupportedContent {
-    position: absolute;
-    width: 12rem;
-    top: 100%;
-    right: 0px;
-    margin-top: 1rem;
-    padding: 1rem;
-    z-index: 8;
-    background-color: $header-color;
-    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-  }
-
-  .navbar-nav {
-    display: flex;
-    flex-flow: column nowrap;
-    gap: 0.5rem;
-  }
-}
-
-.navigation-menu-item {
-  display: contents;
-  margin: 0 0.5rem;
-}
-
-.navigation-menu-button {
-  position: relative;
-  margin: 0 0.25rem;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  font-weight: bold;
-  color: $navigation-menu-color;
-  text-decoration: none;
-  transition: 120ms ease-out;
-  transition-proparty: color background-color;
-
-  &:hover {
-    color: lighten($navigation-menu-color, 16%);
-    background-color: rgb(lighten($navigation-menu-color, 64%), 0.48);
-    text-decoration: none;
-  }
-
-  &:active {
-    background-color: rgb(lighten($navigation-menu-color, 56%), 0.48);
-  }
 }
