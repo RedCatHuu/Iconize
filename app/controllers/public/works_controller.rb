@@ -5,6 +5,7 @@ class Public::WorksController < ApplicationController
   
   def new
     # サークル詳細から投稿画面に遷移してきた場合
+    @work = Work.new
     club_id = params[:club_id]
     if club_id != nil
       @club = Club.find(params[:club_id])
@@ -23,16 +24,16 @@ class Public::WorksController < ApplicationController
   end
   
   def create
-    work = current_user.works.build(work_params)
-    work.user_id = nil
+    @work = current_user.works.build(work_params)
+    @work.user_id = nil
     club_id = params[:work][:club_id]
     if club_id == nil
-      work.user_id = current_user.id
+      @work.user_id = current_user.id
     end
     
     # サムネイルを作成し保存
-    if work.save
-      work.items.each do |item|
+    if @work.save
+      @work.items.each do |item|
         item.images.each do |img|
           downloaded_image = img.download
           image = MiniMagick::Image.read(downloaded_image)
@@ -97,7 +98,7 @@ class Public::WorksController < ApplicationController
     # 現状itemが一つしかないから、配列で取得できない。後で直す。
     # which_items.each do |nth_item|
     for nth in 0..items_size
-      nth_image = image_numbers[nth][0].to_i
+      nth_image = image_numbers[nth][0].to_i  #[nth]としてもまだ配列なので[0]としてさらに配列から取得する
       input = work.items[nth].images[nth_image]
       # byebug
       base_image = base_image.composite(MiniMagick::Image.open(input)) do |config|

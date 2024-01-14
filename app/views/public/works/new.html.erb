@@ -1,5 +1,5 @@
 <%= render 'layouts/frame' do %>
-
+<%= render 'public/shared/error_messages', resource: @work %>
   <h2>作品投稿</h2>
   <% if @club != nil %>
     <p><%= @club.name %>の作品を投稿します。</p>
@@ -9,8 +9,8 @@
       <%= f.label :base_image, 'ベース画像' %><br>
       <%= f.file_field :base_image, accept: "image/*" %>
     </div>
-    <% for nth_form in 1..2 %>
-      <div style="border: 1px solid">
+    <% for nth_form in 0..9 %>
+      <div id="form-number-<%= nth_form %>" class="<% if nth_form == 0 %>active-form <% else %> non-active-form <% end %>" style="border: 1px solid;">
         <%= f.fields_for :items, Work.new.items.build do |item| %>
           <div>
             <%= item.label :genre, 'アイテムグループ名' %><br>
@@ -23,7 +23,13 @@
         <% end %>
       </div>
     <% end %>
-      
+    
+    <span id="add-form" class="btn">
+      アイテム欄を追加する（プラスボタンでいい）
+    </span>
+    <span id="remove-form" class="btn">
+      アイテム欄を削除する（マイナスボタンでいい）
+    </span>
     <div>
       <%= f.label :title, '作品名' %><br>
       <%= f.text_field :title %>
