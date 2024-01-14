@@ -8,6 +8,7 @@
       <%= image_tag @work.get_base_image(200, 200) %><br>
       <%= f.file_field :base_image, accept: "image/*" %>
     </div>
+    <!--画像表示のために変数を設定-->
     <% i = 0 %>
     <%= f.fields_for :items, @work.items do |item| %>
       <div>
@@ -15,8 +16,9 @@
         <%= item.text_field :genre %>
       </div>
       <div>
+        現在の画像
         <% @work.items[i].images.each do|image| %>
-          <%= image_tag image, size:'100x100' %>
+          <%= image_tag image, size:'150x150' %>
         <% end %>
       </div>
       <div>

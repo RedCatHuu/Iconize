@@ -70,6 +70,27 @@ class Public::WorksController < ApplicationController
   def update
     @work = Work.find(params[:id])
     if @work.update(work_params)
+      # サムネイルを作成
+      @work.items.each do |item|
+        # すでにあるサムネイルはすべて削除
+        item.thumbnails.destroy_all
+        item.images.each do |img|
+          downloaded_image = img.download
+          image = MiniMagick::Image.read(downloaded_image)
+          image.trim
+          tmp_file = Tempfile.new(['trimmed_', ".#{image.type.downcase}"], 'tmp')
+          image.write(tmp_file.path)
+          tmp_file.rewind
+          trimmed_blob = ActiveStorage::Blob.create_and_upload!(
+            io: tmp_file,
+            filename: "trimmed_#{img.filename}",
+            content_type: image.mime_type
+          )
+          item.thumbnails.attach(trimmed_blob)
+          tmp_file.close
+          tmp_file.unlink
+        end
+      end
       # byebug
       redirect_to work_path(@work), notice: "編集が完了しました。"
     else
