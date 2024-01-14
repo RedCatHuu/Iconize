@@ -51,7 +51,7 @@ class Public::WorksController < ApplicationController
           tmp_file.unlink
         end
       end
-      redirect_to work_path(work)
+      redirect_to work_path(@work)
     else
       # サークル詳細から来たならサークル情報を送る
       if club_id != nil
@@ -80,33 +80,20 @@ class Public::WorksController < ApplicationController
     image_numbers = []
     for nth_image in 0..items_size
       image_numbers << [params[:work]["item_number_#{nth_image}"]]
-    # image_numbers = [params[:work][:item_number_0],
-    #                 params[:work][:item_number_1],
-    #               params[:work][:item_number_2],
-    #               params[:work][:item_number_3],
-    #               params[:work][:item_number_4],
-    #               params[:work][:item_number_5],
-    #               params[:work][:item_number_6],
-    #               params[:work][:item_number_7],
-    #               params[:work][:item_number_8],
-    #               params[:work][:item_number_9]]
     end
     base_image = work.base_image
     base_image = base_image.download
     base_image = MiniMagick::Image.read(base_image)
     
-    # 現状itemが一つしかないから、配列で取得できない。後で直す。
-    # which_items.each do |nth_item|
     for nth in 0..items_size
       nth_image = image_numbers[nth][0].to_i  #[nth]としてもまだ配列なので[0]としてさらに配列から取得する
       input = work.items[nth].images[nth_image]
-      # byebug
+      
       base_image = base_image.composite(MiniMagick::Image.open(input)) do |config|
         config.compose "Over"
         config.gravity "NorthWest"
       end 
     end
-    # end 
     result = base_image
     send_data result.to_blob, type: "image/png", disposition: "attachment; filename = fine.png"
   end

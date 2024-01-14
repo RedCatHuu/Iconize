@@ -27,10 +27,20 @@ document.addEventListener("turbolinks:load", function() {
     // 作品投稿画面のフォーム削除
     $('#remove-form').on('click', function(){
       for (let nth_form = 9; nth_form >= 0; nth_form--){
-        if ($('#form-number-' + nth_form ).hasClass('active-form')){
-          $('#form-number-' + nth_form).removeClass('active-form');
-          $('#form-number-' + nth_form ).addClass('non-active-form');
-          $('#form-number-' + nth_form ).val('');
+        let current_form = $('#form-number-' + nth_form );
+        if (current_form.hasClass('active-form')){
+          current_form.removeClass('active-form');
+          current_form.addClass('non-active-form');
+          let itemGenreInput = current_form.find('input[name$="[genre]"]');
+          let itemImagesInput = current_form.find('input[name$="[images][]"]');
+    
+          if (itemGenreInput.length > 0) {
+            itemGenreInput.val('');
+          }
+    
+          if (itemImagesInput.length > 0) {
+            itemImagesInput.val('');
+          }
           break;
         }
       }

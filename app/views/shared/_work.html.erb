@@ -36,7 +36,7 @@
        <!--ラジオボックスで選択した画像の合成-->
       <%= form_with model: work, url: download_works_path, method: :post do |f| %>
         <% for nth_item in 0..work.items_qty %> <!--work.itemsの数だけ繰り返し。-->
-          <span id="<%= work.items[nth_item].genre %>" class="tab-pane <% if nth_item == 0 %>acti<% end %>">   <!--item.imagesの数だけ繰り返し-->
+          <span id="<%= work.items[nth_item].genre %>" class="tab-pane fade <% if nth_item == 0 %>active show<% end %>">   <!--item.imagesの数だけ繰り返し-->
             <%= work.items[nth_item].genre %>
               <% for nth_thumbnail in 0..work.items[nth_item].images_qty do %>  <!--item.imagesの数だけ繰り返し-->
                 <!--1つ目のアイテムは最初から選択された状態にする-->
@@ -50,22 +50,18 @@
                 <% end %>
               <% end %>
             
-             <!--for nth_item inのループの中にscriptを組み込むことで、49行目のnth_itemが使えるようになる。rubyにjsの変数を渡す簡単な方法があればもっと綺麗に書けるだろうけど。-->
+             <!--for nth_item inのループの中にscriptを組み込むことで、script内でnth_itemが使えるようになる。rubyにjsの変数を渡す簡単な方法があればもっと綺麗に書けるだろうけど。-->
               <script>
               // ラジオボックスをクリックして画像の表示、非表示
-              let item_size = "<%= work.items_qty %>";
               $(document).ready(function(){
-                for (let item = 0; item <= item_size; item++){
-                  let thumbnail_size = "<%= work.items[nth_item].images_qty %>"         // workのn番目のitemのimageの数を代入
-                  for (let thumbnail = 0; thumbnail <= thumbnail_size; thumbnail++){    // thumbnail_sizeの数になるまで繰り返し
-                    $('.item_number_' + item + '_' + thumbnail ).on('click', function(){
-                      console.log(thumbnail + 'button clicked!');
-                      for (let all_images_hide = 0; all_images_hide <= thumbnail_size; all_images_hide++){ // activeでない画像を消す。
-                        $('.image_' + item + '_' + all_images_hide ).hide();
-                      }
-                    $('.image_' + item + '_' + thumbnail ).toggle();
-                    })
-                  }
+                let thumbnail_size = "<%= work.items[nth_item].images_qty %>"         // workのn番目のitemのimageの数を代入
+                for (let thumbnail = 0; thumbnail <= thumbnail_size; thumbnail++){    // thumbnail_sizeの数になるまで繰り返し
+                  $('.item_number_' + "<%= nth_item %>" + '_' + thumbnail ).on('click', function(){
+                    for (let all_images_hide = 0; all_images_hide <= thumbnail_size; all_images_hide++){ // activeでない画像を消す。
+                      $('.image_' + "<%= nth_item %>" + '_' + all_images_hide ).hide();
+                    }
+                  $('.image_' + "<%= nth_item %>" + '_' + thumbnail ).toggle();
+                  })
                 }
               })
             </script>
