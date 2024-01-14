@@ -8,16 +8,22 @@
       <%= image_tag @work.get_base_image(200, 200) %><br>
       <%= f.file_field :base_image, accept: "image/*" %>
     </div>
-    
-    <%= f.fields_for :items, @work.items.build do |item| %>
+    <% i = 0 %>
+    <%= f.fields_for :items, @work.items do |item| %>
       <div>
         <%= item.label :genre, 'アイテムグループ名' %><br>
         <%= item.text_field :genre %>
       </div>
       <div>
+        <% @work.items[i].images.each do|image| %>
+          <%= image_tag image, size:'100x100' %>
+        <% end %>
+      </div>
+      <div>
         <%= item.label :images, 'アイテム画像' %><br>
         <%= item.file_field :images, multiple: true, accept: "image/*" %>
       </div>
+      <% i += 1 %>
     <% end %>
       
     <div>
@@ -31,7 +37,7 @@
     <div>
       <%= f.submit '作品を編集', class:"btn btn-success mt-3" %>
     </div>
-    
+    <%= link_to '削除', work_path, method: :delete %>
   <% end %>
 
 <% end %>

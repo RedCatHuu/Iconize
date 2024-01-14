@@ -68,9 +68,19 @@ class Public::WorksController < ApplicationController
   
 
   def update
+    @work = Work.find(params[:id])
+    if @work.update(work_params)
+      # byebug
+      redirect_to work_path(@work), notice: "編集が完了しました。"
+    else
+      render :edit
+    end
   end
 
   def destroy
+    work = Work.find(params[:id])
+    work.destroy
+    redirect_to works_path
   end
 
   def download
@@ -88,14 +98,13 @@ class Public::WorksController < ApplicationController
     for nth in 0..items_size
       nth_image = image_numbers[nth][0].to_i  #[nth]としてもまだ配列なので[0]としてさらに配列から取得する
       input = work.items[nth].images[nth_image]
-      
       base_image = base_image.composite(MiniMagick::Image.open(input)) do |config|
         config.compose "Over"
         config.gravity "NorthWest"
       end 
     end
     result = base_image
-    send_data result.to_blob, type: "image/png", disposition: "attachment; filename = fine.png"
+    send_data result.to_blob, type: "image/png", disposition: "attachment; filename = Iconize.png"
   end
   
   private
@@ -106,6 +115,7 @@ class Public::WorksController < ApplicationController
                                  :base_image,
                                  :club_id,
                                  items_attributes: [
+                                   :id,
                                    :genre,
                                    images: []
                                    ]
