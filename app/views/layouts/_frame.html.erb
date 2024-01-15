@@ -1,7 +1,21 @@
-<div class="container" style="background-color: #ffffff">
-  <div class="row">
-    <div class="col mx-auto">
+<% case type %>
+<% when "standard" %>
+
+<div class="container main-color py-5">
+  <div class="row justify-content-center">
+    <div class="col">
       <%= yield %>
     </div>
   </div>
 </div>
+
+<% when "session" %>
+<div class="container side-color py-5">
+  <div class="row justify-content-center ">
+    <div class="main-color col-lg-6 col-md-7 px-5 py-4">
+      <%= yield %>
+    </div>
+  </div>
+</div>
+
+<% end %>
