@@ -1,4 +1,4 @@
-<%= render 'layouts/frame' do %>
+<%= render 'layouts/frame', type: :standard do %>
   
   <h2>通報詳細</h2>
   <div>
@@ -6,7 +6,11 @@
     <p><%= I18n.t("enums.report.type.#{@report.type}") %></p>
     <h5>内容</h5>
     <p><%= @report.comment %></p>
-    <p>通報者:<%= @user.name %></p>
+    <% if @user == nil %>
+      <p>通報者: 退会済みユーザー</p>
+    <% else %>
+      <p>通報者:<%= @user.name %></p>
+    <% end %>
     <p>
       <%= link_to '通報一覧', admin_reports_path %>/
       <%= link_to '該当の作品', admin_work_path(@work) %>

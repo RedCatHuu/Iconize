@@ -5,6 +5,7 @@ ja:
         reprint: "無断転載をしている"
         anti_social: "反社会的内容を含んでいる"
         sexual: "性的表現を含んでいる"
+        violent: "暴力的表現を含んでいる"
         others: "その他"
       status:
         waiting: "未処理"

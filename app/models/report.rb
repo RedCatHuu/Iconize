@@ -4,7 +4,7 @@ class Report < ApplicationRecord
   belongs_to :user
   
   validates :type, presence: true
-  validates :comment, presence: true, length: {maximum: 400}
+  validates :comment, presence: true, length: {maximum: 1000}
   # typeカラムはactive_recordで既に使われており、エラー回避のため記入
   self.inheritance_column = :type_disabled
   
@@ -12,7 +12,8 @@ class Report < ApplicationRecord
     reprint: 0,
     anti_social: 1,
     sexual: 2,
-    others: 3
+    violent: 3,
+    others: 4
   }
   
   enum status: {

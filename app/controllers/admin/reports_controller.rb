@@ -1,7 +1,8 @@
 class Admin::ReportsController < ApplicationController
   
   def index
-    @reports = Report.all
+    @working_reports = Report.where.not(status: 2)
+    @resolved_reports = Report.where(status: 2)
   end 
   
   def show

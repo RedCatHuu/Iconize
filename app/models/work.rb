@@ -11,6 +11,7 @@ class Work < ApplicationRecord
   has_many :favorites,      dependent: :destroy
   has_many :read_counts,    dependent: :destroy
   has_many :work_comments,  dependent: :destroy
+  has_many :reports,        dependent: :destroy
   
   
   accepts_nested_attributes_for :items, reject_if: :all_blank
