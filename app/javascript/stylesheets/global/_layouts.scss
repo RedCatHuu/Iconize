@@ -1,12 +1,13 @@
 @use "../global/variables" as *;
 
 body{
+  color: #546e7a;
   font-family: $font-sans-serif;;
 }
 
 // Color
 .side-color{
-  background-color: #f9fafb;
+  background-color: $side-color;
 }
 
 .theme-color{

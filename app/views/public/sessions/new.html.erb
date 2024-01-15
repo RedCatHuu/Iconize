@@ -1,16 +1,15 @@
-<%= render "layouts/frame" do %>
-  <h2>ログイン</h2>
-  <p>h@h huuhuu</p>
+<%= render "layouts/frame", type: "session" do %>
+  <h4 align="center">ログイン</h4>
   
   <%= form_with model: resource, url: session_path(resource_name), local: true do |f| %>
     <div class="field">
       <%= f.label :email %><br />
-      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
     </div>
   
     <div class="field">
       <%= f.label :password %><br />
-      <%= f.password_field :password, autocomplete: "current-password" %>
+      <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
     </div>
   
     <% if devise_mapping.rememberable? %>
@@ -21,9 +20,12 @@
     <% end %>
   
     <div class="actions">
-      <%= f.submit "Log in" %>
+      <%= f.button :type => "submit", class: "btn btn-info btn-block" do %>
+        <i class="fa-solid fa-right-to-bracket"></i>　ログイン
+      <% end %>
     </div>
   <% end %>
+    <p class="session-border" align="center">Iconizeアカウントをお持ちでない方はこちら</p>
   
-  <%= render "public/shared/links" %>
+  <%= link_to '新規会員登録', new_user_registration_path, class: "btn btn-block btn-outline-secondary" %>
 <% end %>
