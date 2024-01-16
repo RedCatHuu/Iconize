@@ -25,7 +25,6 @@ Rails.application.routes.draw do
         get :accept
       end 
       member do 
-        get :club_works
         get :member
         get :permit
         get :leave

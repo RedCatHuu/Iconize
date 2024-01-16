@@ -1,4 +1,4 @@
-<%= render 'layouts/frame' do %>
+<%= render 'layouts/frame', type: :standard do %>
   <%= form_with model: @club, loacl: false do |f| %>
     <%= render 'public/shared/error_messages', resource: @club %>
     <!--エラーメッセージが出ない。-->

@@ -1,15 +1,27 @@
 // Bootstrap の Sass mixin を使えるようにするための記述
 @use "~bootstrap/scss/bootstrap" as *;
+@use "../global/variables" as *;
 
 .openbtn{
 	/*ボタン内側の基点となるためrelativeを指定。
 追従するナビゲーションの場合はfixed＋top、rightといった位置をセットで指定*/
-	position: relative;
-// 	background:#57a2c7;
+	position: fixed;
+	right: 20vh;
+	@include media-breakpoint-down(md){
+	    right: 10vh;
+	}
+	@include media-breakpoint-down(sm){
+	    right: 20px;
+	}
+	@include media-breakpoint-down(xs){
+	    right: 30px;
+	}
+	background: $theme-color;
 	cursor: pointer;
     width: 50px;
     height: 50px;
 // 	border-radius: 5px;
+    z-index: 9999;
 }
 
 /*ボタン内側*/
@@ -57,4 +69,78 @@
     transform: translateY(-6px) rotate(45deg);
     width: 30%;
     height: 2px;
+}
+
+// Nav-bar
+#horizontal-nav{
+    position: fixed;
+    z-index: 999;
+    /*ナビのスタート位置と形状*/
+	top: 66px;
+    right: -120%;
+	width: 20%;
+	@include media-breakpoint-down(md){
+	    width: 27%;
+	}
+	@include media-breakpoint-down(sm){
+	    width: 32%;
+	}
+	@include media-breakpoint-down(xs){
+	    width: 100%;
+	}
+    height: 350px;/*ナビの高さ*/
+	background: red;
+	transition: all 0.6s;
+}
+
+/*アクティブクラスがついたら位置を0に*/
+#horizontal-nav.panelactive{
+    top: 66px;
+    right: 20px;
+    @include media-breakpoint-down(xs){
+        top: 56px;
+	    right: 0;
+	}
+}
+
+/*ナビゲーションの縦スクロール*/
+// #horizontal-nav.panelactive #horizontal-nav-list{
+//     /*ナビの数が増えた場合縦スクロール*/
+//     position: fixed;
+//     z-index: 999; 
+//     width: 100%;
+//     height: 100vh;/*表示する高さ*/
+//     overflow: auto;
+//     -webkit-overflow-scrolling: touch;
+// }
+
+/*ナビゲーション*/
+#horizontal-nav ul {
+    /*ナビゲーション天地中央揃え*/
+    position: absolute;
+    z-index: 999;
+    top: 10%;
+    left: 10%;
+    // transform: translate(-50%,-50%);
+    padding: 0;
+}
+
+/*リストのレイアウト設定*/
+
+#horizontal-nav li{
+	list-style: none;
+    text-align: start;
+    @include media-breakpoint-down(xs){
+        text-align: center;
+    }
+}
+
+#horizontal-nav li a{
+	color: #333;
+	text-decoration: none;
+	padding: 10px 0;
+	display: block;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	font-weight: bold;
 }

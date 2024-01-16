@@ -1,47 +1,50 @@
 <% if admin_signed_in? %>
   <li>
-    <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: 'nav-link text-light' %>
+    <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
   </li>
   <li>
-    <%= link_to "通報一覧", admin_reports_path, class: 'nav-link text-light' %>
+    <%= link_to "通報一覧", admin_reports_path %>
   </li>
   <li>
-    <%= link_to "作品", admin_works_path, class: 'nav-link text-light' %>
+    <%= link_to "作品", admin_works_path %>
   </li>
   <li>
-    <%= link_to "サークル", admin_clubs_path, class: 'nav-link text-light' %>
+    <%= link_to "サークル", admin_clubs_path %>
   </li>
   <li>
-    <%= link_to "ユーザー", admin_users_path, class: 'nav-link text-light' %>
+    <%= link_to "ユーザー", admin_users_path %>
   </li>
 <% elsif user_signed_in? %>
   <li>
-    <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'nav-link text-light' %>
+    <%= current_user.name %>さん
   </li>
   <li>
-    <%= link_to "マイページ", my_page_user_path(current_user), class: 'nav-link text-light' %>
+    <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
   </li>
   <li>
-    <%= link_to "作品投稿", new_work_path, class: 'nav-link text-light' %>
+    <%= link_to "マイページ", my_page_user_path(current_user) %>
   </li>
   <li>
-    <%= link_to "作品一覧", works_path, class: 'nav-link text-light' %>
+    <%= link_to "作品投稿", new_work_path %>
   </li>
   <li>
-    <%= link_to "サークル", clubs_path, class: 'nav-link text-light' %>
+    <%= link_to "作品一覧", works_path %>
+  </li>
+  <li>
+    <%= link_to "サークル", clubs_path %>
   </li>
 <% else %>
   <li>
-  <%= link_to "ログイン", user_session_path, class: 'nav-link text-light' %>
+  <%= link_to "ログイン", user_session_path %>
   </li>
   <li>
-    <%= link_to "新規登録", new_user_registration_path, class: 'nav-link text-light' %>
+    <%= link_to "新規登録", new_user_registration_path %>
   </li>
   <li>
-    <%= link_to "作品", works_path, class: 'nav-link text-light' %>
+    <%= link_to "作品", works_path %>
   </li>
   <li>
-    <%= link_to "サークル", clubs_path, class: 'nav-link text-light' %>
+    <%= link_to "サークル", clubs_path %>
   </li>
 <% end %>
 
