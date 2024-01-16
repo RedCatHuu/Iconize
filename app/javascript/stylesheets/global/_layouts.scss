@@ -6,14 +6,18 @@ body{
 }
 
 // Color
+.theme-color{
+  background-color: $theme-color;
+}
+
 .side-color{
   background-color: $side-color;
 }
 
-.theme-color{
-  background-color: #005b98;
-}
-
 .main-color{
   background-color: white;
+}
+
+.btn-primary{
+  background-color: $theme-color;
 }

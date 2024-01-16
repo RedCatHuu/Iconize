@@ -1,5 +1,5 @@
 <% case type %>
-<% when "standard" %>
+<% when :standard %>
 
 <div class="container main-color py-5">
   <div class="row justify-content-center">
@@ -9,10 +9,10 @@
   </div>
 </div>
 
-<% when "session" %>
+<% when :session %>
 <div class="container side-color py-5">
   <div class="row justify-content-center ">
-    <div class="main-color col-lg-6 col-md-7 px-5 py-4">
+    <div class="main-color col-lg-6 col-md-7 px-5 py-4 shadow">
       <%= yield %>
     </div>
   </div>
