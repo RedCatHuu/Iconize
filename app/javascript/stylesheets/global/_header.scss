@@ -104,8 +104,8 @@
 	@include media-breakpoint-down(sm){
     right: 15px;
 	}
-  border: 1px solid;
-  border-color: $gray;
+  border: 0.5px solid;
+  border-color: $theme-color;
   border-radius: 5px;
   @extend .shadow-sm;
   @include media-breakpoint-down(xs){
@@ -130,7 +130,7 @@
     /*ナビゲーション天地中央揃え*/
   position: absolute;
   z-index: 999;
-  top: 10%;
+  top: 7%;
   left: 10%;
   padding: 0;
   @include media-breakpoint-down(xs){
@@ -151,7 +151,7 @@
 }
 
 #horizontal-nav li a{
-	color: #333;
+	color: $font-color;
 	text-decoration: none;
 	padding: 10px 0;
 	display: block;

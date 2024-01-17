@@ -1,7 +1,7 @@
 @use "../global/variables" as *;
 
 body{
-  color: #546e7a;
+  color: $font-color;
   font-family: $font-sans-serif;;
 }
 
