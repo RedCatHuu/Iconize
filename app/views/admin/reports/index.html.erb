@@ -1,0 +1,52 @@
+<%= render 'layouts/frame', type: "standard" do %>
+
+  <ul class="tab-menu">
+    <li><a href="#woking" class="active">処理中</a></li>
+    <li><a href="#resolved">解決済</a></li>
+  </ul>
+  
+  <table class="table">
+    <thead>
+      <tr>
+        <th>通報時間</th>
+        <th>通報id</th>
+        <th>タイプ</th>
+        <th>フラグ</th>
+      </tr>
+    </thead>
+    <div class="tab-contents">
+      <tbody id="working" class="area active">
+        <% @working_reports.each do |report| %>
+          <tr>
+            <td>
+              <%= link_to admin_report_path(report) do %>
+                <%= report.y_to_s %>
+              <% end %>
+            </td>
+            <td><%= report.id %></td>
+            <td><%= I18n.t("enums.report.type.#{report.type}") %></td>
+            <td><%= I18n.t("enums.report.status.#{report.status}") %></td>
+          </tr>
+        <% end %>
+      </tbody>
+      <tbody id="resolved" class="area">
+        <% @resolved_reports.each do |report| %>
+          <tr>
+            <td>
+              <%= link_to admin_report_path(report) do %>
+                <%= report.y_to_s %>
+              <% end %>
+            </td>
+            <td><%= report.id %></td>
+            <td><%= I18n.t("enums.report.type.#{report.type}") %></td>
+            <td><%= I18n.t("enums.report.status.#{report.status}") %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </div>
+  </table>
+    
+    
+    
+
+<% end %>

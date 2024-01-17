@@ -1,0 +1,95 @@
+<%= link_to "作品一覧に戻る", works_path %><br>
+  
+  <!--実際に画像が動くところ-->
+  <div class="position-relative">
+    <%= image_tag work.base_image, class:"position-absolute", size:"350x350" %>
+    <% for nth_item in 0..work.items_qty %>
+      <% for nth_image in 0..work.items[nth_item].images_qty do %>
+        <!--1つ目のアイテムは最初から表示-->
+        <% if nth_image == 0 %>
+          <span class="image_<%= nth_item %>_<%= nth_image %>">
+            <%= image_tag work.items[nth_item].images[nth_image], class:"position-absolute", size:"350x350" %>
+          </span>
+        <% else %>
+          <span class="image_<%= nth_item %>_<%= nth_image %>" style="display: none">
+            <%= image_tag work.items[nth_item].images[nth_image], class:"position-absolute", size:"350x350" %>
+          </span>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+  
+  <!--スペース用の空div-->
+  <div style="height: 350px"></div>
+  <div class="tabs">
+    <ul class="nav nav-tabs">
+      <% for i in 0..work.items_qty %>
+      <% genre = work.items[i].genre %>
+         <!-- 最初のitemにはactiveクラスを追加 -->
+        <li class="nav-item">
+          <a class="nav-link <% if i == 0 %>active<% end %>" data-toggle="tab" href="#<%= genre %>"><%= genre %></a>
+        </li>
+      <% end %>
+    </ul>
+    <div class="tab-content">
+      
+       <!--ラジオボックスで選択した画像の合成-->
+      <%= form_with model: work, url: download_works_path, method: :post do |f| %>
+        <% for nth_item in 0..work.items_qty %> <!--work.itemsの数だけ繰り返し。-->
+          <span id="<%= work.items[nth_item].genre %>" class="tab-pane fade <% if nth_item == 0 %>active show<% end %>">   <!--item.imagesの数だけ繰り返し-->
+            <%= work.items[nth_item].genre %>
+              <% for nth_thumbnail in 0..work.items[nth_item].images_qty do %>  <!--item.imagesの数だけ繰り返し-->
+                <!--1つ目のアイテムは最初から選択された状態にする-->
+                <% if nth_thumbnail == 0 %>
+                  <%= f.radio_button :"item_number_#{nth_item}", nth_thumbnail, checked: true %>
+                <% else %>
+                  <%= f.radio_button :"item_number_#{nth_item}", nth_thumbnail %>
+                <% end %>
+                <%= f.label :"item_number_#{nth_item}_#{nth_thumbnail}", class:"item_number_#{nth_item}_#{nth_thumbnail}" do %>
+                  <%= image_tag work.items[nth_item].thumbnails[nth_thumbnail], size:"80x80" %>
+                <% end %>
+              <% end %>
+            
+             <!--for nth_item inのループの中にscriptを組み込むことで、script内でnth_itemが使えるようになる。rubyにjsの変数を渡す簡単な方法があればもっと綺麗に書けるだろうけど。-->
+              <script>
+              // ラジオボックスをクリックして画像の表示、非表示
+              $(document).ready(function(){
+                let thumbnail_size = "<%= work.items[nth_item].images_qty %>"         // workのn番目のitemのimageの数を代入
+                for (let thumbnail = 0; thumbnail <= thumbnail_size; thumbnail++){    // thumbnail_sizeの数になるまで繰り返し
+                  $('.item_number_' + "<%= nth_item %>" + '_' + thumbnail ).on('click', function(){
+                    for (let all_images_hide = 0; all_images_hide <= thumbnail_size; all_images_hide++){ // activeでない画像を消す。
+                      $('.image_' + "<%= nth_item %>" + '_' + all_images_hide ).hide();
+                    }
+                  $('.image_' + "<%= nth_item %>" + '_' + thumbnail ).toggle();
+                  })
+                }
+              })
+            </script>
+          </span>
+        <% end %>
+        <br>
+        <%= f.hidden_field :id, :value => work.id %>
+        <%= f.submit 'チェックボックスで選択した画像の合成' %>
+      <% end %>
+    </div>
+  </div>
+  
+  <div>
+  </div>
+  <p>
+    <% if work.club_id == nil %>
+      <%= link_to my_page_user_path(work.user) do %>
+        <%= work.user.name %>
+      <% end %>
+    <% else %>
+      <%= link_to club_path(work.club) do %>
+        <%= work.club.name %>
+      <% end %>
+    <% end %>
+    <br>
+    <%= work.title %>
+    <br><%= work.caption %>
+  </p>
+  <p></p>
+  <p>投稿時間:<%= work.y_to_s %></p>
+  

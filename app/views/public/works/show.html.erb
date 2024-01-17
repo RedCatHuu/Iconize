@@ -1,0 +1,29 @@
+<%= render 'layouts/frame', type: :standard do %>
+  
+  <%= render 'shared/work', work: @work %>
+  
+  <%= link_to '通報', report_work_path %>
+  
+  <div id="favorite-buttons-<%= @work.id %>">
+    <%= render 'public/favorites/favorite', work: @work %>
+  </div>
+  
+  閲覧数: <%= @work.read_counts.size %>
+  
+  <% if @work.user == current_user %>
+    <%= link_to '作品の編集', edit_work_path(@work) %>
+  <% end %>
+  <p4>非公開の場合リンクから検索しても表示しないようにしたい。</p4>
+  
+  <div id="comment_form">
+    <%= form_with model: [@work, WorkComment.new], local: false, method: :post do |f| %>
+      <%= f.text_area :comment, style: "width: 100%;", rows: '5', class: "comment_textarea" %>
+      <%= f.submit "送信" %>
+    <% end %>
+  </div>
+  
+  <div id="work-comments">
+    <%= render 'public/work_comments/work_comment', work: @work %>
+  </div>
+  
+<% end %>

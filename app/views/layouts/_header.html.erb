@@ -1,0 +1,37 @@
+<header>
+  <nav class="navbar navbar-expand-ex navbar-dark theme-color">
+    <div class="container">
+      
+      <a class="navbar-brand mr-5" href="/">
+        Iconize
+      </a>
+      
+      <div class="mr">
+        <%= render 'layouts/search' %>
+      </div>
+      
+      <% if user_signed_in? %>
+        <div class="ml-5">
+          <p class="text-light mt-3"></p>
+        </div>
+      <% end %>
+      <!--<button class="navbar-toggler openbtn" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">-->
+      <button class="openbtn">
+        <span></span><span></span><span></span>
+      </button>
+      
+      <!--<div class="collapse collapse-horizontal" id="navbarNavDropdown">-->
+      <div id="horizontal-nav">
+        <!--<div id="horizontal-nav-list">-->
+          <ul>
+            <%= render "layouts/navitems" %>
+          </ul>
+        <!--</div>-->
+      </div>
+      
+    </div>
+  </nav>
+  
+  <!--<div style="height: 10px; background-color: #f9bb02"></div>-->
+  <%= render "layouts/flash" %>
+</header>

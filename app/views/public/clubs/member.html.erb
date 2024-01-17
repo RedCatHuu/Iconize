@@ -1,0 +1,4 @@
+<%= render 'layouts/frame', type: :standard do %>
+  <%= link_to '戻る', club_path(@club) %>
+  <%= render 'shared/users', users: @club.users %>
+<% end %>

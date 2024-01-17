@@ -1,0 +1,14 @@
+.FooterFixed{
+  min-height: 100vh; /* ←コンテンツの高さの最小値＝ブラウザの高さに指定 */
+  position: relative;
+  padding-bottom: 100px; /* ←フッターの高さを指定 */
+  box-sizing: border-box;
+  
+}
+
+footer{
+    position: absolute;
+    bottom: 0;
+    min-width: 100%;
+    text-align: center;
+}

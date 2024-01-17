@@ -1,0 +1,40 @@
+<div class="container">
+  
+  <div class="row">
+    <h2><%= @user.name %>のマイページ</h2>
+  </div>
+  
+  <div class="row">
+    <div class="col-auto">
+      <%= image_tag @user.get_profile_image(200, 200) %>
+    </div>
+    <div class="col-7">
+      <p><%= @user.introduction %></p>
+    </div>
+    <div class="col-2">
+      <% if @user.is_active %>
+        <div>
+          <%= link_to 'アカウントの無効', confirm_admin_user_path(way: "invalidate") %>
+        </div>
+      <% else %>
+        <div>
+          <%= link_to 'アカウントの有効', confirm_admin_user_path(way: "validate") %>
+        </div>
+      <% end %>
+      <span>
+        <%= link_to 'アカウントの削除', confirm_admin_user_path(way: "destroy") %>
+      </span>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col">
+      <div id="my-work" class="area active">
+        <p>投稿数: <%= @user.works.size %> 作品</p>
+        <%= render 'shared/works', works: @user.works, name: false %>
+      </div>
+    </div>
+  </div>
+  
+</div>
+  

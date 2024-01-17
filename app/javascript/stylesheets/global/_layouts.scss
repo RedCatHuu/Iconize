@@ -1,0 +1,23 @@
+@use "../global/variables" as *;
+
+body{
+  color: #546e7a;
+  font-family: $font-sans-serif;;
+}
+
+// Color
+.theme-color{
+  background-color: $theme-color;
+}
+
+.side-color{
+  background-color: $side-color;
+}
+
+.main-color{
+  background-color: $main-color;
+}
+
+.btn-primary{
+  background-color: $theme-color;
+}

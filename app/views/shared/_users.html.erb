@@ -1,0 +1,33 @@
+<table class="table">
+  <tbody>
+    <% users.each do |user| %>
+      <tr>
+        <!--管理者か一般ユーザーかでリンク先分岐-->
+        <% if admin_signed_in? %>
+          <td><%= user.status %>marginいじって中央寄せにする</td>
+          <td style="width: 5%">
+            <%= link_to admin_user_path(user) do %>
+              <%= image_tag user.get_profile_image(100, 100) %>
+            <% end %><br>
+          </td>
+        <% else %>
+          <td>
+            <%= link_to my_page_user_path(user) do %>
+              <%= image_tag user.get_profile_image(100, 100) %>
+            <% end %><br>
+          </td>
+        <% end %>
+        
+        <td>
+          <%= user.name %><br>
+          <%= user.introduction %>
+        </td>
+        <td>
+          4つ最新の作品を並べる。
+        </td>
+        
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

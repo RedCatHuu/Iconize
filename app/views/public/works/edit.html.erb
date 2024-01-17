@@ -1,0 +1,45 @@
+<%= render 'layouts/frame', type: :standard do %>
+
+  <h2>作品投稿</h2>
+  <%= form_with model: @work do |f| %>
+    <div>
+      <%= f.label :base_image, 'ベース画像' %><br>
+      <p>現在のベース画像</p>
+      <%= image_tag @work.get_base_image(200, 200) %><br>
+      <%= f.file_field :base_image, accept: "image/*" %>
+    </div>
+    <!--画像表示のために変数を設定-->
+    <% i = 0 %>
+    <%= f.fields_for :items, @work.items do |item| %>
+      <div>
+        <%= item.label :genre, 'アイテムグループ名' %><br>
+        <%= item.text_field :genre %>
+      </div>
+      <div>
+        現在の画像
+        <% @work.items[i].images.each do|image| %>
+          <%= image_tag image, size:'150x150' %>
+        <% end %>
+      </div>
+      <div>
+        <%= item.label :images, 'アイテム画像' %><br>
+        <%= item.file_field :images, multiple: true, accept: "image/*" %>
+      </div>
+      <% i += 1 %>
+    <% end %>
+      
+    <div>
+      <%= f.label :title, '作品名' %><br>
+      <%= f.text_field :title %>
+    </div>
+    <div>
+      <%= f.label :caption, 'キャプション' %><br>
+      <%= f.text_area :caption, class:"form-control", size: "1x5" %>
+    </div>
+    <div>
+      <%= f.submit '作品を編集', class:"btn btn-success mt-3" %>
+    </div>
+    <%= link_to '削除', work_path, method: :delete %>
+  <% end %>
+
+<% end %>
