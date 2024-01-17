@@ -3,6 +3,12 @@
 document.addEventListener("turbolinks:load", function() {
   $(document).ready(function(event){
     
+    // トグル制御
+    $(".openbtn").click(function () {
+      $(this).toggleClass('active');
+      $("#horizontal-nav").toggleClass('panelactive');
+    });
+    
     // タブの切り替え
     $('.tab-menu a').on('click', function(event) {
       $(".tab-contents .area").hide();

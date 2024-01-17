@@ -2,11 +2,15 @@
 @use './global/layouts';
 @use './global/header';
 @use './global/footer';
-@use './global/session';
+@use './global/narrow';
 @use './global/tab';
 @use './public/work_new';
 
 // チェックボックスを消す
 input[type="checkbox"] {
   display: non;
+}
+
+input[type="file"]{
+  display: none;
 }

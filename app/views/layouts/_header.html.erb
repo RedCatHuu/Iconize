@@ -1,5 +1,5 @@
 <header>
-  <nav class="navbar navbar-expand-lg navbar-dark theme-color" style="">
+  <nav class="navbar navbar-expand-ex navbar-dark theme-color">
     <div class="container">
       
       <a class="navbar-brand mr-5" href="/">
@@ -12,18 +12,21 @@
       
       <% if user_signed_in? %>
         <div class="ml-5">
-          <p class="text-light mt-3"><%= current_user.name %>さん</p>
+          <p class="text-light mt-3"></p>
         </div>
       <% end %>
-      
-      <button class="navbar-toggler openbtn" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <!--<button class="navbar-toggler openbtn" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">-->
+      <button class="openbtn">
         <span></span><span></span><span></span>
       </button>
-
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav ml-auto">
-          <%= render "layouts/navitems" %>
-        </ul>
+      
+      <!--<div class="collapse collapse-horizontal" id="navbarNavDropdown">-->
+      <div id="horizontal-nav">
+        <!--<div id="horizontal-nav-list">-->
+          <ul>
+            <%= render "layouts/navitems" %>
+          </ul>
+        <!--</div>-->
       </div>
       
     </div>

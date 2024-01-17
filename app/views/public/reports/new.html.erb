@@ -1,15 +1,15 @@
-<%= render 'layouts/frame', type: :session do %>
+<%= render 'layouts/frame', type: :narrow do %>
 
   <%= form_with model: @report, local: true do |f| %>
   
     <%= render 'public/shared/error_messages', resource: @report %>
     <h4 class="text-center border-title">問題を報告する</h4>
-    <div class="field">
+    <div class="field mt-3">
       <h6>どのような問題が起きていますか？</h6>
-      <%= f.select :type, Report.types.keys.map { |type| [I18n.t("enums.report.type.#{type}"), type] }, class: "form-control" %>
+      <%= f.select :type, Report.types.keys.map { |type| [I18n.t("enums.report.type.#{type}"), type] }, {}, class: "form-control" %>
     </div>
     <div class="field mt-3">
-      <h6>内容を記述してください（1000字まで）</h6>
+      <h6>内容を記述してください（1,000字まで）</h6>
       <%= f.text_area :comment, class: "form-control", size: "1x5" %>
     </div>
     <div class="action">

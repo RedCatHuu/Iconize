@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     
-    <div class="col-2">
+    <div class="col-2 col-sm">
       <p><%= @club.name %></p>
       
       <p>
@@ -12,7 +12,7 @@
         作品数:<%= @club.works.count %>
       </p>
     </div>
-    <div class="col-7">
+    <div class="col-7 col-sm-5">
       <p class="mt-5"><%= @club.introduction %></p>
     </div>
     <div class="col-auto mt-5">
@@ -21,7 +21,7 @@
         <%= link_to '承認待ち一覧', permit_club_path(@club) %><br>
         <%= link_to '作品投稿', new_work_path(club_id: @club.id) %>
       <% elsif @club.users.exists?(id: current_user.id) %>
-        <%= link_to '退出', leave_club_path %><br>
+        <%= link_to '退出', leave_club_path, 'data-confirm': "サークルを脱退しますか？" %><br>
         <%= link_to '作品投稿', new_work_path(club_id: @club.id) %>
       <% elsif @club.permits.exists?(user_id: current_user.id) %>
         <%= link_to '申請取消', club_permits_path(@club), method: :delete, 'data-confirm': "申請を取り消しますか？" %>

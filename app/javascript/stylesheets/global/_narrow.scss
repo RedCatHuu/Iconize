@@ -4,11 +4,16 @@
   margin-top: 10px;
   padding-top: 6px;
   border-top: 1px dashed;
-  border-color: $border-color;
+  border-color: $gray;
 }
 
 .border-title{
   border-bottom: 1px solid;
+  padding-bottom: 10px;
   margin-bottom: 10px;
-  border-color: $border-color;
+  border-color: $gray;
+}
+
+.type-narrow div{
+  margin-top: 10px;
 }
