@@ -16,4 +16,11 @@
 
 .type-narrow div{
   margin-top: 10px;
+  position: relative;
+}
+
+.wrench{
+  position: absolute;
+  top: 75px;
+  left: 85px;
 }
