@@ -71,6 +71,7 @@
   height: 2px;
 }
 
+
 // Nav-bar
 #horizontal-nav{
   position: fixed;
@@ -96,9 +97,16 @@
 /*アクティブクラスがついたら位置を0に*/
 #horizontal-nav.panelactive{
   top: 66px;
-  right: 20px;
+  right: 15vh;
+  @include media-breakpoint-down(md){
+    right: 7vh;
+	}
+	@include media-breakpoint-down(sm){
+    right: 15px;
+	}
   border: 1px solid;
   border-color: $gray;
+  border-radius: 5px;
   @extend .shadow-sm;
   @include media-breakpoint-down(xs){
     top: 56px;
