@@ -6,8 +6,8 @@
   <% end %>
   <%= form_with model: Work.new do |f| %>
     <div>
-      <%= f.label :base_image, 'ベース画像' %><br>
-      <%= f.file_field :base_image, accept: "image/*" %>
+      <%= f.label :thumbnail, 'ベース画像' %><br>
+      <%= f.file_field :thumbnail, accept: "image/*" %>
     </div>
     <% for nth_form in 0..9 %>
       <div id="form-number-<%= nth_form %>" class="<% if nth_form == 0 %>active-form <% else %> non-active-form <% end %>" style="border: 1px solid;">
