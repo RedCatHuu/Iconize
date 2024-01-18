@@ -15,7 +15,7 @@ class Work < ApplicationRecord
   
   
   accepts_nested_attributes_for :items, reject_if: :all_blank
-  has_one_attached :base_image
+  has_one_attached :thumbnail
   
   def items_qty
     quantity = self.items.size

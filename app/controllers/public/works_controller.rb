@@ -136,7 +136,7 @@ class Public::WorksController < ApplicationController
   def work_params
     params.require(:work).permit(:title,
                                  :caption, 
-                                 :base_image,
+                                 :thumbnail,
                                  :club_id,
                                  items_attributes: [
                                    :id,
