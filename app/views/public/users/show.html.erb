@@ -1,14 +1,12 @@
 <div class="container py-5 main-color">
   
   <div class="row">
+    
     <div class="col-auto">
       <%= image_tag @user.get_profile_image(200, 200), class: "rounded-circle" %>
     </div>
-    <div class="col-7">
-      <h4><%= @user.name %>のマイページ</h4>
-      <p><%= @user.introduction %></p>
-    </div>
-    <div class="col-auto">
+    <div class="col-auto details">
+      <h4><%= @user.name %></h4>
       <span id="relationships">
         <%= render 'public/users/relationships', user: @user %>
       </span>
@@ -25,6 +23,10 @@
         </span>
       <% end %>
     </div>
+    <div class="col-lg-7 col-md- col-sm-12 introduction">
+      <p class=""><%= @user.introduction %></p>
+    </div>
+    
   </div>
   
   <div class="row">
