@@ -21,6 +21,8 @@
   
   <!--スペース用の空div-->
   <div style="height: 350px"></div>
+  
+  <!--タブ-->
   <div class="tabs">
     <ul class="nav nav-tabs">
       <% for i in 0..work.items_qty %>
@@ -33,7 +35,7 @@
     </ul>
     <div class="tab-content">
       
-       <!--ラジオボックスで選択した画像の合成-->
+       <!--ラジオボックス-->
       <%= form_with model: work, url: download_works_path, method: :post do |f| %>
         <% for nth_item in 0..work.items_qty %> <!--work.itemsの数だけ繰り返し。-->
           <span id="<%= work.items[nth_item].genre %>" class="tab-pane fade <% if nth_item == 0 %>active show<% end %>">   <!--item.imagesの数だけ繰り返し-->

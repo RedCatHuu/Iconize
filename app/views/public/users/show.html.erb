@@ -1,14 +1,11 @@
-<div class="container">
-  
-  <div class="row">
-    <h2><%= @user.name %>のマイページ</h2>
-  </div>
+<div class="container py-5 main-color">
   
   <div class="row">
     <div class="col-auto">
-      <%= image_tag @user.get_profile_image(200, 200) %>
+      <%= image_tag @user.get_profile_image(200, 200), class: "rounded-circle" %>
     </div>
     <div class="col-7">
+      <h4><%= @user.name %>のマイページ</h4>
       <p><%= @user.introduction %></p>
     </div>
     <div class="col-auto">
