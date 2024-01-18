@@ -1,3 +1,6 @@
 <%= render 'layouts/frame', type: :standard do %>
+  <% if @following == [] %>
+    <h4>フォローしていません</h4>
+  <% end %>
   <%= render 'shared/users', users: @following %>
 <% end %>

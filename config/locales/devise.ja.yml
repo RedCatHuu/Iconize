@@ -1,6 +1,8 @@
 ja:
   activerecord:
     attributes:
+      club:
+        name: サークル名
       report:
         comment: 報告内容
       user:
@@ -29,6 +31,7 @@ ja:
         unlock_token: ロック解除用トークン
         updated_at: 更新日
     models:
+      club: サークル情報
       user: ユーザー情報
       report: レポート
   devise:

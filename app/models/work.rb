@@ -36,7 +36,7 @@ class Work < ApplicationRecord
   end 
   
   def get_thumbnail(width, height)
-    base_image.variant(resize_to_limit: [width, height]).processed
+    thumbnail.variant(resize_to_limit: [width, height]).processed
   end 
   
   def favorited_by?(user)

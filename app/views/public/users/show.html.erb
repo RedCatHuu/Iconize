@@ -5,8 +5,11 @@
     <div class="col-auto">
       <%= image_tag @user.get_profile_image(200, 200), class: "rounded-circle" %>
     </div>
+    
     <div class="col-auto details">
+      
       <h4><%= @user.name %></h4>
+      
       <span id="relationships">
         <%= render 'public/users/relationships', user: @user %>
       </span>
@@ -22,8 +25,10 @@
           <%= @user.followers.count %>
         </span>
       <% end %>
+      
     </div>
-    <div class="col-lg-7 col-md- col-sm-12 introduction">
+    
+    <div class="col-lg-8 col-12 introduction">
       <p class=""><%= @user.introduction %></p>
     </div>
     

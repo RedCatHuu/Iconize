@@ -21,15 +21,13 @@
   <!--スペース用の空div-->
   <div style="height: 350px"></div>
   
-  <!--タブ-->
-  <div class="tabs">
-    <ul class="nav nav-tabs">
+    <!--タブ-->
+    <ul class="user-tab-menu">
       <% for i in 0..work.items_qty %>
         <% item = work.items[i] %>
         <li class="nav-item">
-          
          <!-- 最初のitemにはactiveクラスを追加 -->
-          <a class="nav-link 
+          <a class="
             <% if i == 0 %>
               active
             <% end %>"
@@ -39,12 +37,13 @@
         </li>
       <% end %>
     </ul>
-    <div class="tab-content">
+    
+    <div class="user-tab-contents">
       
        <!--ラジオボックス-->
       <%= form_with model: work, url: download_works_path, method: :post do |f| %>
         <% for nth_item in 0..work.items_qty %> <!--work.itemsの数だけ繰り返し。-->
-          <span id="img<%= work.items[nth_item].id %>" class="tab-pane fade <% if nth_item == 0 %>active show<% end %> " style="position: absolute;">   <!--item.imagesの数だけ繰り返し-->
+          <span id="img<%= work.items[nth_item].id %>" class="area <% if nth_item == 0 %>active<% end %> ">   <!--item.imagesの数だけ繰り返し-->
               <% for nth_thumbnail in 0..work.items[nth_item].images_qty do %>  <!--item.imagesの数だけ繰り返し-->
                 <!--1つ目のアイテムは最初から選択された状態にする-->
                 <% if nth_thumbnail == 0 %>
@@ -74,13 +73,12 @@
             </script>
           </span>
         <% end %>
-        <div style="height: 70px"></div>
         <br>
         <%= f.hidden_field :id, :value => work.id %>
         <%= f.submit 'チェックボックスで選択した画像の合成' %>
       <% end %>
     </div>
-  </div>
+  
   
   <div>
   </div>

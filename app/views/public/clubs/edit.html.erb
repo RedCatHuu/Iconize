@@ -1,22 +1,23 @@
-<%= render 'layouts/frame', type: :standard do %>
+<%= render 'layouts/frame', type: :narrow do %>
   <%= form_with model: @club, loacl: false do |f| %>
     <%= render 'public/shared/error_messages', resource: @club %>
-    <!--エラーメッセージが出ない。-->
       <div>
         <%= f.label :club_image, 'プロフィール画像' %><br>
         <%= f.file_field :club_image, accept: "image/*" %>
       </div>
-      <div>
-        <%= f.label :name, 'ニックネーム' %><br>
+      <div class="form-group">
+        <%= f.label :name, 'サークル名（50字まで）' %><br>
         <%= f.text_field :name %>
       </div>
-      <div>
-        <%= f.label :introduction, 'サークル紹介' %><br>
-        <%= f.text_area :introduction, size:"100x5" %>
+      <div class="form-group">
+        <%= f.label :introduction, 'サークル紹介（400字まで）' %><br>
+        <%= f.text_area :introduction, class: "form-control", size:"1x5" %>
       </div>
-      <%= f.submit '変更を保存' %>
+      <div class="form-group">
+        <%= f.submit '変更を保存', class: "btn btn-primary btn-block" %>
+      </div>
       
-      <%= link_to 'キャンセル', my_page_user_path %>
+      <%= link_to 'キャンセル', club_path(@club) %>
     
   <% end %>
 <% end %>

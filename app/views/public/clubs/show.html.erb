@@ -1,9 +1,12 @@
-<div class="container">
+<div class="container py-5 main-color">
   <div class="row">
     
-    <div class="col-2 col-sm">
-      <p><%= @club.name %></p>
-      
+    <div class="col-auto">
+      <%= image_tag @club.get_club_image(200, 200), class: "rounded-circle" %>
+    </div>
+    
+    <div class="col-auto details">
+      <h4><%= @club.name %></h4>
       <p>
         サークル作成者:<%= @owner.name %><br>
         メンバー数:<%= link_to member_club_path do %>
@@ -11,25 +14,28 @@
                    <% end %><br>
         作品数:<%= @club.works.count %>
       </p>
+      <p>
+        <% if current_user == @owner %>
+          <%= link_to 'サークル情報の編集', edit_club_path %><br>
+          <%= link_to '承認待ち一覧', permit_club_path(@club) %><br>
+          <%= link_to '作品投稿', new_work_path(club_id: @club.id) %>
+        <% elsif @club.users.exists?(id: current_user.id) %>
+          <%= link_to '退出', leave_club_path, 'data-confirm': "サークルを脱退しますか？" %><br>
+          <%= link_to '作品投稿', new_work_path(club_id: @club.id) %>
+        <% elsif @club.permits.exists?(user_id: current_user.id) %>
+          <%= link_to '申請取消', club_permits_path(@club), method: :delete, 'data-confirm': "申請を取り消しますか？" %>
+        <% else %>
+          <%= link_to '加入申請', club_permits_path(@club), method: :post, 'data-confirm': "申請を送りますか？" %>
+        <% end %>
+      </p>
     </div>
-    <div class="col-7 col-sm-5">
-      <p class="mt-5"><%= @club.introduction %></p>
+    
+    <div class="col-lg-8 col-12 introduction">
+      <p class=""><%= @club.introduction %></p>
     </div>
-    <div class="col-auto mt-5">
-      <% if current_user == @owner %>
-        <%= link_to 'サークル情報の編集', edit_club_path %><br>
-        <%= link_to '承認待ち一覧', permit_club_path(@club) %><br>
-        <%= link_to '作品投稿', new_work_path(club_id: @club.id) %>
-      <% elsif @club.users.exists?(id: current_user.id) %>
-        <%= link_to '退出', leave_club_path, 'data-confirm': "サークルを脱退しますか？" %><br>
-        <%= link_to '作品投稿', new_work_path(club_id: @club.id) %>
-      <% elsif @club.permits.exists?(user_id: current_user.id) %>
-        <%= link_to '申請取消', club_permits_path(@club), method: :delete, 'data-confirm': "申請を取り消しますか？" %>
-      <% else %>
-        <%= link_to '加入申請', club_permits_path(@club), method: :post, 'data-confirm': "申請を送りますか？" %>
-      <% end %>
-    </div>
+    
   </div>
+  
   <div class="row">
     <div class="col">
       
@@ -86,13 +92,13 @@
           </div>
           
           <div id="tab2" class="tab-pane fade show">
-            <div id="-comments">
+            <div id="-comments" class="comment_textarea">
               <%= render 'public/club_comments/club_comment', club: @club %>
             </div>
             
             <div id="club-comment-form">
               <%= form_with model: [@club, ClubComment.new], local: false, method: :post do |f| %>
-                <%= f.text_area :comment, style: "width: 100%;", rows: '5', class: "comment_textarea" %>
+                <%= f.text_area :comment, size: "50x5", class: "comment_textarea" %>
                 <%= f.submit "送信" %>
               <% end %>
             </div>
