@@ -91,7 +91,6 @@ class Public::WorksController < ApplicationController
           tmp_file.unlink
         end
       end
-      # byebug
       redirect_to work_path(@work), notice: "編集が完了しました。"
     else
       render :edit

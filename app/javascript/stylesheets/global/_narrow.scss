@@ -1,12 +1,5 @@
 @use "../global/variables" as *;
 
-.session-border{
-  margin-top: 10px;
-  padding-top: 6px;
-  border-top: 1px dashed;
-  border-color: $gray;
-}
-
 .border-title{
   border-bottom: 1px solid;
   padding-bottom: 10px;
@@ -23,4 +16,35 @@
   position: absolute;
   top: 75px;
   left: 85px;
+}
+
+.border-top-dashed{
+  margin-top: 10px;
+  padding-top: 6px;
+  border-top: 1px dashed;
+  border-color: $gray;
+}
+
+.border-bottom-dashed{
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px dashed;
+  border-color: $gray;
+}
+
+.file-upload-container {
+  position: relative;
+
+  .file-input {
+    display: none;
+  }
+
+  .custom-file-label {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+  }
 }

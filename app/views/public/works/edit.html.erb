@@ -5,7 +5,7 @@
     <div>
       <%= f.label :base_image, 'ベース画像' %><br>
       <p>現在のベース画像</p>
-      <%= image_tag @work.get_base_image(200, 200) %><br>
+      <%= image_tag @work.get_thumbnail(200, 200) %><br>
       <%= f.file_field :base_image, accept: "image/*" %>
     </div>
     <!--画像表示のために変数を設定-->
