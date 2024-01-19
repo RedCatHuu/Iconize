@@ -1,7 +1,6 @@
-<% works.each_slice(5) do |works_row| %>
-  <div class="row">
-    <% works_row.each do |work| %>
-      <div class="col">
+  <div class="justify-contents">
+    <% works.each do |work| %>
+      <div class="images-size">
         <!--管理者か一般ユーザーかでリンク先分岐-->
         <% if admin_signed_in? %>
           <%= link_to admin_work_path(work) do %>
@@ -58,4 +57,3 @@
       </div>
     <% end %>
   </div>
-<% end %>
