@@ -5,15 +5,10 @@
     <% for nth_item in 0..work.items_qty %>
       <% for nth_image in 0..work.items[nth_item].images_qty do %>
         <!--1つ目のアイテムは最初から表示-->
-        <% if nth_image == 0 %>
-          <span class="image_<%= nth_item %>_<%= nth_image %> position-absolute start-50">
+          <span class="image_<%= nth_item %>_<%= nth_image %> <%= nth_image == 0 ? '' : 'non-active-image'%> position-absolute start-50">
             <%= image_tag work.items[nth_item].images[nth_image], size:"350x350" %>
           </span>
-        <% else %>
-          <span class="image_<%= nth_item %>_<%= nth_image %> position-absolute top-50" style="display: none">
-            <%= image_tag work.items[nth_item].images[nth_image], size:"350x350" %>
-          </span>
-        <% end %>
+        
       <% end %>
     <% end %>
   </div>
@@ -38,21 +33,29 @@
       <% end %>
     </ul>
     
-    <div class="user-tab-contents">
+    
       
        <!--ラジオボックス-->
       <%= form_with model: work, url: download_works_path, method: :post do |f| %>
+      <div class="user-tab-contents">
         <% for nth_item in 0..work.items_qty %> <!--work.itemsの数だけ繰り返し。-->
           <span id="img<%= work.items[nth_item].id %>" class="area <% if nth_item == 0 %>active<% end %> ">   <!--item.imagesの数だけ繰り返し-->
               <% for nth_thumbnail in 0..work.items[nth_item].images_qty do %>  <!--item.imagesの数だけ繰り返し-->
                 <!--1つ目のアイテムは最初から選択された状態にする-->
                 <% if nth_thumbnail == 0 %>
+                
                   <%= f.radio_button :"item_number_#{nth_item}", nth_thumbnail, checked: true %>
+                  <%= f.label :"item_number_#{nth_item}_#{nth_thumbnail}", class:"item_number_#{nth_item}_#{nth_thumbnail} active-thumbnail thumbnail-layouts" do %>
+                    <%= image_tag work.items[nth_item].thumbnails[nth_thumbnail], size:"80x80" %>
+                  <% end %>
+                  
                 <% else %>
+                
                   <%= f.radio_button :"item_number_#{nth_item}", nth_thumbnail %>
-                <% end %>
-                <%= f.label :"item_number_#{nth_item}_#{nth_thumbnail}", class:"item_number_#{nth_item}_#{nth_thumbnail}" do %>
-                  <%= image_tag work.items[nth_item].thumbnails[nth_thumbnail], size:"80x80" %>
+                  <%= f.label :"item_number_#{nth_item}_#{nth_thumbnail}", class:"item_number_#{nth_item}_#{nth_thumbnail} thumbnail-layouts" do %>
+                    <%= image_tag work.items[nth_item].thumbnails[nth_thumbnail], size:"80x80" %>
+                  <% end %>
+                  
                 <% end %>
               <% end %>
             
@@ -62,11 +65,20 @@
               $(document).ready(function(){
                 let thumbnail_size = "<%= work.items[nth_item].images_qty %>"         // workのn番目のitemのimageの数を代入
                 for (let thumbnail = 0; thumbnail <= thumbnail_size; thumbnail++){    // thumbnail_sizeの数になるまで繰り返し
-                  $('.item_number_' + "<%= nth_item %>" + '_' + thumbnail ).on('click', function(){
+                  let current_thumbnail = $('.item_number_' + "<%= nth_item %>" + '_' + thumbnail )
+                  current_thumbnail.on('click', function(){
                     for (let all_images_hide = 0; all_images_hide <= thumbnail_size; all_images_hide++){ // activeでない画像を消す。
                       $('.image_' + "<%= nth_item %>" + '_' + all_images_hide ).hide();
+                      $('.item_number_' + "<%= nth_item %>" + '_' + all_images_hide ).removeClass('active-thumbnail');
                     }
-                  $('.image_' + "<%= nth_item %>" + '_' + thumbnail ).toggle();
+                    
+                    $('.image_' + "<%= nth_item %>" + '_' + thumbnail ).toggle();
+                    
+                    if (current_thumbnail.hasClass('active-thumbnail')){
+                      current_thumbnail.removeClass('active-thumbnail');
+                    }else{
+                      current_thumbnail.addClass('active-thumbnail');
+                    }
                   })
                 }
               })
@@ -75,9 +87,11 @@
         <% end %>
         <br>
         <%= f.hidden_field :id, :value => work.id %>
-        <%= f.submit 'チェックボックスで選択した画像の合成' %>
+        
+        </div>
+        <%= f.submit 'ダウンロード', class: "btn btn-primary" %>
       <% end %>
-    </div>
+    
   
   
   <div>

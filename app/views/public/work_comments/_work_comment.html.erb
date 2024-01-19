@@ -2,7 +2,7 @@
   <tbody>
     <% work.work_comments.each do |work_comment| %>
       <tr>
-        <td>
+        <td style="width: 100px;">
           <%= link_to user_path(work_comment.user_id) do %>
             <%= image_tag work_comment.user.get_profile_image(70, 70) %><br>
             <%= work_comment.user.name %>

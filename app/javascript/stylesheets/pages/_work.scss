@@ -18,3 +18,23 @@
   width: 160px;
   margin: 10px;
 }
+
+.radiobtn{
+  border: 2px solid red;
+}
+
+.non-active-image{
+  display: none;
+}
+
+.thumbnail-layouts{
+  border-radius: 5px;
+  margin: 5px;
+  background-color: white;
+}
+
+.active-thumbnail{
+  border: 5px solid;
+  border-color: orange;
+  padding: 5px;
+}
