@@ -10,14 +10,14 @@
   <% end %>
   
   <%= form_with model: Work.new do |f| %>
-    <div class="text-center mt-4">
+    <div class="text-center mt-4 border-bottom-dashed">
       <%= f.label :thumbnail, 'サムネ画像を追加する', class: "btn btn-primary" %><br>
       <%= f.file_field :thumbnail, accept: "image/*" %>
     </div>
     <% for nth_form in 0..9 %>
-      <div id="form-number-<%= nth_form %>" class="<% if nth_form == 0 %>active-form <% else %> non-active-form <% end %>">
+      <div id="form-number-<%= nth_form %>" class="<% if nth_form == 0 %>active-form <% else %> non-active-form <% end %> border-bottom-dashed">
         <%= f.fields_for :items, Work.new.items.build do |item| %>
-          <div class="text-center border-top-dashed">
+          <div class="text-center">
             <%= item.label :genre, 'アイテムグループ名' %><br>
             <%= item.text_field :genre %>
           </div>
@@ -66,7 +66,11 @@
       <% end %>
       <%= f.submit '作品を投稿', class:"btn btn-success mt-3" %>
     </div>
-    <p>アイテムの1つ目の画像に全面透過画像を追加することで、何もない状態が表示されます。</p>
+    <p class="mt-4 text-center">-投稿について-</p>
+    <ul>
+      <li>1つの作品につき、10のアイテムグループを作成できます。</li>
+      <li>1つのアイテムグループにつき、10の画像を添付できます。</li>
+    </ul>
   <% end %>
 
 <% end %>
