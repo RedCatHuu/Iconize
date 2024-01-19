@@ -21,3 +21,13 @@ body{
 .btn-primary{
   background-color: $theme-color;
 }
+
+
+// チェックボックスを消す
+input[type="checkbox"] {
+  display: non;
+}
+
+// input[type="file"]{
+//   display: none;
+// }

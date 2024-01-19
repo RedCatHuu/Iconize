@@ -1,34 +1,41 @@
-<%= render 'layouts/frame', type: :standard do %>
-<%= render 'public/shared/error_messages', resource: @work %>
-  <h2>作品投稿</h2>
+<%= render 'layouts/frame', type: :narrow do %>
+
+  <%= render 'public/shared/error_messages', resource: @work %>
+  
+  <h2 class="text-center border-title">作品投稿</h2>
+  
+  <!--サークルからの投稿か？-->
   <% if @club != nil %>
     <p><%= @club.name %>の作品を投稿します。</p>
   <% end %>
+  
   <%= form_with model: Work.new do |f| %>
-    <div>
-      <%= f.label :base_image, 'ベース画像' %><br>
-      <%= f.file_field :base_image, accept: "image/*" %>
+    <div class="text-center mt-4">
+      <%= f.label :thumbnail, 'サムネ画像を追加する', class: "btn btn-primary" %><br>
+      <%= f.file_field :thumbnail, accept: "image/*" %>
     </div>
     <% for nth_form in 0..9 %>
-      <div id="form-number-<%= nth_form %>" class="<% if nth_form == 0 %>active-form <% else %> non-active-form <% end %>" style="border: 1px solid;">
+      <div id="form-number-<%= nth_form %>" class="<% if nth_form == 0 %>active-form <% else %> non-active-form <% end %>">
         <%= f.fields_for :items, Work.new.items.build do |item| %>
-          <div>
+          <div class="text-center border-top-dashed">
             <%= item.label :genre, 'アイテムグループ名' %><br>
             <%= item.text_field :genre %>
           </div>
-          <div>
-            <%= item.label :images, 'アイテム画像' %><br>
-            <%= item.file_field :images, multiple: true, accept: "image/*" %>
-          </div>
+          <% for nth_image_form in 0..2 %>
+            <div class="text-center">
+              <%= item.label :images, "アイテム画像を追加する", class: "btn btn-primary mt-3" %>
+              <%= item.file_field :images, accept: "image/*", multiple: true %>
+            </div>
+          <% end %>
         <% end %>
       </div>
     <% end %>
-    
+    <div style="height: 100px"></div>
     <span id="add-form" class="btn">
-      アイテム欄を追加する（プラスボタンでいい）
+      <i class="fa-solid fa-circle-plus fa-2xl" style="color: #74C0FC;"></i>
     </span>
     <span id="remove-form" class="btn">
-      アイテム欄を削除する（マイナスボタンでいい）
+      <i class="fa-solid fa-circle-minus fa-2xl" style="color: #fc7373;"></i>
     </span>
     <div>
       <%= f.label :title, '作品名' %><br>

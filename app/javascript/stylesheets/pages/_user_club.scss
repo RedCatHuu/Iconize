@@ -1,0 +1,16 @@
+@use "~bootstrap/scss/bootstrap" as *;
+
+.introduction{
+  margin-top: 20px;
+	@media only screen and (min-width: 992px) {
+    margin-top: 40px;
+  }
+}
+
+.details{
+  font-size: 13px;
+  margin-top: 40px;
+  @include media-breakpoint-down(xs){
+    margin-top: 20px;
+	}
+}

@@ -91,7 +91,6 @@ class Public::WorksController < ApplicationController
           tmp_file.unlink
         end
       end
-      # byebug
       redirect_to work_path(@work), notice: "編集が完了しました。"
     else
       render :edit
@@ -112,18 +111,21 @@ class Public::WorksController < ApplicationController
     for nth_image in 0..items_size
       image_numbers << [params[:work]["item_number_#{nth_image}"]]
     end
-    base_image = work.base_image
+    base_item_number = image_numbers[0][0].to_i
+    base_image = work.items[0].images[base_item_number]
     base_image = base_image.download
     base_image = MiniMagick::Image.read(base_image)
     
-    for nth in 0..items_size
-      nth_image = image_numbers[nth][0].to_i  #[nth]としてもまだ配列なので[0]としてさらに配列から取得する
-      input = work.items[nth].images[nth_image]
-      base_image = base_image.composite(MiniMagick::Image.open(input)) do |config|
-        config.compose "Over"
-        config.gravity "NorthWest"
-      end 
-    end
+    if not items_size == 0
+      for nth in 1..items_size
+        nth_image = image_numbers[nth][0].to_i  #[nth]としてもまだ配列なので[0]としてさらに配列から取得する
+        input = work.items[nth].images[nth_image]
+        base_image = base_image.composite(MiniMagick::Image.open(input)) do |config|
+          config.compose "Over"
+          config.gravity "NorthWest"
+        end 
+      end
+    end 
     result = base_image
     send_data result.to_blob, type: "image/png", disposition: "attachment; filename = Iconize.png"
   end
@@ -133,7 +135,7 @@ class Public::WorksController < ApplicationController
   def work_params
     params.require(:work).permit(:title,
                                  :caption, 
-                                 :base_image,
+                                 :thumbnail,
                                  :club_id,
                                  items_attributes: [
                                    :id,

@@ -18,6 +18,25 @@ document.addEventListener("turbolinks:load", function() {
       event.preventDefault();
     });
     
+        // タブの切り替え　User
+    $('.user-tab-menu a').on('click', function(event) {
+      $(".user-tab-contents .area").hide();
+      $(".user-tab-menu .active").removeClass("active");
+      $(this).addClass("active");
+      $($(this).attr("href")).show();
+      event.preventDefault();
+    });
+    
+    
+      for (let nth_form = 0; nth_form <= 9; nth_form++){
+        $('input' + nth_form).on('change', function () {
+            var file = $(this).prop('files')[0];
+            $('.file-name' + nth_form).text(file.name);
+        });
+      }
+
+    
+    
     // 作品投稿画面のフォーム追加
     $('#add-form').on('click', function(){
       for (let nth_form = 0; nth_form <= 9; nth_form++){

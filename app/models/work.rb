@@ -1,7 +1,7 @@
 class Work < ApplicationRecord
   
   
-  validates :title, :base_image, presence: true
+  validates :title, :thumbnail, presence: true
   validates :caption, length: {maximum: 400}
   
   belongs_to :user
@@ -15,7 +15,7 @@ class Work < ApplicationRecord
   
   
   accepts_nested_attributes_for :items, reject_if: :all_blank
-  has_one_attached :base_image
+  has_one_attached :thumbnail
   
   def items_qty
     quantity = self.items.size
@@ -35,8 +35,8 @@ class Work < ApplicationRecord
     end 
   end 
   
-  def get_base_image(width, height)
-    base_image.variant(resize_to_limit: [width, height]).processed
+  def get_thumbnail(width, height)
+    thumbnail.variant(resize_to_limit: [width, height]).processed
   end 
   
   def favorited_by?(user)

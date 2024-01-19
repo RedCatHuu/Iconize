@@ -1,18 +1,19 @@
-<%= render 'layouts/frame' do %>
+<%= render 'layouts/frame', type: :narrow do %>
   <%= render 'public/shared/error_messages', resource: Club.new %>
   
-  <h2>サークル作成画面</h2>
+  <h4 class="border-title text-center">サークル作成画面</h4>
   <%= form_with model: Club.new do |f| %>
-    <div>
-      <%= f.label :name, 'サークル名' %><br>
+    <div class="form-group">
+      <%= f.label :name, 'サークル名（50字まで）' %><br>
       <%= f.text_field :name %>
     </div>
-    <div>
-      <%= f.label :introduction, 'サークル紹介' %><br>
-      <%= f.text_area :introduction, size:"100x5" %>
+    <div class="form-group">
+      <%= f.label :introduction, 'サークル紹介（400字まで）' %><br>
+      <%= f.text_area :introduction, class: "form-control", size:"1x5" %>
     </div>
-    <div>
-      <%= f.submit "サークルを作成する", class:"" %>
+    <div class="form-group">
+      <%= f.submit "サークルを作成する", class:"btn btn-block btn-info mt-4" %>
+      <%= link_to 'キャンセル', request.referer, class: "btn btn-outline-secondary btn-block mt-4" %>
     </div>
   <% end %>
   

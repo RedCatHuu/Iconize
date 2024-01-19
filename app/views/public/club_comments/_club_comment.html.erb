@@ -8,13 +8,13 @@
             <%= club_comment.user.name %>
           <% end %>
         </td>
-        <td>
+        <td style="padding: 20px">
           <%= club_comment.comment %>
         </td>
         <% if not admin_signed_in? %>
           <% if club_comment.user_id == current_user.id || club.owner_id %>
-            <td>
-              <%= link_to '削除', club_club_comment_path(club_id: club.id, id: club_comment.id), remote: true, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger" %>
+            <td style="width: 48px">
+              <%= link_to '削除', club_club_comment_path(club_id: club.id, id: club_comment.id), remote: true, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-outline-secondary btn-sm" %>
             </td>
           <% end %>
         <% end %>
