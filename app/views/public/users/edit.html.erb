@@ -5,7 +5,7 @@
       <h4 class="border-title text-center">プロフィールの編集</h4>
       <div class="form-gro">
         <%= image_tag @user.get_profile_image(100, 100), class: "rounded-circle" %>
-        <%= f.label :profile_image, 'プロフィール画像' do %>
+        <%= f.label :profile_image, 'プロフィール画像', class: "btn" do %>
           <i class="fa-solid fa-wrench fa-flip-horizontal fa-2xl wrench"></i>
         <% end %><br>
         <%= f.file_field :profile_image, accept: "image/*" %>

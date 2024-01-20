@@ -4,6 +4,10 @@
 }
 
 .active-form{
+  display: block;
+}
+
+.active-image-form{
   display: flex;
   flex-wrap: wrap;
 }

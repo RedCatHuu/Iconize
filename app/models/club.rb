@@ -1,7 +1,7 @@
 class Club < ApplicationRecord
   
   validates :name, presence: true, length: {minimum: 2, maximum: 50}
-  validates :introduction, presence: true, length: {maximum: 400}
+  validates :introduction, length: {maximum: 400}
   
   has_many :works,          dependent: :destroy
   has_many :permits,        dependent: :destroy

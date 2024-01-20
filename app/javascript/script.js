@@ -77,7 +77,7 @@ document.addEventListener("turbolinks:load", function() {
         for (let nth_image_form = 0; nth_image_form <= 9; nth_image_form++){
           let current_form = $('#image-form-number-' + nth_form + '-' + nth_image_form );
           if (current_form.hasClass('non-active-form')){
-            current_form.addClass('active-form');
+            current_form.addClass('active-image-form');
             current_form.removeClass('non-active-form');
             break;
           }
@@ -88,8 +88,8 @@ document.addEventListener("turbolinks:load", function() {
       $('#remove-image-form-' + nth_form).on('click', function(){
         for (let nth_image_form = 9; nth_image_form >= 0; nth_image_form--){
           let current_form = $('#image-form-number-' + nth_form + '-'  + nth_image_form );
-          if (current_form.hasClass('active-form')){
-            current_form.removeClass('active-form');
+          if (current_form.hasClass('active-image-form')){
+            current_form.removeClass('active-image-form');
             current_form.addClass('non-active-form');
             let itemImagesInput = current_form.find('input[name$="[images][]"]');
             if (itemImagesInput.length > 0) {
@@ -110,6 +110,13 @@ document.addEventListener("turbolinks:load", function() {
       }
       
     }
+    
+    // ファイル名表示
+    $('.file-name-input').on('change', function () {
+      let file = $(this).prop('files')[0];
+      $('.file-name-output').text(file.name);
+    });
+    
     
 
     
