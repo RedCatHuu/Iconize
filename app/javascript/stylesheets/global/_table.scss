@@ -1,7 +1,32 @@
+@use "../global/variables" as *;
+
 .row-width td:nth-last-child(5){
   width: 25%;
 }
 
 .row-width td:nth-last-child(6){
   width: 5%;
+}
+
+.td-sm{
+  width: 16px;
+}
+
+
+.td-sm a{
+  text-decoration: none;
+  color: $td-btn-color;
+  -ms-writing-mode: tb-rl;
+  writing-mode: vertical-rl;
+  border-radius: 10px;
+  border: 1px solid;
+  border-color: $td-btn-color;
+  padding: 10px;
+  margin-top: 45%;
+  
+}
+
+.td-sm a:hover{
+  color : white;
+  background-color: $td-btn-color;
 }

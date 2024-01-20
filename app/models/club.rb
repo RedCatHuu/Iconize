@@ -8,6 +8,7 @@ class Club < ApplicationRecord
   has_many :user_clubs
   has_many :users,          through: :user_clubs
   has_many :club_comments,  dependent: :destroy
+  has_many :unpermited_users, through: :permits, source: :user
   
   has_one_attached :club_image
   
