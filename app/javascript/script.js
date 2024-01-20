@@ -27,15 +27,11 @@ document.addEventListener("turbolinks:load", function() {
       event.preventDefault();
     });
     
-    
-      for (let nth_form = 0; nth_form <= 9; nth_form++){
-        $('input' + nth_form).on('change', function () {
-            var file = $(this).prop('files')[0];
-            $('.file-name' + nth_form).text(file.name);
-        });
-      }
-
-    
+    // サムネイル画像のファイル名表示
+    $('.input-thumbnail').on('change', function () {
+      let file = $(this).prop('files')[0];
+      $('#new-thumbnail').text(file.name);
+    });
     
     // 作品投稿画面のフォーム追加（アイテム欄）
     $('#add-form').on('click', function(){
@@ -73,8 +69,9 @@ document.addEventListener("turbolinks:load", function() {
       }
     })
     
-    // 作品投稿画面のイメージ欄のフォーム追加 追加・削除
+    // 作品投稿画面のイメージ欄のフォーム追加・削除、ファイル名表示
     for (let nth_form = 0; nth_form <= 9; nth_form++){
+      
       // 追加
       $('#add-image-form-' + nth_form).on('click', function(){
         for (let nth_image_form = 0; nth_image_form <= 9; nth_image_form++){
@@ -102,6 +99,15 @@ document.addEventListener("turbolinks:load", function() {
           }
         }
       })
+      
+      
+      // アイテム画像のファイル名表示
+      for (let nth_image_form = 0; nth_image_form <= 9; nth_image_form++){
+        $('#item-file-' + nth_form + '-' + nth_image_form).on('change', function () {
+            let file = $(this).prop('files')[0];
+            $('.file-name-' + nth_form + '-' + nth_image_form).text(file.name);
+        });
+      }
       
     }
     

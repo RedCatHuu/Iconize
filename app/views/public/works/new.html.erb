@@ -10,9 +10,10 @@
   <% end %>
   
   <%= form_with model: Work.new do |f| %>
-    <div class="text-center mt-4 border-bottom-dashed">
+    <div class="mt-4 border-bottom-dashed">
       <%= f.label :thumbnail, 'サムネ画像を追加する', class: "btn btn-primary" %><br>
-      <%= f.file_field :thumbnail, accept: "image/*" %>
+      <%= f.file_field :thumbnail, accept: "image/*", class: "input-thumbnail" %>
+      <p id="new-thumbnail" class="">選択されていません</p>
     </div>
     <% for nth_form in 0..9 %>
     
@@ -20,17 +21,18 @@
     
       <div id="form-number-<%= nth_form %>" class="<%= nth_form == 0 ? 'active-form' : 'non-active-form' %> border-bottom-dashed">
         <%= f.fields_for :items, Work.new.items.build do |item| %>
-          <div class="text-center">
+          <div>
             <%= item.label :genre, 'アイテムグループ名' %><br>
             <%= item.text_field :genre %>
           </div>
+          
           <% for nth_image_form in 0..9 %>
-            
             <div id="image-form-number-<%= nth_form %>-<%= nth_image_form %>" class="text-center <%= nth_image_form == 0 ? 'active-form' : 'non-active-form' %>" >
-              <%= item.label :images, "アイテム画像を追加する", class: "btn btn-primary mt-3" %>
-              <%= item.file_field :images, accept: "image/*", multiple: true %>
+              <!--item.labelだとid指定がうまくいかないためlabelタグ使用-->
+              <label for="item-file-<%= nth_form %>-<%= nth_image_form %>" class="btn btn-primary">ファイルを選択</label>
+              <%= item.file_field :images, accept: "image/*", multiple: true, id: "item-file-#{nth_form}-#{nth_image_form}" %>
+              <p class="file-name-<%= nth_form %>-<%= nth_image_form %>" style="padding-top: 6px; padding-left: 10px;">選択されていません</p>
             </div>
-            
           <% end %>
           
           <div class="text-right">

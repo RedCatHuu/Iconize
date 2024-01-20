@@ -4,7 +4,8 @@
 }
 
 .active-form{
-  display: block;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 // Work.index

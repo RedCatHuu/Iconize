@@ -31,20 +31,3 @@
   border-bottom: 1px dashed;
   border-color: $gray;
 }
-
-.file-upload-container {
-  position: relative;
-
-  .file-input {
-    display: none;
-  }
-
-  .custom-file-label {
-    background-color: #4CAF50;
-    color: white;
-    padding: 8px 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    display: inline-block;
-  }
-}
