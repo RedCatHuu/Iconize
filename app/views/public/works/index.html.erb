@@ -1,3 +1,4 @@
 <%= render 'layouts/frame', type: :standard do %>
+    <p>全<%= @works.size %>作品</p>
   <%= render 'shared/works', works: @works, name: true %>
 <% end %>

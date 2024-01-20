@@ -24,8 +24,8 @@ body{
 
 
 // チェックボックスを消す
-input[type="checkbox"] {
-  display: non;
+input[type="radio"] {
+  display: none;
 }
 
 // input[type="file"]{

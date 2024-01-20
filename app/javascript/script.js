@@ -37,7 +37,7 @@ document.addEventListener("turbolinks:load", function() {
 
     
     
-    // 作品投稿画面のフォーム追加
+    // 作品投稿画面のフォーム追加（アイテム欄）
     $('#add-form').on('click', function(){
       for (let nth_form = 0; nth_form <= 9; nth_form++){
         let current_form = $('#form-number-' + nth_form );
@@ -46,6 +46,8 @@ document.addEventListener("turbolinks:load", function() {
           current_form.removeClass('non-active-form');
           break;
         }
+        
+        
       }
     })
     
@@ -70,6 +72,42 @@ document.addEventListener("turbolinks:load", function() {
         }
       }
     })
+    
+    // 作品投稿画面のイメージ欄のフォーム追加 追加・削除
+    for (let nth_form = 0; nth_form <= 9; nth_form++){
+      // 追加
+      $('#add-image-form-' + nth_form).on('click', function(){
+        for (let nth_image_form = 0; nth_image_form <= 9; nth_image_form++){
+          let current_form = $('#image-form-number-' + nth_form + '-' + nth_image_form );
+          if (current_form.hasClass('non-active-form')){
+            current_form.addClass('active-form');
+            current_form.removeClass('non-active-form');
+            break;
+          }
+        }
+      })
+          
+      // 削除
+      $('#remove-image-form-' + nth_form).on('click', function(){
+        for (let nth_image_form = 9; nth_image_form >= 0; nth_image_form--){
+          let current_form = $('#image-form-number-' + nth_form + '-'  + nth_image_form );
+          if (current_form.hasClass('active-form')){
+            current_form.removeClass('active-form');
+            current_form.addClass('non-active-form');
+            let itemImagesInput = current_form.find('input[name$="[images][]"]');
+            if (itemImagesInput.length > 0) {
+              itemImagesInput.val('');
+            }
+            break;
+          }
+        }
+      })
+      
+    }
+    
+
+    
+    
     
   })
 })

@@ -10,33 +10,52 @@
   <% end %>
   
   <%= form_with model: Work.new do |f| %>
-    <div class="text-center mt-4">
+    <div class="text-center mt-4 border-bottom-dashed">
       <%= f.label :thumbnail, 'サムネ画像を追加する', class: "btn btn-primary" %><br>
       <%= f.file_field :thumbnail, accept: "image/*" %>
     </div>
     <% for nth_form in 0..9 %>
-      <div id="form-number-<%= nth_form %>" class="<% if nth_form == 0 %>active-form <% else %> non-active-form <% end %>">
+    
+    
+    
+      <div id="form-number-<%= nth_form %>" class="<%= nth_form == 0 ? 'active-form' : 'non-active-form' %> border-bottom-dashed">
         <%= f.fields_for :items, Work.new.items.build do |item| %>
-          <div class="text-center border-top-dashed">
+          <div class="text-center">
             <%= item.label :genre, 'アイテムグループ名' %><br>
             <%= item.text_field :genre %>
           </div>
-          <% for nth_image_form in 0..2 %>
-            <div class="text-center">
+          <% for nth_image_form in 0..9 %>
+            
+            <div id="image-form-number-<%= nth_form %>-<%= nth_image_form %>" class="text-center <%= nth_image_form == 0 ? 'active-form' : 'non-active-form' %>" >
               <%= item.label :images, "アイテム画像を追加する", class: "btn btn-primary mt-3" %>
               <%= item.file_field :images, accept: "image/*", multiple: true %>
             </div>
+            
           <% end %>
+          
+          <div class="text-right">
+            <span id="add-image-form-<%= nth_form %>" class="btn">
+              <i class="fa-solid fa-circle-plus fa-2xl" style="color: #74C0FC;"></i>
+            </span>
+            <span id="remove-image-form-<%= nth_form %>" class="btn">
+              <i class="fa-solid fa-circle-minus fa-2xl" style="color: #fc7373;"></i>
+            </span>
+          </div>
+          
         <% end %>
       </div>
     <% end %>
-    <div style="height: 100px"></div>
-    <span id="add-form" class="btn">
-      <i class="fa-solid fa-circle-plus fa-2xl" style="color: #74C0FC;"></i>
-    </span>
-    <span id="remove-form" class="btn">
-      <i class="fa-solid fa-circle-minus fa-2xl" style="color: #fc7373;"></i>
-    </span>
+    
+    <div class="text-center">
+      <span id="add-form" class="btn-outline-info">
+        アイテム欄の追加
+      </span>
+       /
+      <span id="remove-form" class="btn-outline-info">
+        アイテム欄の削除
+      </span>
+    </div>
+    
     <div>
       <%= f.label :title, '作品名' %><br>
       <%= f.text_field :title %>
@@ -51,7 +70,11 @@
       <% end %>
       <%= f.submit '作品を投稿', class:"btn btn-success mt-3" %>
     </div>
-    <p>アイテムの1つ目の画像に全面透過画像を追加することで、何もない状態が表示されます。</p>
+    <p class="mt-4 text-center">-投稿について-</p>
+    <ul>
+      <li>1つの作品につき、10のアイテムグループを作成できます。</li>
+      <li>1つのアイテムグループにつき、10の画像を添付できます。</li>
+    </ul>
   <% end %>
 
 <% end %>
