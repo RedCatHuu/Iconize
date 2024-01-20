@@ -2,6 +2,7 @@ class Work < ApplicationRecord
   
   
   validates :title, :thumbnail, presence: true
+  validates :title, length: {maximum: 30}
   validates :caption, length: {maximum: 400}
   
   belongs_to :user

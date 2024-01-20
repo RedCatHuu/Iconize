@@ -31,6 +31,11 @@ class Public::WorksController < ApplicationController
       @work.user_id = current_user.id
     end
     
+    unless @work.items[0].present?
+      flash.now[:alert] = "アイテム欄を記入してください"
+      return render :new
+    end
+    
     # サムネイルを作成し保存
     if @work.save
       @work.items.each do |item|
@@ -69,6 +74,12 @@ class Public::WorksController < ApplicationController
 
   def update
     @work = Work.find(params[:id])
+    
+    unless @work.items[0].present?
+      flash.now[:alert] = "アイテム欄を記入してください"
+      return render :edit
+    end
+    
     if @work.update(work_params)
       # サムネイルを作成
       @work.items.each do |item|
