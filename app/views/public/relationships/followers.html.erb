@@ -2,5 +2,5 @@
   <% if  @followers == [] %>
     <h3>フォロワーはいません</h3>
   <% end %>
-  <%= render 'shared/users', users: @followers %>
+  <%= render 'shared/users', users: @followers, club: nil %>
 <% end %>
