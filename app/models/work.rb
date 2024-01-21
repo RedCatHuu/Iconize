@@ -23,6 +23,10 @@ class Work < ApplicationRecord
     quantity = quantity - 1
   end 
   
+  def total
+    9 - items_qty
+  end 
+  
   # 投稿時間（年/月/日 時間:分:秒）
   def y_to_s
     self.created_at.strftime('%Y/%m/%d %H:%M:%S')

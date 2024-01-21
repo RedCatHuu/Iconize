@@ -69,7 +69,6 @@ class Public::WorksController < ApplicationController
   
   def edit
     @work = Work.find(params[:id])
-    @nth = 9 - @work.items_qty
   end 
   
 

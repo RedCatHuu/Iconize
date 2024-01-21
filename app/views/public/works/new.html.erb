@@ -15,9 +15,8 @@
       <%= f.file_field :thumbnail, accept: "image/*", class: "input-thumbnail" %>
       <p id="new-thumbnail" class="">選択されていません</p>
     </div>
+    
     <% for nth_form in 0..9 %>
-    
-    
     
       <div id="form-number-<%= nth_form %>" class="<%= nth_form == 0 ? 'active-form' : 'non-active-form' %> border-bottom-dashed">
         <%= f.fields_for :items, Work.new.items.build do |item| %>
@@ -27,7 +26,7 @@
           </div>
           
           <% for nth_image_form in 0..9 %>
-            <div id="image-form-number-<%= nth_form %>-<%= nth_image_form %>" class="text-center <%= nth_image_form == 0 ? 'active-image-form' : 'non-active-form' %>" >
+            <div id="" class="image-form-number-<%= nth_form %>-<%= nth_image_form %> text-center <%= nth_image_form == 0 ? 'active-image-form' : 'non-active-form' %>" >
               <!--item.labelだとid指定がうまくいかないためlabelタグ使用-->
               <label for="item-file-<%= nth_form %>-<%= nth_image_form %>" class="btn btn-primary">ファイルを選択</label>
               <%= item.file_field :images, accept: "image/*", multiple: true, id: "item-file-#{nth_form}-#{nth_image_form}" %>
@@ -36,10 +35,10 @@
           <% end %>
           
           <div class="text-right">
-            <span id="add-image-form-<%= nth_form %>" class="btn">
+            <span class="add-image-form-<%= nth_form %> btn">
               <i class="fa-solid fa-circle-plus fa-2xl" style="color: #74C0FC;"></i>
             </span>
-            <span id="remove-image-form-<%= nth_form %>" class="btn">
+            <span class="remove-image-form-<%= nth_form %> btn">
               <i class="fa-solid fa-circle-minus fa-2xl" style="color: #fc7373;"></i>
             </span>
           </div>

@@ -73,9 +73,9 @@ document.addEventListener("turbolinks:load", function() {
     for (let nth_form = 0; nth_form <= 9; nth_form++){
       
       // 追加
-      $('#add-image-form-' + nth_form).on('click', function(){
+      $('.add-image-form-' + nth_form).on('click', function(){
         for (let nth_image_form = 0; nth_image_form <= 9; nth_image_form++){
-          let current_form = $('#image-form-number-' + nth_form + '-' + nth_image_form );
+          let current_form = $('.image-form-number-' + nth_form + '-' + nth_image_form );
           if (current_form.hasClass('non-active-form')){
             current_form.addClass('active-image-form');
             current_form.removeClass('non-active-form');
@@ -85,9 +85,9 @@ document.addEventListener("turbolinks:load", function() {
       })
           
       // 削除
-      $('#remove-image-form-' + nth_form).on('click', function(){
+      $('.remove-image-form-' + nth_form).on('click', function(){
         for (let nth_image_form = 9; nth_image_form >= 0; nth_image_form--){
-          let current_form = $('#image-form-number-' + nth_form + '-'  + nth_image_form );
+          let current_form = $('.image-form-number-' + nth_form + '-'  + nth_image_form );
           if (current_form.hasClass('active-image-form')){
             current_form.removeClass('active-image-form');
             current_form.addClass('non-active-form');

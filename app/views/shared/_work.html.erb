@@ -46,14 +46,14 @@
                 
                   <%= f.radio_button :"item_number_#{nth_item}", nth_thumbnail, checked: true %>
                   <%= f.label :"item_number_#{nth_item}_#{nth_thumbnail}", class:"item_number_#{nth_item}_#{nth_thumbnail} active-thumbnail thumbnail-layouts" do %>
-                    <%= image_tag work.items[nth_item].thumbnails[nth_thumbnail], size:"80x80" %>
+                    <%= image_tag work.items[nth_item].thumbnails[nth_thumbnail], size:"80x80", class: "btn" %>
                   <% end %>
                   
                 <% else %>
                 
                   <%= f.radio_button :"item_number_#{nth_item}", nth_thumbnail %>
                   <%= f.label :"item_number_#{nth_item}_#{nth_thumbnail}", class:"item_number_#{nth_item}_#{nth_thumbnail} thumbnail-layouts" do %>
-                    <%= image_tag work.items[nth_item].thumbnails[nth_thumbnail], size:"80x80" %>
+                    <%= image_tag work.items[nth_item].thumbnails[nth_thumbnail], size:"80x80", class: "btn" %>
                   <% end %>
                   
                 <% end %>
