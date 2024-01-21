@@ -21,7 +21,7 @@
         <% for nth_image in 0..@work.items[nth_item].images_qty %>
           <div class="active-image-form">
             <label for="edit-item-file-<%= nth_item %>-<%= nth_image %>" class="btn btn-primary">ファイルを選択</label>
-            <%= item.file_field :images, accept: "image/*", multiple: true, id: "edit-item-file-#{nth_item}-#{nth_image}" %>
+            <%= item.file_field :images, accept: "image/*", multiple: true, limit: 10, id: "edit-item-file-#{nth_item}-#{nth_image}" %>
             <p class="file-name-<%= nth_item %>-<%= nth_image %> file-layouts"><%= @work.items[nth_item].images[nth_image].filename %></p>
           </div>
         <% end %>

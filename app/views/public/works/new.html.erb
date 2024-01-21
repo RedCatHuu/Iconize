@@ -29,7 +29,7 @@
             <div class="image-form-number-<%= nth_form %>-<%= nth_image_form %> text-center <%= nth_image_form == 0 ? 'active-image-form' : 'non-active-form' %>" >
               <!--item.labelだとid指定がうまくいかないためlabelタグ使用-->
               <label for="item-file-<%= nth_form %>-<%= nth_image_form %>" class="btn btn-primary">ファイルを選択</label>
-              <%= item.file_field :images, accept: "image/*", multiple: true, id: "item-file-#{nth_form}-#{nth_image_form}" %>
+              <%= item.file_field :images, accept: "image/*", multiple: true, limit: 5, id: "item-file-#{nth_form}-#{nth_image_form}" %>
               <p class="file-name-<%= nth_form %>-<%= nth_image_form %> file-layouts">選択されていません</p>
             </div>
           <% end %>
