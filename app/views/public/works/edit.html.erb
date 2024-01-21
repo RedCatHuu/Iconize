@@ -1,31 +1,35 @@
 <%= render 'layouts/frame', type: :narrow do %>
 
-  <h2>作品編集</h2>
+  <h2 class="text-center border-title">作品編集</h2>
   <%= form_with model: @work do |f| %>
-    <div>
-      <%= f.label :base_image, 'サムネイル画像' %><br>
-      <p>現在のベース画像</p>
-      <%= f.file_field :base_image, accept: "image/*" %>
+  
+    <div class="mt-4 border-bottom-dashed justify-contents">
+      <%= f.label :base_image, 'サムネイル画像', class: "btn btn-primary" %>
+      <%= f.file_field :base_image, accept: "image/*", class: "input-thumbnail" %>
+      <p class="new-thumbnail file-layouts"><%= @work.thumbnail.filename %></p>
     </div>
     
     <!--fields_forでブロック構文を使っておりfor文が使えないので代用-->
     <% nth_item = 0 %>
     <%= f.fields_for :items, @work.items do |item| %>
-      <div class="text-center">
-        <%= item.label :genre, 'アイテムグループ名' %><br>
-        <%= item.text_field :genre %>
-      </div>
-      
-      <% for nth_image in 0..@work.items[nth_item].images_qty %>
-        <div>
-          <label for="item-file-<%= nth_item %>" class="btn btn-primary">ファイルを選択</label>
-          <%= item.file_field :images, accept: "image/*", multiple: true, id: "item-file" %>
-          <p class="file-name-<%= nth_item %> file-layouts"><%= @work.items[nth_item].images[nth_image].filename %></p>
+      <div class="border-bottom-dashed">
+        <div class="text-center">
+          <%= item.label :genre, 'アイテムグループ名' %><br>
+          <%= item.text_field :genre %>
         </div>
-      <% end %>
-      
-      <% nth_item += 1 %>
+        
+        <% for nth_image in 0..@work.items[nth_item].images_qty %>
+          <div class="active-image-form">
+            <label for="edit-item-file-<%= nth_item %>-<%= nth_image %>" class="btn btn-primary">ファイルを選択</label>
+            <%= item.file_field :images, accept: "image/*", multiple: true, id: "edit-item-file-#{nth_item}-#{nth_image}" %>
+            <p class="file-name-<%= nth_item %>-<%= nth_image %> file-layouts"><%= @work.items[nth_item].images[nth_image].filename %></p>
+          </div>
+        <% end %>
+        
+        <% nth_item += 1 %>
+      </div>
     <% end %>
+    
     
     <div>
       <%= f.label :title, '作品名' %><br>

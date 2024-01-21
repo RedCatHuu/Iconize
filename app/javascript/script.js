@@ -30,7 +30,7 @@ document.addEventListener("turbolinks:load", function() {
     // サムネイル画像のファイル名表示
     $('.input-thumbnail').on('change', function () {
       let file = $(this).prop('files')[0];
-      $('#new-thumbnail').text(file.name);
+      $('.new-thumbnail').text(file.name);
     });
     
     // 作品投稿画面のフォーム追加（アイテム欄）
@@ -101,25 +101,16 @@ document.addEventListener("turbolinks:load", function() {
       })
       
       
-      // アイテム画像のファイル名表示
+      // アイテム画像のファイル名表示。ファイルフィールドはidで識別する他なく、jsの使いまわしができないため、id部分は必要時に追加。
       for (let nth_image_form = 0; nth_image_form <= 9; nth_image_form++){
-        $('#item-file-' + nth_form + '-' + nth_image_form).on('change', function () {
+        $('#item-file-' + nth_form + '-' + nth_image_form + ',' + '#edit-item-file-' + nth_form + '-' + nth_image_form
+        ).on('change', function () {
             let file = $(this).prop('files')[0];
             $('.file-name-' + nth_form + '-' + nth_image_form).text(file.name);
         });
       }
       
     }
-    
-    // ファイル名表示
-    $('.file-name-input').on('change', function () {
-      let file = $(this).prop('files')[0];
-      $('.file-name-output').text(file.name);
-    });
-    
-    
-
-    
     
     
   })
