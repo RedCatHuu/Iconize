@@ -50,13 +50,13 @@ class Public::ClubsController < ApplicationController
   
   def permit
     @club = Club.find(params[:id])
-    @permits = @club.permits
   end 
   
   def accept
     club = Club.find(params[:club_id])
-    permit = Permit.find(params[:permit_id])
-    club.users << permit.user
+    user = User.find(params[:user_id])
+    permit = Permit.find_by(club_id: club.id, user_id: user.id )
+    club.users << user
     permit.destroy
     redirect_to permit_club_path(club)
   end 

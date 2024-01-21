@@ -2,6 +2,13 @@
   <tbody>
     <% users.each do |user| %>
       <tr class="row-width">
+        
+        <% if club.present? %>
+          <td class="td-sm">
+            <%= link_to '許可', accept_clubs_path(club_id: club.id, user_id: user.id), data: { confirm: '本当に許可しますか？' } %>
+          </td>
+        <% end %>
+        
         <!--管理者か一般ユーザーかでリンク先分岐-->
         <% if admin_signed_in? %>
           <td><%= user.status %>marginいじって中央寄せにする</td>
@@ -20,14 +27,12 @@
         
         <td>
           <%= user.name %><br>
-          <%= user.introduction.truncate(40) %>
+          <% if user.introduction.present? %>
+            <%= user.introduction.truncate(40) %>
+          <% end %>
         </td>
         
-        <!--作品を投稿していない/少ないユーザーの作品欄に空tdを追加-->
         <% works = user.works.order(created_at: :desc).limit(4) %>
-        <% empty_td = 3 - works.size %>
-        
-        
         <% works.each do |work| %>
           <td>
             <%= link_to work_path(work) do %>
@@ -36,6 +41,8 @@
           </td>
         <% end %>
         
+        <!--作品を投稿していない/少ないユーザーの作品欄に空tdを追加-->
+        <% empty_td = 3 - works.size %>
         <% for i in 0..empty_td %>
           <td></td>
         <% end %>

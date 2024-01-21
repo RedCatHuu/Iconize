@@ -10,9 +10,10 @@
   <% end %>
   
   <%= form_with model: Work.new do |f| %>
-    <div class="text-center mt-4 border-bottom-dashed">
+    <div class="mt-4 border-bottom-dashed">
       <%= f.label :thumbnail, 'サムネ画像を追加する', class: "btn btn-primary" %><br>
-      <%= f.file_field :thumbnail, accept: "image/*" %>
+      <%= f.file_field :thumbnail, accept: "image/*", class: "input-thumbnail" %>
+      <p id="new-thumbnail" class="">選択されていません</p>
     </div>
     <% for nth_form in 0..9 %>
     
@@ -24,13 +25,14 @@
             <%= item.label :genre, 'アイテムグループ名' %><br>
             <%= item.text_field :genre %>
           </div>
+          
           <% for nth_image_form in 0..9 %>
-            
-            <div id="image-form-number-<%= nth_form %>-<%= nth_image_form %>" class="text-center <%= nth_image_form == 0 ? 'active-form' : 'non-active-form' %>" >
-              <%= item.label :images, "アイテム画像を追加する", class: "btn btn-primary mt-3" %>
-              <%= item.file_field :images, accept: "image/*", multiple: true %>
+            <div id="image-form-number-<%= nth_form %>-<%= nth_image_form %>" class="text-center <%= nth_image_form == 0 ? 'active-image-form' : 'non-active-form' %>" >
+              <!--item.labelだとid指定がうまくいかないためlabelタグ使用-->
+              <label for="item-file-<%= nth_form %>-<%= nth_image_form %>" class="btn btn-primary">ファイルを選択</label>
+              <%= item.file_field :images, accept: "image/*", multiple: true, id: "item-file-#{nth_form}-#{nth_image_form}" %>
+              <p class="file-name-<%= nth_form %>-<%= nth_image_form %> file-layouts">選択されていません</p>
             </div>
-            
           <% end %>
           
           <div class="text-right">
@@ -47,21 +49,21 @@
     <% end %>
     
     <div class="text-center">
-      <span id="add-form" class="btn-outline-info">
+      <span id="add-form" class="btn btn-info">
         アイテム欄の追加
       </span>
        /
-      <span id="remove-form" class="btn-outline-info">
+      <span id="remove-form" class="btn btn-info">
         アイテム欄の削除
       </span>
     </div>
     
     <div>
-      <%= f.label :title, '作品名' %><br>
+      <%= f.label :title, '作品名（30字まで）' %><br>
       <%= f.text_field :title %>
     </div>
     <div>
-      <%= f.label :caption, 'キャプション' %><br>
+      <%= f.label :caption, 'キャプション（400字まで）' %><br>
       <%= f.text_area :caption, class:"form-control", size: "1x5" %>
     </div>
     <div>

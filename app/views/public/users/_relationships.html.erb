@@ -2,7 +2,7 @@
   <%= link_to 'プロフィールを編集', edit_user_path %><br>
   <%= link_to '退会する', confirm_user_path %>
 <% elsif current_user.following?(user) %>
-  <%= link_to 'フォロー中', user_relationship_path(user), method: :delete, remote: true, class: "btn btn-success" %>
+  <%= link_to 'フォロー中', user_relationship_path(user), method: :delete, remote: true, class: "btn btn-outline-success btn-sm" %>
 <% else %>
-  <%= link_to 'フォローする', user_relationship_path(user), method: :post, remote: true, class: "btn btn-success" %>
+  <%= link_to 'フォローする', user_relationship_path(user), method: :post, remote: true, class: "btn btn-outline-success btn-sm" %>
 <% end %>

@@ -1,37 +1,7 @@
 <%= render 'layouts/frame', type: :standard do %>
   <%= link_to '戻る', club_path(@club) %>
-  <table class="table">
-  <tbody>
-    <% @permits.each do |permit| %>
-      <tr>
-        <td>
-          <%= link_to '許可', accept_clubs_path(club_id: @club.id, permit_id: permit.id) %>
-        </td>
-        <td>
-           <!--管理者か一般ユーザーかでリンク先分岐-->
-          <% if admin_signed_in? %>
-            <%= link_to admin_user_path(permit.user) do %>
-              <%= image_tag permit.user.get_profile_image(100, 100) %>
-            <% end %><br>
-          <% else %>
-            <%= link_to user_path(permit.user) do %>
-              <%= image_tag permit.user.get_profile_image(100, 100) %>
-            <% end %><br>
-          <% end %>
-        </td>
-        
-        <td>
-          <%= permit.user.name %><br>
-          <%= permit.user.introduction %>
-        </td>
-        <td>
-          4つ最新の作品を並べる。
-        </td>
-        
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  
+  <%= render 'shared/users', users: @club.unpermited_users, club: @club %>
 
 
 <% end %>

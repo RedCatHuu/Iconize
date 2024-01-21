@@ -40,6 +40,9 @@
       <ul class="tab-menu">
         <li><a href="#my-work" class="active">私の作品</a></li>
         <li><a href="#my-favorite">お気に入り</a></li>
+        <% if @user.clubs.present? %>
+          <li><a href="#my-clubs">参加サークル</a></li>
+        <% end %>
       </ul>
       
       <div class="tab-contents">
@@ -53,6 +56,13 @@
           <p>ブックマーク数: <%= @user.favorited_works.count %> 作品</p>
           <%= render 'shared/works', works: @user.favorited_works, name: false %>
         </div>
+        
+        <% if @user.clubs.present? %>
+          <div id="my-clubs" class="area">
+            <p>サークル数: <%= @user.clubs.count %></p>
+            <%= render 'shared/clubs', clubs: @user.clubs, name: false %>
+          </div>
+        <% end %>
         
       </div>
       
