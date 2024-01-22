@@ -19,17 +19,33 @@
         </div>
         
         <% for nth_image in 0..@work.items[nth_item].images_qty %>
-          <div class="active-image-form">
+          <div class="active-image-form image-form-number-<%= nth_item %>-<%= nth_image %>">
             <label for="edit-item-file-<%= nth_item %>-<%= nth_image %>" class="btn btn-primary">ファイルを選択</label>
-            <%= item.file_field :images, accept: "image/*", multiple: true, limit: 10, id: "edit-item-file-#{nth_item}-#{nth_image}" %>
+            <%= item.file_field :images, accept: "image/*", multiple: true, id: "edit-item-file-#{nth_item}-#{nth_image}" %>
             <p class="file-name-<%= nth_item %>-<%= nth_image %> file-layouts"><%= @work.items[nth_item].images[nth_image].filename %></p>
           </div>
         <% end %>
         
+        <% for nth_image in @work.items[nth_item].images.size..5 %>
+          <div class="non-active-form image-form-number-<%= nth_item %>-<%= nth_image %>">
+            <label for="edit-item-file-<%= nth_item %>-<%= nth_image %>" class="btn btn-primary">ファイルを選択</label>
+            <%= item.file_field :images, accept: "image/*", multiple: true, id: "edit-item-file-#{nth_item}-#{nth_image}" %>
+            <p class="file-name-<%= nth_item %>-<%= nth_image %> file-layouts">ファイルが選択されていません。</p>
+          </div>
+        <% end %>
+        
+        <div class="text-right">
+          <span class="add-image-form-<%= nth_item %> btn">
+            <i class="fa-solid fa-circle-plus fa-2xl" style="color: #74C0FC;"></i>
+          </span>
+          <span class="remove-image-form-<%= nth_item %> btn">
+            <i class="fa-solid fa-circle-minus fa-2xl" style="color: #fc7373;"></i>
+          </span>
+        </div>
+        
         <% nth_item += 1 %>
       </div>
     <% end %>
-    
     
     <div>
       <%= f.label :title, '作品名' %><br>
