@@ -42,8 +42,6 @@ document.addEventListener("turbolinks:load", function() {
           current_form.removeClass('non-active-form');
           break;
         }
-        
-        
       }
     })
     
