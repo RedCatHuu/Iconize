@@ -31,8 +31,8 @@ class Public::WorksController < ApplicationController
       @work.user_id = current_user.id
     end
     
-    unless @work.items[0].present?
-      flash.now[:alert] = "アイテム欄を記入してください"
+    unless @work.items[0].present? && @work.items[0].images[0].present? && @work.items[0].genre.present?
+      flash.now[:alert] = "アイテム欄を入力してください"
       return render :new
     end
     
@@ -69,7 +69,6 @@ class Public::WorksController < ApplicationController
   
   def edit
     @work = Work.find(params[:id])
-    @nth = 9 - @work.items_qty
   end 
   
 

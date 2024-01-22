@@ -1,6 +1,8 @@
 ja:
   activerecord:
     attributes:
+      items:
+        genre: アイテムグループ名
       work:
         title: タイトル
         thumbnail: サムネイル
@@ -34,6 +36,7 @@ ja:
         unlock_token: ロック解除用トークン
         updated_at: 更新日
     models:
+      item: アイテム
       work: 作品
       club: サークル情報
       user: ユーザー情報

@@ -11,4 +11,8 @@ class Item < ApplicationRecord
     quantity = quantity - 1
   end 
   
+  def total
+    9 - images_qty
+  end 
+  
 end

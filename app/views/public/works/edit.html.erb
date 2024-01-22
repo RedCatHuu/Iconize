@@ -1,49 +1,35 @@
 <%= render 'layouts/frame', type: :narrow do %>
 
-  <h2>作品編集</h2>
+  <h2 class="text-center border-title">作品編集</h2>
   <%= form_with model: @work do |f| %>
-    <div>
-      <%= f.label :base_image, 'サムネイル画像' %><br>
-      <p>現在のベース画像</p>
-      <%= image_tag @work.get_thumbnail(200, 200) %><br>
-      <%= f.file_field :base_image, accept: "image/*" %>
+  
+    <div class="mt-4 border-bottom-dashed justify-contents">
+      <%= f.label :base_image, 'サムネイル画像', class: "btn btn-primary" %>
+      <%= f.file_field :base_image, accept: "image/*", class: "input-thumbnail" %>
+      <p class="new-thumbnail file-layouts"><%= @work.thumbnail.filename %></p>
     </div>
     
-    <!--ファイル名表示のために変数を設定-->
-    <% i = 0 %>
+    <!--fields_forでブロック構文を使っておりfor文が使えないので代用-->
+    <% nth_item = 0 %>
     <%= f.fields_for :items, @work.items do |item| %>
-      <div>
-        <%= item.label :genre, 'アイテムグループ名' %><br>
-        <%= item.text_field :genre %>
-      </div>
-      <div>
-        現在の画像
-        <% @work.items[i].images.each do|image| %>
-          <%= image.filename %>
+      <div class="border-bottom-dashed">
+        <div class="text-center">
+          <%= item.label :genre, 'アイテムグループ名' %><br>
+          <%= item.text_field :genre %>
+        </div>
+        
+        <% for nth_image in 0..@work.items[nth_item].images_qty %>
+          <div class="active-image-form">
+            <label for="edit-item-file-<%= nth_item %>-<%= nth_image %>" class="btn btn-primary">ファイルを選択</label>
+            <%= item.file_field :images, accept: "image/*", multiple: true, limit: 10, id: "edit-item-file-#{nth_item}-#{nth_image}" %>
+            <p class="file-name-<%= nth_item %>-<%= nth_image %> file-layouts"><%= @work.items[nth_item].images[nth_image].filename %></p>
+          </div>
         <% end %>
+        
+        <% nth_item += 1 %>
       </div>
-      <div>
-        <%= item.label :images, 'アイテム画像' %><br>
-        <%= item.file_field :images, multiple: true, accept: "image/*" %>
-      </div>
-      <% i += 1 %>
     <% end %>
     
-    <%= f.fields_for :items, Work.new.items.build do |item| %>
-      <div class="text-center">
-        <%= item.label :genre, 'アイテムグループ名' %><br>
-        <%= item.text_field :genre %>
-      </div>
-      
-      <% for nth_image_form in 0..@nth %>
-        <div id="image-form-number--<%= nth_image_form %>" class="text-center <%= nth_image_form == 0 ? 'active-image-form' : 'non-active-form' %>" >
-          <!--item.labelだとid指定がうまくいかないためlabelタグ使用-->
-          <label for="item-file--<%= nth_image_form %>" class="btn btn-primary">ファイルを選択</label>
-          <%= item.file_field :images, accept: "image/*", multiple: true, id: "item-file-#{nth_image_form}" %>
-          <p class="file-name--<%= nth_image_form %> file-layouts">選択されていません</p>
-        </div>
-      <% end %>
-    <% end %>
     
     <div>
       <%= f.label :title, '作品名' %><br>

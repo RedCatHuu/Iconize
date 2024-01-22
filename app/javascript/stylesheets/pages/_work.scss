@@ -12,6 +12,10 @@
   flex-wrap: wrap;
 }
 
+.non-active-image{
+  display: none;
+}
+
 // Work.index
 .justify-contents{
   display: flex;
@@ -28,10 +32,6 @@
   border: 2px solid red;
 }
 
-.non-active-image{
-  display: none;
-}
-
 .thumbnail-layouts{
   border-radius: 5px;
   margin: 5px;
@@ -42,4 +42,9 @@
   border: 5px solid;
   border-color: orange;
   padding: 5px;
+}
+
+.file-layouts{
+  padding-top: 6px;
+  padding-left: 10px;
 }
