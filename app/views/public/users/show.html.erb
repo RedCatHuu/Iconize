@@ -47,7 +47,7 @@
       
       <div class="tab-contents">
         
-        <div id="my-work" class="area active" style="padding: 40px 0">
+        <div id="my-work" class="area active">
           <p>投稿数: <%= @user.works.size %> 作品</p>
           <%= render 'shared/works', works: @user.works, name: false %>
         </div>

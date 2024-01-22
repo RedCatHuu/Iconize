@@ -1,7 +1,7 @@
 class Public::WorksController < ApplicationController
   
   before_action :ensure_correct_user, only: [:edit, :update]
-  before_action :authenticate_user!, except: [:index, :show ]
+  before_action :authenticate_user!, except: [:index]
   
   def new
     # サークル詳細から投稿画面に遷移してきた場合

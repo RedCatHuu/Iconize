@@ -1,9 +1,6 @@
 <% if admin_signed_in? %>
   <li>
-    <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
-  </li>
-  <li>
-    <%= link_to "通報一覧", admin_reports_path %>
+    <%= link_to "通報", admin_reports_path %>
   </li>
   <li>
     <%= link_to "作品", admin_works_path %>
@@ -13,6 +10,9 @@
   </li>
   <li>
     <%= link_to "ユーザー", admin_users_path %>
+  </li>
+  <li>
+    <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
   </li>
 <% elsif user_signed_in? %>
   <%= link_to my_page_user_path(current_user) do %>
@@ -25,7 +25,7 @@
     <%= link_to "作品投稿", new_work_path %>
   </li>
   <li>
-    <%= link_to "作品一覧", works_path %>
+    <%= link_to "作品", works_path %>
   </li>
   <li>
     <%= link_to "サークル", clubs_path %>
