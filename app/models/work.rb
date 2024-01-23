@@ -5,8 +5,8 @@ class Work < ApplicationRecord
   validates :title, length: {maximum: 30}
   validates :caption, length: {maximum: 400}
   
+  # optional: trueによってuser, clubのnilを許可する
   belongs_to :user,         optional: true
-  # optional: trueによってclubのnilを許可する
   belongs_to :club,         optional: true
   has_many :items,          dependent: :destroy
   has_many :favorites,      dependent: :destroy

@@ -1,6 +1,7 @@
 class Public::WorksController < ApplicationController
   
   before_action :ensure_correct_user, only: [:edit, :update]
+  before_action :ensure_public?, only: [:show]
   before_action :authenticate_user!, except: [:index]
   
   def new
@@ -13,7 +14,8 @@ class Public::WorksController < ApplicationController
   end
   
   def index
-    @works = Work.all
+    @works_all = Work.where(is_published: true)
+    @works = Work.where(is_published: true).page(params[:page]).per(24)
   end
 
   def show
@@ -162,5 +164,12 @@ class Public::WorksController < ApplicationController
       redirect_to works_path
     end
   end
+  
+  def ensure_public?
+    @work = Work.find(params[:id])
+    unless @work.is_published
+      redirect_to works_path, alert: "非公開作品です。"
+    end 
+  end 
   
 end
