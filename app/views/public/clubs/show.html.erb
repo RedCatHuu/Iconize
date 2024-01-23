@@ -47,7 +47,7 @@
       <div class="tab-contents">
         
         <div id="works" class="tab1 area active">
-          <%= render 'shared/works', works: @club.works, name: false %>
+          <%= render 'shared/works', works: @club_works, name: false %>
         </div>
         
         <div id="community" class="tab2 area">
@@ -67,46 +67,6 @@
         
       </div>
       
-    </div>
-  </div>
-  
-  <p>こっちはbootstrap</p>
-  <div class="row">
-    <div class="col">
-      
-      <div class="tabs">
-        
-        <ul class="nav nav-tabs">
-          <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#tab1">セクション1</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#tab2">セクション2</a>
-          </li>
-        </ul>
-        
-        <div class="tab-content">
-          
-          <div id="tab1" class="tab-pane fade show active">
-            <%= render 'shared/works', works: @club.works, name: false %>
-          </div>
-          
-          <div id="tab2" class="tab-pane fade show">
-            <div id="-comments" class="comment_textarea">
-              <%= render 'public/club_comments/club_comment', club: @club %>
-            </div>
-            
-            <div id="club-comment-form">
-              <%= form_with model: [@club, ClubComment.new], local: false, method: :post do |f| %>
-                <%= f.text_area :comment, size: "50x5", class: "comment_textarea" %>
-                <%= f.submit "送信" %>
-              <% end %>
-            </div>
-          </div>
-          
-        </div>
-        
-      </div>
     </div>
   </div>
   
