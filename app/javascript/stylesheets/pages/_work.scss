@@ -1,3 +1,5 @@
+@use "../global/variables" as *;
+
 // Work.new
 .non-active-form{
   display: none;
@@ -41,10 +43,25 @@
 .active-thumbnail{
   border: 5px solid;
   border-color: orange;
-  padding: 5px;
+  margin: 0;
 }
 
 .file-layouts{
   padding-top: 6px;
   padding-left: 10px;
+}
+
+//Work.show
+.edit-link p a{
+  text-decoration: none;
+  color: $font-color;
+}
+
+.d-flex-wrap{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.heart p{
+  font-size: 30px;
 }

@@ -32,6 +32,11 @@ class Work < ApplicationRecord
     self.created_at.strftime('%Y/%m/%d %H:%M:%S')
   end
   
+  # 投稿時間（年/月/日 時間:分）
+  def y_to_m
+    self.created_at.strftime('%Y年%m月%d日 %H:%M')
+  end
+  
   def is_published?
     if self.is_published
       "公開中"
