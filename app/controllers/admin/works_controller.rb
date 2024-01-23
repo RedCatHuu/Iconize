@@ -1,6 +1,7 @@
 class Admin::WorksController < ApplicationController
   def index
-    @works = Work.page(params[:page]).per(24)
+    @opend_works = Work.where(is_published: true).page(params[:page]).per(24)
+    @closed_works = Work.where(is_published: false).page(params[:page]).per(24)
   end
 
   def show
