@@ -15,10 +15,9 @@
     <span id="favorite-count" class="mx-1">
       <%= @work.favorites.count %>
     </span>
-    <% if @work.user == current_user %>
     
+    <% if @work.user == current_user %>
       <%= link_to '作品の編集', edit_work_path(@work) %>
-      
     <% else %>
       <span style="margin-left: auto;">
         <%= link_to '通報', report_work_path %>

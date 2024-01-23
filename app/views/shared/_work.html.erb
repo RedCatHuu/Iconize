@@ -8,7 +8,6 @@
           <span class="image_<%= nth_item %>_<%= nth_image %> <%= nth_image == 0 ? '' : 'non-active-image'%> position-absolute">
             <%= image_tag work.items[nth_item].images[nth_image], size:"350x350" %>
           </span>
-        
       <% end %>
     <% end %>
   </div>
@@ -36,7 +35,7 @@
       
      <!--ラジオボックス-->
   <%= form_with model: work, url: download_works_path, method: :post do |f| %>
-    <div class="user-tab-contents text-center" style="padding-top: 20px;">
+    <div class="user-tab-contents text-center" style="padding-top: 20px; padding-bottom: 20px;">
       <% for nth_item in 0..work.items_qty %> <!--work.itemsの数だけ繰り返し。-->
         <span id="img<%= work.items[nth_item].id %>" class="area <% if nth_item == 0 %>active<% end %> ">   <!--item.imagesの数だけ繰り返し-->
             <% for nth_thumbnail in 0..work.items[nth_item].images_qty do %>  <!--item.imagesの数だけ繰り返し-->
@@ -104,15 +103,17 @@
         <% end %>
       <% else %>
         <%= link_to club_path(work.club) do %>
-          <%= image_tag work.user.get_profile_image(50, 50), class: "rounded-circle" %>
+          <%= image_tag work.club.get_club_image(50, 50), class: "rounded-circle" %>
           <%= work.club.name %>
         <% end %>
       <% end %>
     </p>
-  
-    <span id="favorite-buttons-<%= @work.id %>" class="ml-auto edit-link heart">
-      <%= render 'public/favorites/favorite', work: @work %>
-    </span>
+    
+    <% if not admin_signed_in? %>
+      <span id="favorite-buttons-<%= @work.id %>" class="ml-auto edit-link heart">
+        <%= render 'public/favorites/favorite', work: @work %>
+      </span>
+    <% end %>
   </div>
   
   <p style="font-size: 24px;">
