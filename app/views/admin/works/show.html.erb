@@ -1,5 +1,5 @@
-<%= render 'public/shared/error_messages', resource: @work %>
 <%= render 'layouts/frame', type: :narrow do %>
+  <%= link_to "作品一覧に戻る", admin_works_path %><br>
   <%= render 'shared/work', work: @work %>
   
   <%= form_with model: @work, url: admin_work_path, method: :patch, local: true do |f| %>

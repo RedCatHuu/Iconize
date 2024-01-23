@@ -6,8 +6,8 @@
   
     <div class="mt-4 border-bottom-dashed justify-contents">
       <%= f.label :base_image, 'サムネイル画像', class: "btn btn-primary" %>
-      <%= f.file_field :base_image, accept: "image/*", class: "input-thumbnail" %>
-      <p class="new-thumbnail file-layouts"><%= @work.thumbnail.filename %></p>
+      <%= f.file_field :base_image, accept: "image/*", class: "input-image" %>
+      <p class="display-filename file-layouts"><%= @work.thumbnail.filename %></p>
     </div>
     
     <!--for文が使えないので代用-->

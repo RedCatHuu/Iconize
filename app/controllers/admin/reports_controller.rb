@@ -1,8 +1,8 @@
 class Admin::ReportsController < ApplicationController
   
   def index
-    @working_reports = Report.where.not(status: 2)
-    @resolved_reports = Report.where(status: 2)
+    @working_reports = Report.where.not(status: 2).page(params[:page]).per(24)
+    @resolved_reports = Report.where(status: 2).page(params[:page]).per(24)
   end 
   
   def show

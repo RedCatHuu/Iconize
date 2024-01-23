@@ -1,6 +1,6 @@
 class Admin::WorksController < ApplicationController
   def index
-    @works = Work.all
+    @works = Work.page(params[:page]).per(24)
   end
 
   def show
@@ -13,9 +13,6 @@ class Admin::WorksController < ApplicationController
       flash[:notice] = "公開ステータスを変更しました。"
       redirect_to admin_work_path(work)
     end
-  end
-
-  def confirm
   end
   
   private
