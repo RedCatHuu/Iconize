@@ -1,5 +1,21 @@
 <div class="container py-5 main-color">
   
+  <div class="row mb-5">
+    <div class="col justify-contents">
+      <% if @user.is_active %>
+        <span>
+          <%= link_to 'アカウントの無効', confirm_admin_user_path(way: "invalidate"), class: "btn btn-outline-danger" %>
+        </span>
+      <% else %>
+        <span class="ml-5">
+          <%= link_to 'アカウントの有効', confirm_admin_user_path(way: "validate"), class: "btn btn-outline-danger" %>
+        </span>
+      <% end %>
+        <span class="ml-5">
+          <%= link_to 'アカウントの削除', confirm_admin_user_path(way: "destroy"), class: "btn btn-outline-danger" %>
+        </span>
+      </div>
+  </div>
   <div class="row">
     
     <div class="col-auto">
@@ -16,21 +32,6 @@
     
   </div>
 
-  <div class="col-2">
-    <% if @user.is_active %>
-      <div>
-        <%= link_to 'アカウントの無効', confirm_admin_user_path(way: "invalidate") %>
-      </div>
-    <% else %>
-      <div>
-        <%= link_to 'アカウントの有効', confirm_admin_user_path(way: "validate") %>
-      </div>
-    <% end %>
-    <span>
-      <%= link_to 'アカウントの削除', confirm_admin_user_path(way: "destroy") %>
-    </span>
-  </div>
-  
   <div class="row mt-4">
     <div class="col">
       <p>投稿数: <%= @user.works.size %> 作品</p>

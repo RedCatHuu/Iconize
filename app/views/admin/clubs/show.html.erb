@@ -26,21 +26,20 @@
     <div class="col">
       
       <ul class="tab-menu">
-        <li><a href="#works" class="active">サークルの作品</a></li>
-        <li><a href="#community">コミュニティ</a></li>
+        <li><a href="#community" class="active">コミュニティ</a></li>
+        <li><a href="#works">サークルの作品</a></li>
       </ul>
   
       <div class="tab-contents">
         
-        <div id="works" class="tab1 area active">
-          <%= render 'shared/works', works: @club_works, name: false %>
+        <div id="community" class="tab2 area active">
+          <div id="club-comments">
+            <%= render 'public/club_comments/club_comment', club: @club, comments: @comments %>
+          </div>
         </div>
         
-        <div id="community" class="tab2 area">
-          
-          <div id="club-comments">
-            <%= render 'public/club_comments/club_comment', club: @club %>
-          </div>
+        <div id="works" class="tab1 area">
+          <%= render 'shared/works', works: @club_works, name: false %>
         </div>
         
       </div>

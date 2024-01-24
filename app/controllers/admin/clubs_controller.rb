@@ -4,6 +4,7 @@ class Admin::ClubsController < ApplicationController
     @club = Club.find(params[:id])
     @owner = User.find(@club.owner_id)
     @club_works = Work.where(club_id: @club.id).page(params[:page]).per(24)
+    @comments = ClubComment.where(club_id: @club.id).page(params[:page]).per(100)
   end
 
   def index
