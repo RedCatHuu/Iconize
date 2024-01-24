@@ -20,7 +20,6 @@
 	cursor: pointer;
   width: 50px;
   height: 50px;
-// 	border-radius: 5px;
   z-index: 9999;
   border-radius: 50%;
   border-color: #0077b2;
@@ -106,7 +105,6 @@
 	@include media-breakpoint-down(sm){
     right: 15px;
 	}
-  // border: 0.5px solid;
   border-color: $theme-color;
   border-radius: 5px;
   @extend .shadow-sm;
@@ -116,20 +114,8 @@
 	}
 }
 
-/*ナビゲーションの縦スクロール*/
-// #horizontal-nav.panelactive #horizontal-nav-list{
-//     /*ナビの数が増えた場合縦スクロール*/
-//     position: fixed;
-//     z-index: 999; 
-//     width: 100%;
-//     height: 100vh;/*表示する高さ*/
-//     overflow: auto;
-//     -webkit-overflow-scrolling: touch;
-// }
-
 /*ナビゲーション*/
 #horizontal-nav ul {
-    /*ナビゲーション天地中央揃え*/
   position: absolute;
   z-index: 999;
   top: 7%;
@@ -143,7 +129,6 @@
 }
 
 /*リストのレイアウト設定*/
-
 #horizontal-nav li{
 	list-style: none;
   text-align: start;
@@ -159,10 +144,44 @@
 	display: block;
 	text-transform: uppercase;
 	letter-spacing: 0.1em;
-// 	font-weight: bold;
 }
 
 .rounded-top{
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+}
+
+.ml-search{
+  margin-left: 3rem;
+	@include media-breakpoint-down(xs){
+    margin-left: 0;
+	}
+}
+
+.search {
+  float: left;
+  position: relative;
+  i {
+      color: gray;
+      position: absolute;
+      left: 10px;
+      bottom: 10px;
+    }
+  input {
+    border: 1px solid #bbb;
+    border-radius: 12px;
+    padding: 5px 0 5px 30px;
+    margin-bottom: 0;
+    width: 20vw;
+  	@include media-breakpoint-down(md){
+      width: 25vw;
+  	}
+  	@include media-breakpoint-down(sm){
+      width: 30vw;
+  	}
+  	@include media-breakpoint-down(xs){
+      width: 35vw;
+  	}
+      outline: none;
+    }
 }
