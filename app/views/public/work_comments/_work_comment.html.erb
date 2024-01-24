@@ -13,14 +13,14 @@
         </td>
       </tr>
       <tr>
-        <% if comment.user_id == current_user.id || work.user_id %>
+        <td colspan="3">
+          <%= comment.y_to_m %>
+        </td>
+        <% if [comment.user.id, work.user.id].include?(current_user.id) %>
           <td style="width: 48px">
             <%= link_to '削除', work_work_comment_path(work_id: work.id, id: comment.id), remote: true, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-outline-secondary btn-sm" %>
           </td>
         <% end %>
-        <td colspan="3">
-          <%= comment.y_to_m %>
-        </td>
       </tr>
     <% end %>
   </tbody>
