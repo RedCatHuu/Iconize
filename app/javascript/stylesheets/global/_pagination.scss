@@ -1,0 +1,19 @@
+@use "../global/variables" as *;
+
+.pagination span{
+  width: 24px;
+  justify-contnt: center;
+  padding-left: 7px;
+}
+
+.pagination a{
+  text-decoration: none;
+  color: $font-color;
+  font-weight: bold;
+}
+
+.current{
+  background-color: $theme-color;
+  color: white;
+  border-radius: 100%;
+}

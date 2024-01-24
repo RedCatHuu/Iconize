@@ -27,10 +27,10 @@ document.addEventListener("turbolinks:load", function() {
       event.preventDefault();
     });
     
-    // サムネイル画像のファイル名表示
-    $('.input-thumbnail').on('change', function () {
+    // アップロードした画像のファイル名表示
+    $('.input-image').on('change', function () {
       let file = $(this).prop('files')[0];
-      $('.new-thumbnail').text(file.name);
+      $('.display-filename').text(file.name);
     });
     
     // 作品投稿画面のフォーム追加（アイテム欄）

@@ -1,18 +1,19 @@
 class Public::ClubsController < ApplicationController
   
   before_action :ensure_correct_user, only: [:edit, :update, :permit]
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index]
 
   def new
   end
 
   def index
-    @clubs = Club.all
+    @clubs = Club.page(params[:page]).per(24)
   end
 
   def show
     @club = Club.find(params[:id])
     @owner = User.find_by(id: @club.owner_id)
+    @club_works = Work.where(club_id: @club.id, is_published: true).page(params[:page]).per(24)
   end
   
   def create

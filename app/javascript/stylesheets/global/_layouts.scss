@@ -28,6 +28,25 @@ input[type="radio"] {
   display: none;
 }
 
+// ファイルボックスを消す
 input[type="file"]{
   display: none;
+}
+
+.pagination span{
+  width: 24px;
+  justify-contnt: center;
+  padding-left: 6px;
+}
+
+.pagination a{
+  text-decoration: none;
+  color: $font-color;
+  font-weight: bold;
+}
+
+.current{
+  background-color: $theme-color;
+  color: white;
+  border-radius: 100%;
 }

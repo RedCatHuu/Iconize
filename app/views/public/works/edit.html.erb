@@ -6,8 +6,8 @@
   
     <div class="mt-4 border-bottom-dashed justify-contents">
       <%= f.label :base_image, 'サムネイル画像', class: "btn btn-primary" %>
-      <%= f.file_field :base_image, accept: "image/*", class: "input-thumbnail" %>
-      <p class="new-thumbnail file-layouts"><%= @work.thumbnail.filename %></p>
+      <%= f.file_field :base_image, accept: "image/*", class: "input-image" %>
+      <p class="display-filename file-layouts"><%= @work.thumbnail.filename %></p>
     </div>
     
     <!--for文が使えないので代用-->
@@ -91,18 +91,18 @@
       </span>
     </div>
     
-    <div>
-      <%= f.label :title, '作品名' %><br>
+    <div class="mt-4">
+      <%= f.label :title, '作品名（30字まで）' %><br>
       <%= f.text_field :title %>
     </div>
     <div>
-      <%= f.label :caption, 'キャプション' %><br>
+      <%= f.label :caption, 'キャプション（400字まで）' %><br>
       <%= f.text_area :caption, class:"form-control", size: "1x5" %>
     </div>
     <div>
       <%= f.submit '作品を編集', class:"btn btn-success mt-3" %>
     </div>
-    <%= link_to '削除', work_path, method: :delete %>
+    <%= link_to '削除', work_path, method: :delete, data: {confirm: "本当に削除しますか？"} %>
   <% end %>
 
 <% end %>

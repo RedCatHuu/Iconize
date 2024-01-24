@@ -22,7 +22,7 @@
         </td>
         
         <!--作品を投稿していない/少ないユーザーの作品欄に空tdを追加-->
-        <% works = club.works.order(created_at: :desc).limit(4) %>
+        <% works = club.works.where(is_published: true).order(created_at: :desc).limit(4) %>
         <% empty_td = 3 - works.size %>
         
         <% works.each do |work| %>
@@ -34,7 +34,7 @@
         <% end %>
         
         <% for i in 0..empty_td %>
-          <td></td>
+          <td style="width: 150px;"></td>
         <% end %>
         
       </tr>
@@ -42,3 +42,6 @@
   </tbody>
 </table>
 
+<div class="justify-contents mt-3">
+  <%= paginate clubs %>
+</div>

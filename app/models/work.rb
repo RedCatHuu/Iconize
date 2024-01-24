@@ -5,8 +5,8 @@ class Work < ApplicationRecord
   validates :title, length: {maximum: 30}
   validates :caption, length: {maximum: 400}
   
-  belongs_to :user
-  # optional: trueによってclubのnilを許可する
+  # optional: trueによってuser, clubのnilを許可する
+  belongs_to :user,         optional: true
   belongs_to :club,         optional: true
   has_many :items,          dependent: :destroy
   has_many :favorites,      dependent: :destroy
@@ -30,6 +30,11 @@ class Work < ApplicationRecord
   # 投稿時間（年/月/日 時間:分:秒）
   def y_to_s
     self.created_at.strftime('%Y/%m/%d %H:%M:%S')
+  end
+  
+  # 投稿時間（年/月/日 時間:分）
+  def y_to_m
+    self.created_at.strftime('%Y年%m月%d日 %H:%M')
   end
   
   def is_published?

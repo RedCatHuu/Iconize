@@ -3,10 +3,11 @@ class Admin::ClubsController < ApplicationController
   def show
     @club = Club.find(params[:id])
     @owner = User.find(@club.owner_id)
+    @club_works = Work.where(club_id: @club.id).page(params[:page]).per(24)
   end
 
   def index
-    @clubs = Club.all
+    @clubs = Club.page(params[:page]).per(24)
   end
   
   def member

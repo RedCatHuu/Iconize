@@ -1,24 +1,29 @@
-<%= render 'layouts/frame', type: :standard do %>
-  
+<%= render 'layouts/frame', type: :narrow do %>
+  <%= link_to "作品一覧に戻る", works_path %><br>
   <%= render 'shared/work', work: @work %>
 
-  
-  閲覧数: <%= @work.read_counts.size %>
-  
-  <% if @work.user == current_user %>
-  
-    <%= link_to '作品の編集', edit_work_path(@work) %>
+  <div style="display: flex; flex-wrap: wrap;">
+    <span>
+      <i class="fa-solid fa-eye"></i>
+    </span>
+    <span class="mx-1">
+      <%= @work.read_counts.size %>
+    </span>
+    <span class="mx-1">
+      <i class="fa-solid fa-heart"></i>
+    </span>
+    <span id="favorite-count" class="mx-1">
+      <%= @work.favorites.count %>
+    </span>
     
-  <% else %>
-  
-    <%= link_to '通報', report_work_path %>
-    <div id="favorite-buttons-<%= @work.id %>">
-      <%= render 'public/favorites/favorite', work: @work %>
-    </div>
-    
-  <% end %>
-  
-  <p4>非公開の場合リンクから検索しても表示しないようにしたい。</p4>
+    <% if @work.user == current_user %>
+      <%= link_to '作品の編集', edit_work_path(@work) %>
+    <% else %>
+      <span style="margin-left: auto;">
+        <%= link_to '通報', report_work_path %>
+      </span>
+    <% end %>
+  </div>
   
   <div id="comment_form">
     <%= form_with model: [@work, WorkComment.new], local: false, method: :post do |f| %>

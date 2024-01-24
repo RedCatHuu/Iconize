@@ -2,18 +2,18 @@
   <tbody>
     <% work.work_comments.each do |work_comment| %>
       <tr>
-        <td style="width: 100px;">
-          <%= link_to user_path(work_comment.user_id) do %>
-            <%= image_tag work_comment.user.get_profile_image(70, 70) %><br>
+        <td style="padding-top: 10px;">
+          <%= link_to my_page_user_path(work_comment.user) do %>
+            <%= image_tag work_comment.user.get_profile_image(50, 50), class: "rounded-circle" %><br>
             <%= work_comment.user.name %>
           <% end %>
         </td>
-        <td style="width: 50%;">
+        <td style="padding: 20px; font-size: 14px; ">
           <%= work_comment.comment %>
         </td>
         <% if work_comment.user_id == current_user.id || work.user.id %>
           <td style="width: 48px">
-            <%= link_to '削除', work_work_comment_path(work_id: work.id, id: work_comment.id), remote: true, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger" %>
+            <%= link_to '削除', work_work_comment_path(work_id: work.id, id: work_comment.id), remote: true, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-outline-secondary" %>
           </td>
         <% end %>
       </tr>

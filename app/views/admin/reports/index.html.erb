@@ -32,6 +32,10 @@
           <% end %>
         </tbody>
       </table>
+        
+      <div class="justify-contents mt-3" style="">
+        <%= paginate @working_reports %>
+      </div>
     </span>
     
     <span id="resolved" class="area max-width">
@@ -60,7 +64,12 @@
           <% end %>
         </tbody>
       </table>
+        
+      <div class="justify-contents mt-3" style="">
+        <%= paginate @resolved_reports %>
+      </div>
     </span>
   </span>
+
 
 <% end %>

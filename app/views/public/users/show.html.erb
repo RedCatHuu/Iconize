@@ -47,20 +47,22 @@
       
       <div class="tab-contents">
         
-        <div id="my-work" class="area active" style="padding: 40px 0">
+        <div id="my-work" class="area active">
           <p>投稿数: <%= @user.works.size %> 作品</p>
-          <%= render 'shared/works', works: @user.works, name: false %>
+          <%= render 'shared/works', works: @user_works, name: false %>
+          
+          
         </div>
         
         <div id="my-favorite" class="area">
           <p>ブックマーク数: <%= @user.favorited_works.count %> 作品</p>
-          <%= render 'shared/works', works: @user.favorited_works, name: false %>
+          <%= render 'shared/works', works: @favorited_works, name: false %>
         </div>
         
         <% if @user.clubs.present? %>
           <div id="my-clubs" class="area">
             <p>サークル数: <%= @user.clubs.count %></p>
-            <%= render 'shared/clubs', clubs: @user.clubs, name: false %>
+            <%= render 'shared/clubs', clubs: @clubs, name: false %>
           </div>
         <% end %>
         

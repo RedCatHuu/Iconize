@@ -11,7 +11,7 @@
         
         <!--管理者か一般ユーザーかでリンク先分岐-->
         <% if admin_signed_in? %>
-          <td><%= user.status %>marginいじって中央寄せにする</td>
+          <td class="td-sm"><%= user.status %></td>
           <td>
             <%= link_to admin_user_path(user) do %>
               <%= image_tag user.get_profile_image(100, 100) %>

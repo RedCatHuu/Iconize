@@ -1,8 +1,12 @@
-<div class="container">
+<div class="container py-5 main-color">
   <div class="row">
+        
+    <div class="col-auto">
+      <%= image_tag @club.get_club_image(200, 200), class: "rounded-circle" %>
+    </div>
     
-    <div class="col-2">
-      <p><%= @club.name %></p>
+    <div class="col-auto details">
+      <h4><%= @club.name %></h4>
       
       <p>
         サークル作成者:<%= @owner.name %><br>
@@ -12,8 +16,8 @@
         作品数:<%= @club.works.count %>
       </p>
     </div>
-    <div class="col-7">
-      <p class="mt-5"><%= @club.introduction %></p>
+    <div class="col-lg-8 col-12 introduction">
+      <p class=""><%= @club.introduction %></p>
     </div>
     <div class="col-auto mt-5">
       
@@ -30,7 +34,7 @@
       <div class="tab-contents">
         
         <div id="works" class="tab1 area active">
-          <%= render 'shared/works', works: @club.works, name: false %>
+          <%= render 'shared/works', works: @club_works, name: false %>
         </div>
         
         <div id="community" class="tab2 area">
