@@ -1,62 +1,62 @@
-  <div class="justify-contents">
-    <% works.each do |work| %>
-      <div class="images-size">
-        <!--管理者か一般ユーザーかでリンク先分岐-->
-        <% if admin_signed_in? %>
-          <%= link_to admin_work_path(work) do %>
-            <%= image_tag work.get_thumbnail(150, 150) %>
-          <% end %><br>
-        <% else %>
-          <%= link_to work_path(work) do %>
-            <%= image_tag work.get_thumbnail(150, 150) %>
-          <% end %><br>
-        <% end %>
-        <%= work.title %><br>
+<div class="justify-contents mb-3">
+  <% works.each do |work| %>
+    <div class="images-size">
+      <!--管理者か一般ユーザーかでリンク先分岐-->
+      <% if admin_signed_in? %>
+        <%= link_to admin_work_path(work) do %>
+          <%= image_tag work.get_thumbnail(150, 150) %>
+        <% end %><br>
+      <% else %>
+        <%= link_to work_path(work) do %>
+          <%= image_tag work.get_thumbnail(150, 150) %>
+        <% end %><br>
+      <% end %>
+      <%= work.title %><br>
+      
+      <!--名前は必要か-->
+      <% if name %>
         
-        <!--名前は必要か-->
-        <% if name %>
+        <!--ログインしているのは管理者か-->
+        <% if admin_signed_in? %>
+        
+          <!--作品はサークルが投稿したものか-->
+          <% if work.club_id == nil %>
           
-          <!--ログインしているのは管理者か-->
-          <% if admin_signed_in? %>
-          
-            <!--作品はサークルが投稿したものか-->
-            <% if work.club_id == nil %>
-            
-              <%= link_to admin_user_path(work.user) do %>
-                <%= work.user.name %>
-              <% end %>
-              
-            <% else %>
-            
-              <%= link_to club_path(work.club) do %>
-                <%= work.club.name %>
-              <% end %>
-              
+            <%= link_to admin_user_path(work.user) do %>
+              <%= work.user.name %>
             <% end %>
             
           <% else %>
-          <!--ユーザーがログインしている場合-->
-          <!--作品はサークルが投稿したものか-->
-            <% if work.club_id == nil %>
+          
+            <%= link_to club_path(work.club) do %>
+              <%= work.club.name %>
+            <% end %>
             
-              <%= link_to my_page_user_path(work.user) do %>
-                <%= work.user.name %>
-              <% end %>
-              
-            <% else %>
+          <% end %>
+          
+        <% else %>
+        <!--ユーザーがログインしている場合-->
+        <!--作品はサークルが投稿したものか-->
+          <% if work.club_id == nil %>
+          
+            <%= link_to my_page_user_path(work.user) do %>
+              <%= work.user.name %>
+            <% end %>
             
-              <%= link_to club_path(work.club) do %>
-                <%= work.club.name %>
-              <% end %>
-              
+          <% else %>
+          
+            <%= link_to club_path(work.club) do %>
+              <%= work.club.name %>
             <% end %>
             
           <% end %>
           
         <% end %>
-      </div>
-    <% end %>
-  </div>
-<div class="justify-contents mt-3" style="">
+        
+      <% end %>
+    </div>
+  <% end %>
+</div>
+<div class="justify-contents mt-3">
   <%= paginate works %>
 </div>
