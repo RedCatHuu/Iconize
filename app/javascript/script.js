@@ -115,6 +115,13 @@ document.addEventListener("turbolinks:load", function() {
       
     }
     
+    // 未入力の場合、submitを阻止
+    $('.form-validation').on('submit', function(event) {
+      if ($('.form-validation .add-validation').val().trim() === '') {
+        event.preventDefault(); 
+      }
+    });
+    
     
   })
 })

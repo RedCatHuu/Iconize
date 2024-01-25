@@ -57,7 +57,7 @@
       </span>
     </div>
     
-    <div class="mt-4">
+    <div class="mt-4 add-validation">
       <%= f.label :title, '作品名（30字まで）' %><br>
       <%= f.text_field :title %>
     </div>
@@ -71,11 +71,12 @@
       <% end %>
       <%= f.submit '作品を投稿', class:"btn btn-success mt-3" %>
     </div>
-    <p class="mt-4 text-center">-投稿について-</p>
-    <ul>
-      <li>1つの作品につき、10のアイテムグループを作成できます。</li>
-      <li>1つのアイテムグループにつき、10の画像を添付できます。</li>
-    </ul>
   <% end %>
-
+  
+  <p class="mt-4 text-center">-投稿について-</p>
+  <ul>
+    <li>1つの作品につき、10のアイテムグループを作成できます。</li>
+    <li>1つのアイテムグループにつき、10の画像を添付できます。</li>
+  </ul>
+  
 <% end %>
