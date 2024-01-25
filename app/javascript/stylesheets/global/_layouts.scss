@@ -1,4 +1,5 @@
 @use "../global/variables" as *;
+@use "~bootstrap/scss/bootstrap" as *;
 
 body{
   color: $font-color;
@@ -31,4 +32,39 @@ input[type="radio"] {
 // ファイルボックスを消す
 input[type="file"]{
   display: none;
+}
+
+.home-image {
+  background-image: url(/images/ichimatsu.png);
+  background-size: contain;
+  height: 300px;
+  position: relative;
+  border-bottom: 20px solid $theme-color;
+}
+
+.home-text{
+  position: absolute;
+  left: 10%;
+  top: -60px;
+}
+
+.slideshow-images{
+  position: absolute;
+  // left: 45%;
+  bottom: -5%;
+	@include media-breakpoint-down(xl){
+	    left: 40%;
+	}
+	@include media-breakpoint-down(lg){
+	    left: 45%;
+	}
+	@include media-breakpoint-down(md){
+	    left: 50%;
+	}
+	@include media-breakpoint-down(sm){
+	    left: 60%;
+	}
+	@include media-breakpoint-down(xs){
+	    left: 70%;
+	}
 }
