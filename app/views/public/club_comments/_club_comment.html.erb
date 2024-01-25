@@ -1,9 +1,9 @@
 <table>
   <tbody>
-    <% club.club_comments.each do |club_comment| %>
+    <% comments.each do |club_comment| %>
       <tr>
         <td style="padding-top: 20px;">
-          <%= link_to user_path(club_comment.user_id) do %>
+          <%= link_to my_page_user_path(club_comment.user_id) do %>
             <%= image_tag club_comment.user.get_profile_image(70, 70), class: "rounded-circle" %><br>
             <%= club_comment.user.name %>
           <% end %>
@@ -28,3 +28,6 @@
     <% end %>
   </tbody>
 </table>
+<div class="justify-contents mt-3">
+  <%= paginate comments %>
+</div>

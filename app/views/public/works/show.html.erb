@@ -25,15 +25,18 @@
     <% end %>
   </div>
   
-  <div id="comment_form">
+  <div id="comment_form" class="border-top-solid">
+    <p>コメント</p>
     <%= form_with model: [@work, WorkComment.new], local: false, method: :post do |f| %>
-      <%= f.text_area :comment, style: "width: 100%;", rows: '5', class: "comment_textarea" %>
-      <%= f.submit "送信" %>
+      <div style="display: flex; align-items: center">
+        <%= f.text_area :comment, style: "width: 80%;", rows: '1', class: "comment_textarea form-control" %>
+        <%= f.submit "送信", class:"btn btn-submit" %>
+      </div>
     <% end %>
   </div>
   
   <div id="work-comments">
-    <%= render 'public/work_comments/work_comment', work: @work %>
+    <%= render 'public/work_comments/work_comment', work: @work, comments: @comments %>
   </div>
   
 <% end %>

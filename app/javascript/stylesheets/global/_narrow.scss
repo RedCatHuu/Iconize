@@ -32,3 +32,29 @@
   border-color: $gray;
 }
 
+.border-top-solid{
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid;
+  border-color: $gray;
+}
+
+.btn-submit{
+  background-color: $theme-color;
+  border-radius: 30%;
+  color: white;
+  padding: 6px 18px;
+  font-weight: bold;
+}
+
+.btn-submit:hover{
+  color: white;
+  background-color: #007fbf;
+}
+
+.comment_textarea{
+  background-color: #e8e8e8;
+  border-radius: 10px;
+  border: none;
+  margin-right: 10px;
+}

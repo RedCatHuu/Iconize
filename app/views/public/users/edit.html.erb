@@ -7,8 +7,9 @@
         <%= image_tag @user.get_profile_image(100, 100), class: "rounded-circle" %>
         <%= f.label :profile_image, 'プロフィール画像', class: "btn" do %>
           <i class="fa-solid fa-wrench fa-flip-horizontal fa-2xl wrench"></i>
-        <% end %><br>
-        <%= f.file_field :profile_image, accept: "image/*" %>
+        <% end %>
+        <p class="display-filename file-layouts"><%= @user.profile_image.filename %></p>
+        <%= f.file_field :profile_image, accept: "image/*", class: "input-image" %>
       </div>
       <div class="form-group">
         <%= f.label :name, 'ニックネーム（20字まで）' %><br>

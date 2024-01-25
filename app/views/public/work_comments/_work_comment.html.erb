@@ -1,22 +1,31 @@
 <table>
   <tbody>
-    <% work.work_comments.each do |work_comment| %>
+    <% comments.each do |comment| %>
       <tr>
         <td style="padding-top: 10px;">
-          <%= link_to my_page_user_path(work_comment.user) do %>
-            <%= image_tag work_comment.user.get_profile_image(50, 50), class: "rounded-circle" %><br>
-            <%= work_comment.user.name %>
+          <%= link_to my_page_user_path(comment.user) do %>
+            <%= image_tag comment.user.get_profile_image(50, 50), class: "rounded-circle" %><br>
+            <%= comment.user.name %>
           <% end %>
         </td>
         <td style="padding: 20px; font-size: 14px; ">
-          <%= work_comment.comment %>
+          <%= comment.comment %>
         </td>
-        <% if work_comment.user_id == current_user.id || work.user.id %>
+      </tr>
+      <tr>
+        <% if comment.user_id == current_user.id || work.user_id %>
           <td style="width: 48px">
-            <%= link_to '削除', work_work_comment_path(work_id: work.id, id: work_comment.id), remote: true, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-outline-secondary" %>
+            <%= link_to '削除', work_work_comment_path(work_id: work.id, id: comment.id), remote: true, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-outline-secondary btn-sm" %>
           </td>
         <% end %>
+        <td colspan="3">
+          <%= comment.y_to_m %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<div class="justify-contents mt-3">
+  <%= paginate comments %>
+</div>
