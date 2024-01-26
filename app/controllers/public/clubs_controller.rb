@@ -41,17 +41,26 @@ class Public::ClubsController < ApplicationController
       render :edit
     end
   end
-
-  def club_works
-    @works = Work
-  end
   
+  def destroy
+    club = Club.find(params[:id])
+    if club.destroy
+      redirect_to clubs_path, notice: "サークルを削除しました。"
+    else
+      redirect_to clubs_path
+      flash[:alert] = "削除に失敗しました。"
+      @clubs = Club.order(created_at: :desc).page(params[:page]).per(24)
+    end 
+  end
+
   def member
     @club = Club.find(params[:id])
+    @users = @club.users.order(created_at: :desc).page(params[:page]).per(24)
   end
   
   def permit
     @club = Club.find(params[:id])
+    @users = @club.unpermited_users.order(created_at: :desc).page(params[:page]).per(24)
   end 
   
   def accept
