@@ -14,8 +14,8 @@ class Club < ApplicationRecord
   
   def get_club_image(width, height)
     unless club_image.attached?
-      file_path = Rails.root.join('app/assets/images/no_image.jpg')
-      club_image.attach(io: File.open(file_path), filename: 'no-image.jpg')
+      file_path = Rails.root.join('app/assets/images/no_image.png')
+      club_image.attach(io: File.open(file_path), filename: 'no-image.png')
     end
     club_image.variant(resize_to_limit: [width, height]).processed
   end 

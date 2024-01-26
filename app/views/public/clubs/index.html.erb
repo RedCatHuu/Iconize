@@ -1,4 +1,4 @@
 <%= render 'layouts/frame', type: :standard do %>
-  <%= link_to 'サークルを作成する', new_club_path %>
+  <%= link_to 'サークルを作成する', new_club_path, class: "btn btn-info mb-4" %>
   <%= render 'shared/clubs', clubs: @clubs %>
 <% end %>

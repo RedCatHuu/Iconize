@@ -47,9 +47,6 @@
       <div class="tab-contents">
         
         <div id="community" class="tab2 area active">
-          <div id="club-comments">
-            <%= render 'public/club_comments/club_comment', club: @club, comments: @comments %>
-          </div>
           <div id="club-comment-form" class="mt-4" style="width: 400px;">
             <% if @club.member?(current_user) %>
               <%= form_with model: [@club, ClubComment.new], local: false, method: :post do |f| %>
@@ -58,10 +55,13 @@
               <% end %>
             <% end %>
           </div>
+          <div id="club-comments">
+            <%= render 'public/club_comments/club_comment', club: @club, comments: @comments %>
+          </div>
         </div>
         
         <div id="works" class="tab1 area">
-          <%= render 'shared/works', works: @club_works, name: false %>
+          <%= render 'shared/works', works: @club_works, name: false, page: true %>
         </div>
         
       </div>

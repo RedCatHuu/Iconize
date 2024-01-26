@@ -1,2 +1,11 @@
-<h1>Public::Homes#top</h1>
-<p>Find me in app/views/public/homes/top.html.erb</p>
+<div class="home-bg-image">
+  <div class="container">
+    <div>
+      <%= image_tag 'home_text_image', class: "home-image" %>
+    </div>
+  </div>
+</div>
+<%= render 'layouts/frame', type: :standard do %>
+  <h4>新着作品</h4>
+  <%= render 'shared/works', works: @works, name: true, page: false %>
+<% end %>

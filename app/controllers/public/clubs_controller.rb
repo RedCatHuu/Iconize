@@ -7,14 +7,14 @@ class Public::ClubsController < ApplicationController
   end
 
   def index
-    @clubs = Club.page(params[:page]).per(24)
+    @clubs = Club.order(created_at: :desc).page(params[:page]).per(24)
   end
 
   def show
     @club = Club.find(params[:id])
     @owner = User.find_by(id: @club.owner_id)
-    @club_works = Work.where(club_id: @club.id, is_published: true).page(params[:page]).per(24)
-    @comments = ClubComment.where(club_id: @club.id).page(params[:page]).per(100)
+    @club_works = Work.where(club_id: @club.id, is_published: true).order(created_at: :desc).page(params[:page]).per(24)
+    @comments = ClubComment.where(club_id: @club.id).page(params[:page]).order(created_at: :desc).per(100)
   end
   
   def create
