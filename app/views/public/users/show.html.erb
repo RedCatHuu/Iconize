@@ -49,14 +49,14 @@
         
         <div id="my-work" class="area active">
           <p>投稿数: <%= @user.works.size %> 作品</p>
-          <%= render 'shared/works', works: @user_works, name: false %>
+          <%= render 'shared/works', works: @user_works, name: false, page: true %>
           
           
         </div>
         
         <div id="my-favorite" class="area">
-          <p>ブックマーク数: <%= @user.favorited_works.count %> 作品</p>
-          <%= render 'shared/works', works: @favorited_works, name: false %>
+          <p>ブックマーク数: <%= @favorited_works_size %> 作品</p>
+          <%= render 'shared/works', works: @favorited_works, name: false, page: true %>
         </div>
         
         <% if @user.clubs.present? %>

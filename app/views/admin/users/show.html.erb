@@ -35,7 +35,7 @@
   <div class="row mt-4">
     <div class="col">
       <p>投稿数: <%= @user.works.size %> 作品</p>
-      <%= render 'shared/works', works: @user_works, name: false %>
+      <%= render 'shared/works', works: @user_works, name: false, page: true %>
     </div>
   </div>
   

@@ -15,7 +15,7 @@ class Public::WorksController < ApplicationController
   
   def index
     @works_all = Work.where(is_published: true)
-    @works = Work.where(is_published: true).page(params[:page]).per(24)
+    @works = Work.where(is_published: true).order(created_at: :desc).page(params[:page]).per(24)
   end
 
   def show

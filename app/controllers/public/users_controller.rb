@@ -6,8 +6,10 @@ class Public::UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
-    @user_works = Work.where(user_id: @user.id, is_published: true).page(params[:page]).per(24)
-    @favorited_works = @user.favorited_works.where(is_published: true).page(params[:page]).per(24)
+    @user_works = Work.where(user_id: @user.id, is_published: true).order(created_at: :desc).page(params[:page]).per(24)
+    favorited_works = @user.favorited_works.where(is_published: true).order(created_at: :desc)
+    @favorited_works_size = favorited_works.size
+    @favorited_works = favorited_works.page(params[:page]).per(24)
     @clubs = @user.clubs.page(params[:page]).per(24)
   end
 

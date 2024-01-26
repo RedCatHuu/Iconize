@@ -6,5 +6,6 @@
   </div>
 </div>
 <%= render 'layouts/frame', type: :standard do %>
-
+  <h4>新着作品</h4>
+  <%= render 'shared/works', works: @works, name: true, page: false %>
 <% end %>
