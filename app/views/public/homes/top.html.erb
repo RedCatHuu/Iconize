@@ -6,8 +6,8 @@
   </div>
 </div>
 <%= render 'layouts/frame', type: :standard do %>
-  <h4>新着作品 <i class="fa-regular fa-envelope"></i></h4>
+  <h4 class="border-title">新着作品 <i class="fa-regular fa-envelope"></i></h4>
   <%= render 'shared/works', works: @works, name: true, page: false %>
-  <h4>人気の作品 <i class="fa-solid fa-arrow-trend-up"></i></h4>
+  <h4 class="border-title">人気の作品 <i class="fa-solid fa-arrow-trend-up"></i></h4>
   <%= render 'shared/works', works: @favorited_works, name: true, page: false %>
 <% end %>
