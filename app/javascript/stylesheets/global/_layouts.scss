@@ -38,16 +38,16 @@ input[type="file"]{
   background-image: url(/images/ichimatsu.png);
   background-size: contain;
   position: relative;
-  border-bottom: 20px solid $theme-color;
-  height: 600px;
+  border-bottom: 60px solid $theme-color;
+  height: 640px;
   @include media-breakpoint-down(lg){
-    height: 510px;
+    height: 550px;
 	}
 	@include media-breakpoint-down(md){
-    height: 390px;
+    height: 430px;
 	}
 	@include media-breakpoint-down(sm){
-    height: 286px;
+    height: 326px;
 	}
 }
 
