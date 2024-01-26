@@ -34,37 +34,32 @@ input[type="file"]{
   display: none;
 }
 
-.home-image {
+.home-bg-image {
   background-image: url(/images/ichimatsu.png);
   background-size: contain;
-  height: 300px;
   position: relative;
   border-bottom: 20px solid $theme-color;
-}
-
-.home-text{
-  position: absolute;
-  left: 10%;
-  top: -60px;
-}
-
-.slideshow-images{
-  position: absolute;
-  // left: 45%;
-  bottom: -5%;
-	@include media-breakpoint-down(xl){
-	    left: 40%;
-	}
-	@include media-breakpoint-down(lg){
-	    left: 45%;
+  height: 600px;
+  @include media-breakpoint-down(lg){
+    height: 510px;
 	}
 	@include media-breakpoint-down(md){
-	    left: 50%;
+    height: 390px;
 	}
 	@include media-breakpoint-down(sm){
-	    left: 60%;
+    height: 286px;
 	}
-	@include media-breakpoint-down(xs){
-	    left: 70%;
+}
+
+.home-image{
+  width: 1000px;
+	@include media-breakpoint-down(lg){
+    width: 850px;
+	}
+	@include media-breakpoint-down(md){
+    width: 640px;
+	}
+	@include media-breakpoint-down(sm){
+    width: 460px;
 	}
 }

@@ -1,12 +1,10 @@
-<div class="home-image">
-  <div class=" home-image container" style="height: 300px;">
-    <div class="row">
-      <div class="col" style="position: relative">
-        <%= image_tag 'home_text', size: '500x375', class: "home-text" %>
-        <div id="slideshow" class="slideshow-images">
-          <%= image_tag 'shibainu-normal', size: '200x150', class: "" %>
-        </div>
-      </div>
+<div class="home-bg-image">
+  <div class="container">
+    <div>
+      <%= image_tag 'home_text_image', class: "home-image" %>
     </div>
   </div>
 </div>
+<%= render 'layouts/frame', type: :standard do %>
+
+<% end %>
