@@ -1,12 +1,5 @@
 @use "../global/variables" as *;
 
-.session-border{
-  margin-top: 10px;
-  padding-top: 6px;
-  border-top: 1px dashed;
-  border-color: $gray;
-}
-
 .border-title{
   border-bottom: 1px solid;
   padding-bottom: 10px;
@@ -16,4 +9,52 @@
 
 .type-narrow div{
   margin-top: 10px;
+  position: relative;
+}
+
+.wrench{
+  position: absolute;
+  top: 75px;
+  left: 85px;
+}
+
+.border-top-dashed{
+  margin-top: 10px;
+  padding-top: 6px;
+  border-top: 1px dashed;
+  border-color: $gray;
+}
+
+.border-bottom-dashed{
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px dashed;
+  border-color: $gray;
+}
+
+.border-top-solid{
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid;
+  border-color: $gray;
+}
+
+.btn-submit{
+  background-color: $theme-color;
+  border-radius: 30%;
+  color: white;
+  padding: 6px 18px;
+  font-weight: bold;
+}
+
+.btn-submit:hover{
+  color: white;
+  background-color: #007fbf;
+}
+
+.comment_textarea{
+  background-color: #e8e8e8;
+  border-radius: 10px;
+  border: none;
+  margin-right: 10px;
 }

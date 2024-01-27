@@ -1,12 +1,12 @@
-<%= render 'layouts/frame' do %>
+<%= render 'layouts/frame', type: :narrow do %>
+  <%= link_to "作品一覧に戻る", admin_works_path %><br>
   <%= render 'shared/work', work: @work %>
+  
   <%= form_with model: @work, url: admin_work_path, method: :patch, local: true do |f| %>
     <p>
       作品公開ステータス:
       <%= f.select :is_published, [["公開", true],["非公開", false]] %>
-      <%= f.submit '変更', 'data-confirm': "本当に変更しますか？" %>
+      <%= f.submit '変更', data: {confirm: "本当に変更しますか？"} %>
     </p>
-    <h4>非公開にしたら視覚的にも分かるようにしたい。</h4>
-    
   <% end %>
 <% end %>

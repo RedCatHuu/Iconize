@@ -1,6 +1,20 @@
 ja:
+  views:
+    pagination:
+      first: "&laquo;"
+      last: "&raquo;"
+      previous: "&lsaquo;"
+      next: "&rsaquo;"
+      truncate: "..."
   activerecord:
     attributes:
+      items:
+        genre: アイテムグループ名
+      work:
+        title: タイトル
+        thumbnail: サムネイル
+      club:
+        name: サークル名
       report:
         comment: 報告内容
       user:
@@ -28,10 +42,16 @@ ja:
         unconfirmed_email: 未確認Eメール
         unlock_token: ロック解除用トークン
         updated_at: 更新日
+        password_confirmation: パスワード（再確認）
     models:
+      item: アイテム
+      work: 作品
+      club: サークル情報
       user: ユーザー情報
       report: レポート
   devise:
+    password:
+      confirmation: パスワード
     confirmations:
       confirmed: メールアドレスが確認できました。
       new:

@@ -1,31 +1,42 @@
 <table class="table">
   <tbody>
     <% clubs.each do |club| %>
-      <tr>
+      <tr class="row-width">
         
-        <td style="width: 5%">
-           <!--管理者か一般ユーザーかでリンク先分岐-->
-          <% if admin_signed_in? %>
-            <%= link_to admin_club_path(club) do %>
-              <%= image_tag club.get_club_image(100, 100) %>
-            <% end %><br>
-          <% else %>
-            <%= link_to club_path(club) do %>
-              <%= image_tag club.get_club_image(100, 100) %>
-            <% end %><br>
-          <% end %>
+        <td>
+          <!--管理者か一般ユーザーかでリンク先分岐-->
+          <% path = admin_signed_in? ? admin_club_path(club) : club_path(club) %> 
+          <%= link_to path do %>
+            <%= image_tag club.get_club_image(100, 100), class: "rounded-circle" %>
+          <% end %><br>
         </td>
         
-        <td style="width: 25%">
+        <td>
           <%= club.name %><br>
           <%= club.introduction.truncate(40) %>
         </td>
-        <td>
-          4つ最新の作品を並べる。
-        </td>
+        
+        <!--作品を投稿していない/少ないユーザーの作品欄に空tdを追加-->
+        <% works = club.works.where(is_published: true).order(created_at: :desc).limit(4) %>
+        <% empty_td = 3 - works.size %>
+        
+        <% works.each do |work| %>
+          <td>
+            <%= link_to work_path(work) do %>
+              <%= image_tag work.get_thumbnail(150, 150) %>
+            <% end %>
+          </td>
+        <% end %>
+        
+        <% for i in 0..empty_td %>
+          <td style="width: 150px;"></td>
+        <% end %>
         
       </tr>
     <% end %>
   </tbody>
 </table>
 
+<div class="justify-contents mt-3">
+  <%= paginate clubs %>
+</div>

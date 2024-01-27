@@ -1,5 +1,16 @@
-<%= render 'layouts/frame' do %>
-
-  <%= render 'shared/works', works: @works, name: true %>
+<%= render 'layouts/frame', type: :standard do %>
+  
+  <ul class="tab-menu">
+    <li><a href="#opend" class="active">公開作品</a></li>
+    <li><a href="#closed">非公開</a></li>
+  </ul>
+  <div class="tab-contents">
+    <div id="opend" class="area active">
+      <%= render 'shared/works', works: @opend_works, name: true, page: true %>
+    </div>
+    <div id="closed" class="area">
+      <%= render 'shared/works', works: @closed_works, name: true, page: true %>
+    </div>
+  </div>
 
 <% end %>

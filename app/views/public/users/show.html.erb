@@ -1,17 +1,15 @@
-<div class="container">
+<div class="container py-5 main-color">
   
   <div class="row">
-    <h2><%= @user.name %>のマイページ</h2>
-  </div>
-  
-  <div class="row">
+    
     <div class="col-auto">
-      <%= image_tag @user.get_profile_image(200, 200) %>
+      <%= image_tag @user.get_profile_image(200, 200), class: "rounded-circle" %>
     </div>
-    <div class="col-7">
-      <p><%= @user.introduction %></p>
-    </div>
-    <div class="col-auto">
+    
+    <div class="col-auto details">
+      
+      <h4><%= @user.name %></h4>
+      
       <span id="relationships">
         <%= render 'public/users/relationships', user: @user %>
       </span>
@@ -27,7 +25,13 @@
           <%= @user.followers.count %>
         </span>
       <% end %>
+      
     </div>
+    
+    <div class="col-lg-8 col-12 introduction">
+      <p class=""><%= @user.introduction %></p>
+    </div>
+    
   </div>
   
   <div class="row">
@@ -36,19 +40,31 @@
       <ul class="tab-menu">
         <li><a href="#my-work" class="active">私の作品</a></li>
         <li><a href="#my-favorite">お気に入り</a></li>
+        <% if @user.clubs.present? %>
+          <li><a href="#my-clubs">参加サークル</a></li>
+        <% end %>
       </ul>
       
       <div class="tab-contents">
         
         <div id="my-work" class="area active">
           <p>投稿数: <%= @user.works.size %> 作品</p>
-          <%= render 'shared/works', works: @user.works, name: false %>
+          <%= render 'shared/works', works: @user_works, name: false, page: true %>
+          
+          
         </div>
         
         <div id="my-favorite" class="area">
-          <p>ブックマーク数: <%= @user.favorited_works.count %> 作品</p>
-          <%= render 'shared/works', works: @user.favorited_works, name: false %>
+          <p>ブックマーク数: <%= @favorited_works_size %> 作品</p>
+          <%= render 'shared/works', works: @favorited_works, name: false, page: true %>
         </div>
+        
+        <% if @user.clubs.present? %>
+          <div id="my-clubs" class="area">
+            <p>サークル数: <%= @user.clubs.count %></p>
+            <%= render 'shared/clubs', clubs: @clubs, name: false %>
+          </div>
+        <% end %>
         
       </div>
       

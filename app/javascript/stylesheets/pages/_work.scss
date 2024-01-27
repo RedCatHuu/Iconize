@@ -1,0 +1,67 @@
+@use "../global/variables" as *;
+
+// Work.new
+.non-active-form{
+  display: none;
+}
+
+.active-form{
+  display: block;
+}
+
+.active-image-form{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.non-active-image{
+  display: none;
+}
+
+// Work.index
+.justify-contents{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.images-size{
+  width: 160px;
+  margin: 10px;
+}
+
+.radiobtn{
+  border: 2px solid red;
+}
+
+.thumbnail-layouts{
+  border-radius: 5px;
+  margin: 5px;
+  background-color: white;
+}
+
+.active-thumbnail{
+  border: 5px solid;
+  border-color: orange;
+  margin: 0;
+}
+
+.file-layouts{
+  padding-top: 6px;
+  padding-left: 10px;
+}
+
+//Work.show
+.edit-link p a{
+  text-decoration: none;
+  color: $font-color;
+}
+
+.d-flex-wrap{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.heart p{
+  font-size: 30px;
+}

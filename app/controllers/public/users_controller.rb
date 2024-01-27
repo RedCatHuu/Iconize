@@ -2,9 +2,15 @@ class Public::UsersController < ApplicationController
   
   before_action :is_matching_login_user, only: [:edit, :update]
   before_action :ensure_guest_user, only: [:edit]
+  before_action :authenticate_user!
   
   def show
     @user = User.find(params[:id])
+    @user_works = Work.where(user_id: @user.id, is_published: true).order(created_at: :desc).page(params[:page]).per(24)
+    favorited_works = @user.favorited_works.where(is_published: true).order(created_at: :desc)
+    @favorited_works_size = favorited_works.size
+    @favorited_works = favorited_works.page(params[:page]).per(24)
+    @clubs = @user.clubs.page(params[:page]).per(24)
   end
 
   def edit
@@ -15,17 +21,15 @@ class Public::UsersController < ApplicationController
     @user = User.find(params[:id])
     # @にしないとエラーに送れない
     if @user.update(user_params)
-      redirect_to my_page_user_path(@user), notice: "編集完了。"
+      redirect_to my_page_user_path(@user), notice: "ユーザー情報を更新しました。"
     else
       render :edit
     end
   end
 
-  def confirm
-  end
-
   def destroy
     user = User.find(params[:id])
+    Club.where(owner_id: user.id).destroy_all
     user.destroy
     reset_session
     redirect_to root_path, notice: "退会しました。ご利用ありがとうございました。"

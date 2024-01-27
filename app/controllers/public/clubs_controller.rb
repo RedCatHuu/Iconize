@@ -1,18 +1,20 @@
 class Public::ClubsController < ApplicationController
   
   before_action :ensure_correct_user, only: [:edit, :update, :permit]
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index]
 
   def new
   end
 
   def index
-    @clubs = Club.all
+    @clubs = Club.order(created_at: :desc).page(params[:page]).per(24)
   end
 
   def show
     @club = Club.find(params[:id])
     @owner = User.find_by(id: @club.owner_id)
+    @club_works = Work.where(club_id: @club.id, is_published: true).order(created_at: :desc).page(params[:page]).per(24)
+    @comments = ClubComment.where(club_id: @club.id).page(params[:page]).order(created_at: :desc).per(100)
   end
   
   def create
@@ -34,29 +36,38 @@ class Public::ClubsController < ApplicationController
   def update
     @club = Club.find(params[:id])
     if @club.update(club_params)
-      redirect_to club_path(@club), notice: "サークル情報を編集しました。"
+      redirect_to club_path(@club), notice: "サークル情報を更新しました。"
     else
       render :edit
     end
   end
-
-  def club_works
-    @works = Work
-  end
   
+  def destroy
+    club = Club.find(params[:id])
+    if club.destroy
+      redirect_to clubs_path, notice: "サークルを削除しました。"
+    else
+      redirect_to clubs_path
+      flash[:alert] = "削除に失敗しました。"
+      @clubs = Club.order(created_at: :desc).page(params[:page]).per(24)
+    end 
+  end
+
   def member
     @club = Club.find(params[:id])
+    @users = @club.users.order(created_at: :desc).page(params[:page]).per(24)
   end
   
   def permit
     @club = Club.find(params[:id])
-    @permits = @club.permits
+    @users = @club.unpermited_users.order(created_at: :desc).page(params[:page]).per(24)
   end 
   
   def accept
     club = Club.find(params[:club_id])
-    permit = Permit.find(params[:permit_id])
-    club.users << permit.user
+    user = User.find(params[:user_id])
+    permit = Permit.find_by(club_id: club.id, user_id: user.id )
+    club.users << user
     permit.destroy
     redirect_to permit_club_path(club)
   end 

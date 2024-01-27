@@ -1,2 +1,1 @@
-$('#work-comments').html("<%= j(render 'public/work_comments/work_comment', work: @work) %>");
-$('.comment_textarea').val("");
+$('#work-comments').html("<%= j(render 'public/work_comments/work_comment', work: @work, comments: @comments) %>");

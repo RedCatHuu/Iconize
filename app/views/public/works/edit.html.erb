@@ -1,45 +1,111 @@
-<%= render 'layouts/frame', type: :standard do %>
+<%= render 'layouts/frame', type: :narrow do %>
 
-  <h2>作品投稿</h2>
+  <h2 class="text-center border-title">作品編集</h2>
+  <p>現状個々の画像の差し替え、追加、削除はできません。画像を差し替える場合は、アイテムグループに保存されている画像全てを変えてください。</p>
   <%= form_with model: @work do |f| %>
-    <div>
-      <%= f.label :base_image, 'ベース画像' %><br>
-      <p>現在のベース画像</p>
-      <%= image_tag @work.get_base_image(200, 200) %><br>
-      <%= f.file_field :base_image, accept: "image/*" %>
+  
+    <div class="mt-4 border-bottom-dashed justify-contents">
+      <%= f.label :base_image, 'サムネイル画像', class: "btn btn-primary" %>
+      <%= f.file_field :base_image, accept: "image/*", class: "input-image" %>
+      <p class="display-filename file-layouts"><%= @work.thumbnail.filename %></p>
     </div>
-    <!--画像表示のために変数を設定-->
-    <% i = 0 %>
+    
+    <!--for文が使えないので代用-->
+    <% nth_item = 0 %>
     <%= f.fields_for :items, @work.items do |item| %>
-      <div>
-        <%= item.label :genre, 'アイテムグループ名' %><br>
-        <%= item.text_field :genre %>
+      <div class="border-bottom-dashed">
+        <div class="text-center">
+          <%= item.label :genre, 'アイテムグループ名' %><br>
+          <%= item.text_field :genre %>
+        </div>
+        
+        <% for nth_image in 0..@work.items[nth_item].images_qty %>
+          <div class="active-image-form image-form-number-<%= nth_item %>-<%= nth_image %>">
+            <label for="edit-item-file-<%= nth_item %>-<%= nth_image %>" class="btn btn-primary">ファイルを選択</label>
+            <%= item.file_field :images, accept: "image/*", multiple: true, id: "edit-item-file-#{nth_item}-#{nth_image}" %>
+            <p class="file-name-<%= nth_item %>-<%= nth_image %> file-layouts"><%= @work.items[nth_item].images[nth_image].filename %></p>
+          </div>
+        <% end %>
+        
+        <% for nth_image in @work.items[nth_item].images.size..9 %>
+          <div class="non-active-form image-form-number-<%= nth_item %>-<%= nth_image %>">
+            <label for="edit-item-file-<%= nth_item %>-<%= nth_image %>" class="btn btn-primary">ファイルを選択</label>
+            <%= item.file_field :images, accept: "image/*", multiple: true, id: "edit-item-file-#{nth_item}-#{nth_image}" %>
+            <p class="file-name-<%= nth_item %>-<%= nth_image %> file-layouts">ファイルが選択されていません。</p>
+          </div>
+        <% end %>
+        
+        <div class="text-right">
+          <span class="add-image-form-<%= nth_item %> btn">
+            <i class="fa-solid fa-circle-plus fa-2xl" style="color: #74C0FC;"></i>
+          </span>
+          <span class="remove-image-form-<%= nth_item %> btn">
+            <i class="fa-solid fa-circle-minus fa-2xl" style="color: #fc7373;"></i>
+          </span>
+        </div>
+        
+        <% nth_item += 1 %>
       </div>
-      <div>
-        現在の画像
-        <% @work.items[i].images.each do|image| %>
-          <%= image_tag image, size:'150x150' %>
+    <% end %>
+    
+      
+    <% for nth_item in @work.items.size..9 %>
+    
+      <div id="form-number-<%= nth_item %>" class="<%= nth_item == 0 ? 'active-form' : 'non-active-form' %> border-bottom-dashed">
+        <%= f.fields_for :items, Work.new.items.build do |item| %>
+          <div class="text-center">
+            <%= item.label :genre, 'アイテムグループ名' %><br>
+            <%= item.text_field :genre %>
+          </div>
+          
+          <% for nth_image in 0..9 %>
+            <div class="image-form-number-<%= nth_item %>-<%= nth_image %> text-center <%= nth_image == 0 ? 'active-image-form' : 'non-active-form' %>" >
+              <!--item.labelだとid指定がうまくいかないためlabelタグ使用-->
+              <label for="edit-item-file-<%= nth_item %>-<%= nth_image %>" class="btn btn-primary">ファイルを選択</label>
+              <%= item.file_field :images, accept: "image/*", multiple: true, id: "edit-item-file-#{nth_item}-#{nth_image}" %>
+              <p class="file-name-<%= nth_item %>-<%= nth_image %> file-layouts">選択されていません</p>
+            </div>
+          <% end %>
+          
+          <div class="text-right">
+            <span class="add-image-form-<%= nth_item %> btn">
+              <i class="fa-solid fa-circle-plus fa-2xl" style="color: #74C0FC;"></i>
+            </span>
+            <span class="remove-image-form-<%= nth_item %> btn">
+              <i class="fa-solid fa-circle-minus fa-2xl" style="color: #fc7373;"></i>
+            </span>
+          </div>
+          
         <% end %>
       </div>
-      <div>
-        <%= item.label :images, 'アイテム画像' %><br>
-        <%= item.file_field :images, multiple: true, accept: "image/*" %>
-      </div>
-      <% i += 1 %>
     <% end %>
-      
-    <div>
-      <%= f.label :title, '作品名' %><br>
+    
+    
+    <div class="text-center">
+      <span id="add-form" class="btn btn-info">
+        アイテム欄の追加
+      </span>
+       /
+      <span id="remove-form" class="btn btn-info">
+        アイテム欄の削除
+      </span>
+    </div>
+    
+    <div class="mt-4">
+      <%= f.label :title, '作品名（30字まで）' %><br>
       <%= f.text_field :title %>
     </div>
     <div>
-      <%= f.label :caption, 'キャプション' %><br>
-      <%= f.text_area :caption, class:"form-control", size: "1x5" %>
+      <%= f.label :caption, 'キャプション（400字まで）' %><br>
+      <%= f.text_area :caption, class: "form-control", size: "1x5" %>
+    </div>
+    <div class="d-flex-wrap mt-4">
+      <%= f.submit '作品を編集', class: "btn btn-success" %>
+      <%= link_to 'キャンセル', request.referer, class: "btn btn-outline-secondary ml-auto" %>
     </div>
     <div>
-      <%= f.submit '作品を編集', class:"btn btn-success mt-3" %>
+      <%= link_to '削除', work_path, method: :delete, class: "mt-5 btn btn-danger", data: {confirm: "本当に削除しますか？"} %>
     </div>
-    <%= link_to '削除', work_path, method: :delete %>
   <% end %>
 
 <% end %>

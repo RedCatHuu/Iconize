@@ -1,7 +1,8 @@
 @use "../global/variables" as *;
+@use "~bootstrap/scss/bootstrap" as *;
 
 body{
-  color: #546e7a;
+  color: $font-color;
   font-family: $font-sans-serif;;
 }
 
@@ -20,4 +21,45 @@ body{
 
 .btn-primary{
   background-color: $theme-color;
+}
+
+
+// チェックボックスを消す
+input[type="radio"] {
+  display: none;
+}
+
+// ファイルボックスを消す
+input[type="file"]{
+  display: none;
+}
+
+.home-bg-image {
+  background-image: url(/images/ichimatsu.png);
+  background-size: contain;
+  position: relative;
+  border-bottom: 60px solid $theme-color;
+  height: 640px;
+  @include media-breakpoint-down(lg){
+    height: 550px;
+	}
+	@include media-breakpoint-down(md){
+    height: 430px;
+	}
+	@include media-breakpoint-down(sm){
+    height: 326px;
+	}
+}
+
+.home-image{
+  width: 1000px;
+	@include media-breakpoint-down(lg){
+    width: 850px;
+	}
+	@include media-breakpoint-down(md){
+    width: 640px;
+	}
+	@include media-breakpoint-down(sm){
+    width: 460px;
+	}
 }

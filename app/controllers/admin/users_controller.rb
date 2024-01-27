@@ -1,10 +1,11 @@
 class Admin::UsersController < ApplicationController
   def index
-    @users = User.all
+    @users = User.order(created_at: :desc).page(params[:page]).per(24)
   end
 
   def show
     @user = User.find(params[:id])
+    @user_works = Work.where(user_id: @user.id).order(created_at: :desc).page(params[:page]).per(24)
   end
 
   def update

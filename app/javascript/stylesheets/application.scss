@@ -4,13 +4,7 @@
 @use './global/footer';
 @use './global/narrow';
 @use './global/tab';
-@use './public/work_new';
-
-// チェックボックスを消す
-input[type="checkbox"] {
-  display: non;
-}
-
-input[type="file"]{
-  display: none;
-}
+@use './global/table';
+@use './global/pagination';
+@use './pages/work';
+@use './pages/user_club';

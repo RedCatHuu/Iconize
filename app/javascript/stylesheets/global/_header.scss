@@ -20,8 +20,9 @@
 	cursor: pointer;
   width: 50px;
   height: 50px;
-// 	border-radius: 5px;
   z-index: 9999;
+  border-radius: 50%;
+  border-color: #0077b2;
 }
 
 /*ボタン内側*/
@@ -71,6 +72,7 @@
   height: 2px;
 }
 
+
 // Nav-bar
 #horizontal-nav{
   position: fixed;
@@ -80,10 +82,10 @@
   right: -120%;
 	width: 10%;
 	@include media-breakpoint-down(md){
-	    width: 20%;
+	    width: 15%;
 	}
 	@include media-breakpoint-down(sm){
-	    width: 25%;
+	    width: 20%;
 	}
 	@include media-breakpoint-down(xs){
 	    width: 100%;
@@ -96,9 +98,15 @@
 /*アクティブクラスがついたら位置を0に*/
 #horizontal-nav.panelactive{
   top: 66px;
-  right: 20px;
-  border: 1px solid;
-  border-color: $gray;
+  right: 15vh;
+  @include media-breakpoint-down(md){
+    right: 7vh;
+	}
+	@include media-breakpoint-down(sm){
+    right: 15px;
+	}
+  border-color: $theme-color;
+  border-radius: 5px;
   @extend .shadow-sm;
   @include media-breakpoint-down(xs){
     top: 56px;
@@ -106,23 +114,11 @@
 	}
 }
 
-/*ナビゲーションの縦スクロール*/
-// #horizontal-nav.panelactive #horizontal-nav-list{
-//     /*ナビの数が増えた場合縦スクロール*/
-//     position: fixed;
-//     z-index: 999; 
-//     width: 100%;
-//     height: 100vh;/*表示する高さ*/
-//     overflow: auto;
-//     -webkit-overflow-scrolling: touch;
-// }
-
 /*ナビゲーション*/
 #horizontal-nav ul {
-    /*ナビゲーション天地中央揃え*/
   position: absolute;
   z-index: 999;
-  top: 10%;
+  top: 7%;
   left: 10%;
   padding: 0;
   @include media-breakpoint-down(xs){
@@ -133,7 +129,6 @@
 }
 
 /*リストのレイアウト設定*/
-
 #horizontal-nav li{
 	list-style: none;
   text-align: start;
@@ -143,11 +138,50 @@
 }
 
 #horizontal-nav li a{
-	color: #333;
+	color: $font-color;
 	text-decoration: none;
 	padding: 10px 0;
 	display: block;
 	text-transform: uppercase;
 	letter-spacing: 0.1em;
-	font-weight: bold;
+}
+
+.rounded-top{
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.ml-search{
+  margin-left: 3rem;
+	@include media-breakpoint-down(xs){
+    margin-left: 0;
+	}
+}
+
+.search {
+  float: left;
+  position: relative;
+  i {
+      color: gray;
+      position: absolute;
+      left: 10px;
+      bottom: 10px;
+    }
+  input {
+    border: 1px solid #bbb;
+    border-radius: 12px;
+    padding: 5px 0 5px 35px;
+    margin-bottom: 0;
+    width: 20vw;
+  	@include media-breakpoint-down(md){
+      width: 25vw;
+  	}
+  	@include media-breakpoint-down(sm){
+      width: 30vw;
+  	}
+  	@include media-breakpoint-down(xs){
+      width: 35vw;
+  	}
+      outline: none;
+    }
 }

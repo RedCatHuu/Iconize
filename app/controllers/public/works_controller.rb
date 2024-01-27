@@ -1,7 +1,8 @@
 class Public::WorksController < ApplicationController
   
   before_action :ensure_correct_user, only: [:edit, :update]
-  before_action :authenticate_user!, except: [:index, :show ]
+  before_action :ensure_public?, only: [:show]
+  before_action :authenticate_user!, except: [:index]
   
   def new
     # サークル詳細から投稿画面に遷移してきた場合
@@ -13,11 +14,13 @@ class Public::WorksController < ApplicationController
   end
   
   def index
-    @works = Work.all
+    @works_all = Work.where(is_published: true)
+    @works = Work.where(is_published: true).order(created_at: :desc).page(params[:page]).per(24)
   end
 
   def show
     @work = Work.find(params[:id])
+    @comments = WorkComment.where(work_id: @work.id).page(params[:page]).per(100)
     unless ReadCount.where(created_at: Time.zone.now.all_day).find_by(user_id: current_user, work_id: @work.id)
       current_user.read_counts.create(work_id: @work.id)
     end 
@@ -29,6 +32,11 @@ class Public::WorksController < ApplicationController
     club_id = params[:work][:club_id]
     if club_id == nil
       @work.user_id = current_user.id
+    end
+    
+    unless @work.items[0].present? && @work.items[0].images[0].present? && @work.items[0].genre.present?
+      flash.now[:alert] = "アイテム欄を入力してください"
+      return render :new
     end
     
     # サムネイルを作成し保存
@@ -69,6 +77,12 @@ class Public::WorksController < ApplicationController
 
   def update
     @work = Work.find(params[:id])
+    
+    unless @work.items[0].present?
+      flash.now[:alert] = "アイテム欄を記入してください"
+      return render :edit
+    end
+    
     if @work.update(work_params)
       # サムネイルを作成
       @work.items.each do |item|
@@ -91,7 +105,6 @@ class Public::WorksController < ApplicationController
           tmp_file.unlink
         end
       end
-      # byebug
       redirect_to work_path(@work), notice: "編集が完了しました。"
     else
       render :edit
@@ -112,18 +125,21 @@ class Public::WorksController < ApplicationController
     for nth_image in 0..items_size
       image_numbers << [params[:work]["item_number_#{nth_image}"]]
     end
-    base_image = work.base_image
+    base_item_number = image_numbers[0][0].to_i
+    base_image = work.items[0].images[base_item_number]
     base_image = base_image.download
     base_image = MiniMagick::Image.read(base_image)
     
-    for nth in 0..items_size
-      nth_image = image_numbers[nth][0].to_i  #[nth]としてもまだ配列なので[0]としてさらに配列から取得する
-      input = work.items[nth].images[nth_image]
-      base_image = base_image.composite(MiniMagick::Image.open(input)) do |config|
-        config.compose "Over"
-        config.gravity "NorthWest"
-      end 
-    end
+    if not items_size == 0
+      for nth in 1..items_size
+        nth_image = image_numbers[nth][0].to_i  #[nth]としてもまだ配列なので[0]としてさらに配列から取得する
+        input = work.items[nth].images[nth_image]
+        base_image = base_image.composite(MiniMagick::Image.open(input)) do |config|
+          config.compose "Over"
+          config.gravity "NorthWest"
+        end 
+      end
+    end 
     result = base_image
     send_data result.to_blob, type: "image/png", disposition: "attachment; filename = Iconize.png"
   end
@@ -133,7 +149,7 @@ class Public::WorksController < ApplicationController
   def work_params
     params.require(:work).permit(:title,
                                  :caption, 
-                                 :base_image,
+                                 :thumbnail,
                                  :club_id,
                                  items_attributes: [
                                    :id,
@@ -145,9 +161,16 @@ class Public::WorksController < ApplicationController
   
   def ensure_correct_user
     @work = Work.find(params[:id])
-    unless @work.user == current_user
+    unless @work.user == current_user || @work.club.users.include?(current_user)
       redirect_to works_path
     end
   end
+  
+  def ensure_public?
+    @work = Work.find(params[:id])
+    unless @work.is_published
+      redirect_to works_path, alert: "非公開作品です。"
+    end 
+  end 
   
 end

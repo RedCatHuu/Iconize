@@ -1,1 +1,2 @@
-$('#club-comments').html("<%= j(render 'public/club_comments/club_comment', club: @club) %>");
+$('#club-comments').html("<%= j(render 'public/club_comments/club_comment', club: @club, comments: @comments) %>");
+$('.comment_textarea').val("");

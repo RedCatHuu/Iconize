@@ -5,12 +5,14 @@ class Public::WorkCommentsController < ApplicationController
     @comment = current_user.work_comments.new(work_comment_params)
     @comment.work_id = @work.id
     @comment.save
+    @comments = WorkComment.where(work_id: @work.id).page(params[:page]).per(100)
   end
 
   def destroy
     comment = WorkComment.find(params[:id])
     @work = comment.work
     comment.destroy
+    @comments = WorkComment.where(work_id: @work.id).page(params[:page]).per(100)
   end
   
   private

@@ -1,33 +1,50 @@
 <table class="table">
   <tbody>
     <% users.each do |user| %>
-      <tr>
-        <!--管理者か一般ユーザーかでリンク先分岐-->
-        <% if admin_signed_in? %>
-          <td><%= user.status %>marginいじって中央寄せにする</td>
-          <td style="width: 5%">
-            <%= link_to admin_user_path(user) do %>
-              <%= image_tag user.get_profile_image(100, 100) %>
-            <% end %><br>
-          </td>
-        <% else %>
-          <td>
-            <%= link_to my_page_user_path(user) do %>
-              <%= image_tag user.get_profile_image(100, 100) %>
-            <% end %><br>
+      <tr class="row-width">
+        
+        <% if club.present? %>
+          <td class="td-sm">
+            <%= link_to '許可', accept_clubs_path(club_id: club.id, user_id: user.id), data: { confirm: '本当に許可しますか？' } %>
           </td>
         <% end %>
         
+        <!--管理者か一般ユーザーかでリンク先分岐-->
+        <% path = admin_signed_in? ? admin_user_path(user) : my_page_user_path(user) %>
+        <td class="td-sm"><%= user.status %></td>
+        <td>
+          <%= link_to path do %>
+            <%= image_tag user.get_profile_image(100, 100), class: "rounded-circle" %>
+          <% end %><br>
+        </td>
+        
         <td>
           <%= user.name %><br>
-          <%= user.introduction %>
+          <% if user.introduction.present? %>
+            <%= user.introduction.truncate(40) %>
+          <% end %>
         </td>
-        <td>
-          4つ最新の作品を並べる。
-        </td>
+        
+        <% works = user.works.order(created_at: :desc).limit(4) %>
+        <% works.each do |work| %>
+          <td>
+            <%= link_to work_path(work) do %>
+              <%= image_tag work.get_thumbnail(150, 150) %>
+            <% end %>
+          </td>
+        <% end %>
+        
+        <!--作品を投稿していない/少ないユーザーの作品欄に空tdを追加-->
+        <% empty_td = 3 - works.size %>
+        <% for i in 0..empty_td %>
+          <td></td>
+        <% end %>
         
       </tr>
     <% end %>
   </tbody>
 </table>
 
+<div class="justify-contents mt-3">
+  <%= paginate users %>
+</div>

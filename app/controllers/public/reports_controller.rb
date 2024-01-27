@@ -1,4 +1,7 @@
 class Public::ReportsController < ApplicationController
+  
+  before_action :authenticate_user!
+  
   def create
     @report = Report.new(report_params)
     
@@ -28,4 +31,5 @@ class Public::ReportsController < ApplicationController
   def report_params
     params.require(:report).permit(:type, :comment)
   end
+  
 end

@@ -5,12 +5,14 @@ class Public::ClubCommentsController < ApplicationController
     @comment = current_user.club_comments.new(club_comment_params)
     @comment.club_id = @club.id
     @comment.save
+    @comments = ClubComment.where(club_id: @club.id).page(params[:page]).order(created_at: :desc).per(100)
   end
 
   def destroy
     comment = ClubComment.find(params[:id])
     @club = comment.club
     comment.destroy
+    @comments = ClubComment.where(club_id: @club.id).page(params[:page]).order(created_at: :desc).per(100)
   end
   
   private

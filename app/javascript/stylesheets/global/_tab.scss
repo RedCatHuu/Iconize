@@ -1,3 +1,4 @@
+// Admin
 // tabを横並びにする
 .tab-menu {
   display: flex;
@@ -44,4 +45,61 @@
 .tab-contents p {
   color: #000;
   line-height: 2.5;
+}
+
+.max-width{
+  width: 100%;
+}
+
+// User
+.user-tab-menu {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+// tabの元の装飾を取る
+.user-tab-menu li {
+  list-style-type: none;
+}
+
+// tabの装飾
+.user-tab-menu li a {
+  text-decoration: none;
+  display: block;
+  padding: 20px;
+  padding-bottom: 5px;
+  text-align: center;
+}
+
+// tab選択時の装飾
+.user-tab-menu .active {
+  border-bottom: 3px solid;
+}
+
+// tabの内容の並び
+.user-tab-contents {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #e5e5e5;
+}
+
+// tabの内容の表示
+.user-tab-contents .area {
+  display: none;
+  // width: 100%;
+  // padding: 30px;
+  // background: #fff;
+}
+
+.user-tab-contents .active {
+  display: block;
+}
+
+.user-tab-contents p {
+  color: #000;
+  line-height: 2.5;
+}
+
+.max-width{
+  width: 100%;
 }
