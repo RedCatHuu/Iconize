@@ -27,11 +27,9 @@ class Public::UsersController < ApplicationController
     end
   end
 
-  def confirm
-  end
-
   def destroy
     user = User.find(params[:id])
+    Club.where(owner_id: user.id).destroy_all
     user.destroy
     reset_session
     redirect_to root_path, notice: "退会しました。ご利用ありがとうございました。"

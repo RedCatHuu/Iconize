@@ -161,7 +161,7 @@ class Public::WorksController < ApplicationController
   
   def ensure_correct_user
     @work = Work.find(params[:id])
-    unless @work.user == current_user
+    unless @work.user == current_user || @work.club.users.include?(current_user)
       redirect_to works_path
     end
   end

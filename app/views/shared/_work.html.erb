@@ -96,9 +96,16 @@
   <div class="edit-link d-flex-wrap">
     <p>
       <% if admin_signed_in? %>
-        <%= link_to admin_user_path(work.user) do %>
-          <%= image_tag work.user.get_profile_image(50, 50), class: "rounded-circle" %>
-          <%= work.user.name %>
+        <% if work.club %>
+          <%= link_to admin_club_path(work.club) do %>
+            <%= image_tag work.club.get_club_image(50, 50), class: "rounded-circle" %>
+            <%= work.club.name %>
+          <% end %>
+        <% else %>
+          <%= link_to admin_user_path(work.user) do %>
+            <%= image_tag work.user.get_profile_image(50, 50), class: "rounded-circle" %>
+            <%= work.user.name %>
+          <% end %>
         <% end %>
       <% elsif work.club_id == nil %>
         <%= link_to my_page_user_path(work.user) do %>

@@ -3,11 +3,11 @@ class Club < ApplicationRecord
   validates :name, presence: true, length: {minimum: 2, maximum: 50}
   validates :introduction, length: {maximum: 400}
   
-  has_many :works,          dependent: :destroy
-  has_many :permits,        dependent: :destroy
-  has_many :user_clubs
-  has_many :users,          through: :user_clubs
-  has_many :club_comments,  dependent: :destroy
+  has_many :works,            dependent: :destroy
+  has_many :permits,          dependent: :destroy
+  has_many :user_clubs,       dependent: :destroy
+  has_many :users,            through: :user_clubs
+  has_many :club_comments,    dependent: :destroy
   has_many :unpermited_users, through: :permits, source: :user
   
   has_one_attached :club_image

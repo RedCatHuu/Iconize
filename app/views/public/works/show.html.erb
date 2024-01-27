@@ -15,8 +15,8 @@
     <span id="favorite-count" class="mx-1">
       <%= @work.favorites.count %>
     </span>
-    
-    <% if @work.user == current_user %>
+    <!--work.clubがnilの場合のエラー回避のためにwork.club.present?を追加-->
+    <% if @work.club.present? && @work.club.users.include?(current_user) || @work.user == current_user %>
       <%= link_to '作品の編集', edit_work_path(@work) %>
     <% else %>
       <span style="margin-left: auto;">

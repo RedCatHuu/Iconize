@@ -42,6 +42,7 @@ ja:
         unconfirmed_email: 未確認Eメール
         unlock_token: ロック解除用トークン
         updated_at: 更新日
+        password_confirmation: パスワード（再確認）
     models:
       item: アイテム
       work: 作品
@@ -49,6 +50,8 @@ ja:
       user: ユーザー情報
       report: レポート
   devise:
+    password:
+      confirmation: パスワード
     confirmations:
       confirmed: メールアドレスが確認できました。
       new:
