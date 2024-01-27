@@ -4,16 +4,11 @@
       <tr class="row-width">
         
         <td>
-           <!--管理者か一般ユーザーかでリンク先分岐-->
-          <% if admin_signed_in? %>
-            <%= link_to admin_club_path(club) do %>
-              <%= image_tag club.get_club_image(100, 100), class: "rounded-circle" %>
-            <% end %><br>
-          <% else %>
-            <%= link_to club_path(club) do %>
-              <%= image_tag club.get_club_image(100, 100), class: "rounded-circle" %>
-            <% end %><br>
-          <% end %>
+          <!--管理者か一般ユーザーかでリンク先分岐-->
+          <% path = admin_signed_in? ? admin_club_path(club) : club_path(club) %> 
+          <%= link_to path do %>
+            <%= image_tag club.get_club_image(100, 100), class: "rounded-circle" %>
+          <% end %><br>
         </td>
         
         <td>

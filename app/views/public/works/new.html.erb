@@ -12,8 +12,8 @@
   <%= form_with model: Work.new do |f| %>
     <div class="mt-4 border-bottom-dashed">
       <%= f.label :thumbnail, 'サムネ画像を追加する', class: "btn btn-primary" %><br>
-      <%= f.file_field :thumbnail, accept: "image/*", class: "input-thumbnail" %>
-      <p class="new-thumbnail">選択されていません</p>
+      <%= f.file_field :thumbnail, accept: "image/*", class: "input-image" %>
+      <p class="display-filename">選択されていません</p>
     </div>
     
     <% for nth_form in 0..9 %>

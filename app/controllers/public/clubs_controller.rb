@@ -36,7 +36,7 @@ class Public::ClubsController < ApplicationController
   def update
     @club = Club.find(params[:id])
     if @club.update(club_params)
-      redirect_to club_path(@club), notice: "サークル情報を編集しました。"
+      redirect_to club_path(@club), notice: "サークル情報を更新しました。"
     else
       render :edit
     end
