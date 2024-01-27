@@ -11,7 +11,6 @@
     <% end %>
   </div>
   
-  
   <!--スペース用の空div-->
   <div style="height: 350px"></div>
   
@@ -21,10 +20,7 @@
       <% item = work.items[i] %>
       <li class="nav-item">
        <!-- 最初のitemにはactiveクラスを追加 -->
-        <a class="
-          <% if i == 0 %>
-            active
-          <% end %>"
+        <a class="<% if i == 0 %>active<% end %>"
           data-toggle="tab"
           href="#img<%= item.id %>"><%= item.genre %>
         </a>
@@ -56,30 +52,30 @@
               <% end %>
             <% end %>
           
-           <!--for nth_item inのループの中にscriptを組み込むことで、script内でnth_itemが使えるようになる。rubyにjsの変数を渡す簡単な方法があればもっと綺麗に書けるだろうけど。-->
+           
             <script>
             // ラジオボックスをクリックして画像の表示、非表示
-            $(document).ready(function(){
-              let thumbnail_size = "<%= work.items[nth_item].images_qty %>"         // workのn番目のitemのimageの数を代入
-              for (let thumbnail = 0; thumbnail <= thumbnail_size; thumbnail++){    // thumbnail_sizeの数になるまで繰り返し
-                let current_thumbnail = $('.item_number_' + "<%= nth_item %>" + '_' + thumbnail )
-                current_thumbnail.on('click', function(){
-                  for (let all_images_hide = 0; all_images_hide <= thumbnail_size; all_images_hide++){ // activeでない画像を消す。
-                    $('.image_' + "<%= nth_item %>" + '_' + all_images_hide ).hide();
-                    $('.item_number_' + "<%= nth_item %>" + '_' + all_images_hide ).removeClass('active-thumbnail');
-                  }
-                  
-                  $('.image_' + "<%= nth_item %>" + '_' + thumbnail ).toggle();
-                  
-                  if (current_thumbnail.hasClass('active-thumbnail')){
-                    current_thumbnail.removeClass('active-thumbnail');
-                  }else{
-                    current_thumbnail.addClass('active-thumbnail');
-                  }
-                })
-              }
-            })
-          </script>
+              $(document).ready(function(){
+                let thumbnail_size = "<%= work.items[nth_item].images_qty %>"         // workのn番目のitemのimageの数を代入
+                for (let thumbnail = 0; thumbnail <= thumbnail_size; thumbnail++){    // thumbnail_sizeの数になるまで繰り返し
+                  let current_thumbnail = $('.item_number_' + "<%= nth_item %>" + '_' + thumbnail )
+                  current_thumbnail.on('click', function(){
+                    for (let all_images_hide = 0; all_images_hide <= thumbnail_size; all_images_hide++){ // activeでない画像を消す。
+                      $('.image_' + "<%= nth_item %>" + '_' + all_images_hide ).hide();
+                      $('.item_number_' + "<%= nth_item %>" + '_' + all_images_hide ).removeClass('active-thumbnail');
+                    }
+                    
+                    $('.image_' + "<%= nth_item %>" + '_' + thumbnail ).toggle();
+                    
+                    if (current_thumbnail.hasClass('active-thumbnail')){
+                      current_thumbnail.removeClass('active-thumbnail');
+                    }else{
+                      current_thumbnail.addClass('active-thumbnail');
+                    }
+                  })
+                }
+              })
+            </script>
         </span>
       <% end %>
         <br>
@@ -90,33 +86,25 @@
       <%= f.submit 'ダウンロード', class: "btn btn-outline-info mt-3" %>
     </div>
   <% end %>
-    
-  
   
   <div class="edit-link d-flex-wrap">
     <p>
-      <% if admin_signed_in? %>
-        <% if work.club %>
-          <%= link_to admin_club_path(work.club) do %>
-            <%= image_tag work.club.get_club_image(50, 50), class: "rounded-circle" %>
-            <%= work.club.name %>
-          <% end %>
-        <% else %>
-          <%= link_to admin_user_path(work.user) do %>
-            <%= image_tag work.user.get_profile_image(50, 50), class: "rounded-circle" %>
-            <%= work.user.name %>
-          <% end %>
-        <% end %>
-      <% elsif work.club_id == nil %>
-        <%= link_to my_page_user_path(work.user) do %>
-          <%= image_tag work.user.get_profile_image(50, 50), class: "rounded-circle" %>
-          <%= work.user.name %>
-        <% end %>
-      <% else %>
-        <%= link_to club_path(work.club) do %>
-          <%= image_tag work.club.get_club_image(50, 50), class: "rounded-circle" %>
-          <%= work.club.name %>
-        <% end %>
+      <!--アクセスした人は管理者か一般ユーザーか？さらに、投稿者はサークルか個人ユーザーか？の4つでリンク先分ける。-->
+      <% target_path, target_image, target_name = if admin_signed_in?
+                                                    if work.club
+                                                      [admin_club_path(work.club), work.club.get_club_image(50, 50), work.club.name]
+                                                    else
+                                                      [admin_user_path(work.user), work.user.get_profile_image(50, 50), work.user.name]
+                                                    end
+                                                  elsif work.club
+                                                    [club_path(work.club), work.club.get_club_image(50, 50), work.club.name]
+                                                  else
+                                                    [my_page_user_path(work.user), work.user.get_profile_image(50, 50), work.user.name]
+                                                  end %>
+
+      <%= link_to target_path do %>
+        <%= image_tag target_image, class: "rounded-circle" %>
+        <%= target_name %>
       <% end %>
     </p>
     
@@ -133,7 +121,6 @@
   <p>
     <%= work.caption %>
   </p>
-  
   
   <p class="text-right" style="font-size: 14px;"><%= work.y_to_m %></p>
   

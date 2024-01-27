@@ -2,15 +2,11 @@
   <% works.each do |work| %>
     <div class="images-size">
       <!--管理者か一般ユーザーかでリンク先分岐-->
-      <% if admin_signed_in? %>
-        <%= link_to admin_work_path(work) do %>
-          <%= image_tag work.get_thumbnail(150, 150) %>
-        <% end %><br>
-      <% else %>
-        <%= link_to work_path(work) do %>
-          <%= image_tag work.get_thumbnail(150, 150) %>
-        <% end %><br>
-      <% end %>
+      <% path = admin_signed_in? ? admin_work_path(work) : work_path(work) %>
+      <%= link_to path do %>
+        <%= image_tag work.get_thumbnail(150, 150) %>
+      <% end %><br>
+      
       <%= work.title %><br>
       
       <!--名前は必要か-->
@@ -20,37 +16,19 @@
         <% if admin_signed_in? %>
         
           <!--作品はサークルが投稿したものか-->
-          <% if work.club_id == nil %>
-          
-            <%= link_to admin_user_path(work.user) do %>
-              <%= work.user.name %>
-            <% end %>
-            
-          <% else %>
-          
-            <%= link_to club_path(work.club) do %>
-              <%= work.club.name %>
-            <% end %>
-            
+          <% target_path, target_name = work.club_id.nil? ? [admin_user_path(work.user), work.user.name] : [admin_club_path(work.club), work.club.name] %>
+          <%= link_to target_path do %>
+            <%= target_name %>
           <% end %>
-          
+            
         <% else %>
         <!--ユーザーがログインしている場合-->
         <!--作品はサークルが投稿したものか-->
-          <% if work.club_id == nil %>
-          
-            <%= link_to my_page_user_path(work.user) do %>
-              <%= work.user.name %>
-            <% end %>
-            
-          <% else %>
-          
-            <%= link_to club_path(work.club) do %>
-              <%= work.club.name %>
-            <% end %>
-            
+          <% target_path, target_name = work.club_id.nil? ? [my_page_user_path(work.user), work.user.name] : [club_path(work.club), work.club.name] %>
+          <%= link_to target_path do %>
+            <%= target_name %>
           <% end %>
-          
+            
         <% end %>
         
       <% end %>
@@ -58,4 +36,7 @@
   <% end %>
 </div>
 <% if page %>
+  <div class="justify-contents mt-3">
+    <%= paginate works %>
+  </div>
 <% end %>

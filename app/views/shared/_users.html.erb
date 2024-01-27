@@ -10,20 +10,13 @@
         <% end %>
         
         <!--管理者か一般ユーザーかでリンク先分岐-->
-        <% if admin_signed_in? %>
-          <td class="td-sm"><%= user.status %></td>
-          <td>
-            <%= link_to admin_user_path(user) do %>
-              <%= image_tag user.get_profile_image(100, 100), class: "rounded-circle" %>
-            <% end %><br>
-          </td>
-        <% else %>
-          <td>
-            <%= link_to my_page_user_path(user) do %>
-              <%= image_tag user.get_profile_image(100, 100), class: "rounded-circle" %>
-            <% end %><br>
-          </td>
-        <% end %>
+        <% path = admin_signed_in? ? admin_user_path(user) : my_page_user_path(user) %>
+        <td class="td-sm"><%= user.status %></td>
+        <td>
+          <%= link_to path do %>
+            <%= image_tag user.get_profile_image(100, 100), class: "rounded-circle" %>
+          <% end %><br>
+        </td>
         
         <td>
           <%= user.name %><br>
