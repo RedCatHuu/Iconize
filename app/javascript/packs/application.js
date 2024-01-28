@@ -16,7 +16,7 @@ import "script.js";
 import "popper.js";
 import "bootstrap";
 import "../stylesheets/application";
-
+const images = require.context('../images/', true)
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
