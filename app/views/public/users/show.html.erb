@@ -48,10 +48,8 @@
       <div class="tab-contents">
         
         <div id="my-work" class="area active">
-          <p>投稿数: <%= @user.works.size %> 作品</p>
+          <p>投稿数: <%= @user.works.where(is_published: true).size %> 作品</p>
           <%= render 'shared/works', works: @user_works, name: false, page: true %>
-          
-          
         </div>
         
         <div id="my-favorite" class="area">

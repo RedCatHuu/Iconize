@@ -20,9 +20,9 @@ class Admin::UsersController < ApplicationController
   
   def destroy
     user = User.find(params[:id])
+    Club.where(owner_id: user.id).destroy_all
     user.destroy
     redirect_to admin_users_path, notice: "ユーザーを削除しました。"
-    
   end 
 
   def confirm

@@ -108,10 +108,12 @@
       <% end %>
     </p>
     
-    <% if not admin_signed_in? %>
-      <span id="favorite-buttons-<%= @work.id %>" class="ml-auto edit-link heart">
-        <%= render 'public/favorites/favorite', work: @work %>
-      </span>
+    <% unless admin_signed_in? %>
+      <% unless current_user == work.user || work.club && work.club.users.include?(current_user) %>
+        <span id="favorite-buttons-<%= @work.id %>" class="ml-auto edit-link heart">
+          <%= render 'public/favorites/favorite', work: @work %>
+        </span>
+      <% end %>
     <% end %>
   </div>
   
