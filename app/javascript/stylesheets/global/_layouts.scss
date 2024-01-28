@@ -35,7 +35,7 @@ input[type="file"]{
 }
 
 .home-bg-image {
-  background-image: url(/images/ichimatsu.png);
+  background-image: image-url("ichimatsu.png");
   background-size: contain;
   position: relative;
   border-bottom: 60px solid $theme-color;
