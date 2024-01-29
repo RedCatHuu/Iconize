@@ -1,0 +1,19 @@
+@use "~bootstrap/scss/bootstrap" as *;
+
+.terms{
+  margin: 0 20px;
+  h3{
+    margin-top: 30px;
+    padding: 15px 10px;
+    background-color: #eee;
+  }
+  h5{
+    margin-top: 40px;
+  }
+}
+
+@media screen and (min-width: 993px){
+  .terms{
+    margin: 0 80px;
+  }
+}

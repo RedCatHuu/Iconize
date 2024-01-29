@@ -31,9 +31,6 @@
     <%= link_to "サークル", clubs_path %>
   </li>
   <li>
-    <%= link_to "サイトについて", homes_about_path %>
-  </li>
-  <li>
     <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
   </li>
 <% else %>
@@ -48,9 +45,6 @@
   </li>
   <li>
     <%= link_to "サークル", clubs_path %>
-  </li>
-  <li>
-    <%= link_to "サイトについて", homes_about_path %>
   </li>
 <% end %>
 

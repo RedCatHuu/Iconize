@@ -8,6 +8,7 @@ class Public::HomesController < ApplicationController
       .limit(6)
   end
 
-  def about
+  def terms
   end
+  
 end
