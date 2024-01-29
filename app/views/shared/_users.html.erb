@@ -30,7 +30,7 @@
         <% works = user.works.where(is_published: true).order(created_at: :desc).limit(4) %>
         <% works.each do |work| %>
           <td>
-            <%= link_to work_path(work) do %>
+            <%= link_to admin_signed_in? ? admin_work_path(work) : work_path(work) do %>
               <%= image_tag work.get_thumbnail(150, 150) %>
             <% end %>
           </td>

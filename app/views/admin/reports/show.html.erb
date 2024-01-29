@@ -1,6 +1,6 @@
-<%= render 'layouts/frame', type: :standard do %>
+<%= render 'layouts/frame', type: :narrow do %>
   
-  <h2>通報詳細</h2>
+  <h2 class="text-center border-title">通報詳細</h2>
   <div>
     <h5>問題のタイプ</h5>
     <p><%= I18n.t("enums.report.type.#{@report.type}") %></p>
@@ -11,8 +11,8 @@
     <% else %>
       <p>通報者:<%= @user.name %></p>
     <% end %>
-    <p>
-      <%= link_to '通報一覧', admin_reports_path %>/
+    <p class="text-center">
+      <%= link_to '通報一覧', admin_reports_path %>　/　
       <%= link_to '該当の作品', admin_work_path(@work) %>
     </p>
     <%= form_with model: @report, url: admin_report_path, method: :patch, local: true do |f| %>
