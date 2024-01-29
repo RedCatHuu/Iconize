@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
   
+  before_action :authenticate_admin!, if: :admin_area?
+  
   private
   def after_sign_in_path_for(resource)
     case resource
@@ -17,6 +19,10 @@ class ApplicationController < ActionController::Base
     when :user
       root_path
     end
+  end
+  
+  def admin_area?
+    request.fullpath.include?("/admin") && !request.fullpath.include?("/admin/sign_in")
   end
   
 end
