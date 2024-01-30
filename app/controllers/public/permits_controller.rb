@@ -13,7 +13,7 @@ class Public::PermitsController < ApplicationController
     @club = Club.find(params[:club_id])
     permit = current_user.permits.find_by(club_id: @club.id)
     permit.destroy
-    redirect_to club_path(@club), alert: "参加申請を取り消しました。"
+    redirect_to club_path(@club), notice: "参加申請を取り消しました。"
   end
   
 end
