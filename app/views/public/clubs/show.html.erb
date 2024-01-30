@@ -1,40 +1,6 @@
 <div class="container py-5 main-color">
-  <div class="row">
-    
-    <div class="col-auto">
-      <%= image_tag @club.get_club_image(200, 200), class: "rounded-circle" %>
-    </div>
-    
-    <div class="col-auto details">
-      <h4><%= @club.name %></h4>
-      <p>
-        サークル作成者:<%= @owner.name %><br>
-        メンバー数:<%= link_to member_club_path do %>
-                     <%= @club.users.count %>
-                   <% end %><br>
-        作品数:<%= @club.works.count %>
-      </p>
-      <p>
-        <% if current_user == @owner %>
-          <%= link_to 'サークル情報の編集', edit_club_path %><br>
-          <%= link_to '承認待ち一覧', permit_club_path(@club) %>: <%= @club.unpermited_users.count %><br>
-          <%= link_to '作品投稿', new_work_path(club_id: @club.id) %>
-        <% elsif @club.users.exists?(id: current_user.id) %>
-          <%= link_to '退出', leave_club_path, 'data-confirm': "サークルを脱退しますか？" %><br>
-          <%= link_to '作品投稿', new_work_path(club_id: @club.id) %>
-        <% elsif @club.permits.exists?(user_id: current_user.id) %>
-          <%= link_to '申請取消', club_permits_path(@club), method: :delete, class: "btn btn-outline-info btn-sm", 'data-confirm': "申請を取り消しますか？" %>
-        <% else %>
-          <%= link_to '加入申請', club_permits_path(@club), method: :post, class: "btn btn-outline-info btn-sm", 'data-confirm': "申請を送りますか？" %>
-        <% end %>
-      </p>
-    </div>
-    
-    <div class="col-lg-8 col-12 introduction">
-      <p class=""><%= @club.introduction %></p>
-    </div>
-    
-  </div>
+  
+  <%= render 'shared/user_club', admin: false, club: @club %>
   
   <div class="row">
     <div class="col">

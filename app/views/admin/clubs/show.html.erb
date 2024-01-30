@@ -1,27 +1,7 @@
 <div class="container py-5 main-color">
-  <div class="row">
-        
-    <div class="col-auto">
-      <%= image_tag @club.get_club_image(200, 200), class: "rounded-circle" %>
-    </div>
-    
-    <div class="col-auto details">
-      <h4><%= @club.name %></h4>
-      <p>
-        サークル作成者:<%= @owner.name %><br>
-        メンバー数:<%= link_to member_admin_club_path do %>
-                     <%= @club.users.count %>
-                   <% end %><br>
-        作品数:<%= @club.works.count %>
-      </p>
-    </div>
-    <div class="col-lg-8 col-12 introduction">
-      <p class=""><%= @club.introduction %></p>
-    </div>
-    <div class="col-auto mt-5">
-      
-    </div>
-  </div>
+  
+  <%= render 'shared/user_club', admin: true, club: @club %>
+  
   <div class="row">
     <div class="col">
       

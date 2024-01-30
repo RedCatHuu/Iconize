@@ -1,0 +1,65 @@
+<% target_image, target_name, target_introduction = club.present? ? [club.get_club_image(170, 170), club.name, club.introduction] : [user.get_profile_image(170, 170), user.name, user.introduction] %>
+<div class="row">
+  
+  <div class="col-lg-2 col-auto">
+    <%= image_tag target_image, class: "rounded-circle image-size" %>
+  </div>
+  
+  <div class="col-lg-2 col-auto details">
+    <h4><%= target_name %></h4>
+    <% if club.present? %>
+    
+      <p>
+        サークル作成者:<%= @owner.name %><br>
+        <% target_path = admin.present? ? member_admin_club_path : member_club_path %>
+        メンバー数:<%= link_to target_path do %>
+                     <%= club.users.count %>
+                   <% end %><br>
+        作品数:<%= club.works.count %>
+      </p>
+      <% unless admin %>
+        <p>
+          <% if current_user == @owner %>
+            <%= link_to 'サークル情報の編集', edit_club_path %><br>
+            <%= link_to '承認待ち一覧', permit_club_path(club) %>: <%= club.unpermited_users.count %><br>
+            <%= link_to '作品投稿', new_work_path(club_id: club.id) %>
+          <% elsif club.users.exists?(id: current_user.id) %>
+            <%= link_to '退出', leave_club_path, 'data-confirm': "サークルを脱退しますか？" %><br>
+            <%= link_to '作品投稿', new_work_path(club_id: club.id) %>
+          <% elsif club.permits.exists?(user_id: current_user.id) %>
+            <%= link_to '申請取消', club_permits_path(club), method: :delete, class: "btn btn-outline-info btn-sm", 'data-confirm': "申請を取り消しますか？" %>
+          <% else %>
+            <%= link_to '加入申請', club_permits_path(club), method: :post, class: "btn btn-outline-info btn-sm", 'data-confirm': "申請を送りますか？" %>
+          <% end %>
+        </p>
+      <% end %>
+      
+    <% else %>
+    
+      <% unless admin %>
+        <span id="relationships">
+          <%= render 'public/users/relationships', user: user %>
+        </span>
+        <br>
+        フォロー数: 
+        <%= link_to following_user_path do %>
+          <%= user.following.count %>
+        <% end %>
+        <br>
+        フォロワー数: 
+        <%= link_to followers_user_path do %>
+          <span id="followers-count">
+            <%= user.followers.count %>
+          </span>
+        <% end %>
+      <% end %>
+      
+    <% end %>
+    
+  </div>
+  
+  <div class="col-lg-7 col-12 introduction">
+    <p><%= target_introduction %></p>
+  </div>
+  
+</div>
