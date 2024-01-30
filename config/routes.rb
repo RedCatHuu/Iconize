@@ -74,9 +74,9 @@ Rails.application.routes.draw do
       end
     end
     
-    resources :works, only: [:index, :show, :update] do
-      collection do
-        post :confirm
+    resources :works, only: [:index, :show, :update, :destroy] do
+      member do
+        get :confirm
       end
     end
     

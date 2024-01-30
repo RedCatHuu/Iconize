@@ -2,11 +2,13 @@
   <%= link_to "作品一覧に戻る", admin_works_path %><br>
   <%= render 'shared/work', work: @work %>
   
-  <%= form_with model: @work, url: admin_work_path, method: :patch, local: true do |f| %>
-    <p>
-      作品公開ステータス:
-      <%= f.select :is_published, [["公開", true],["非公開", false]] %>
-      <%= f.submit '変更', data: {confirm: "本当に変更しますか？"} %>
-    </p>
-  <% end %>
+    <div class="justify-contents my-5">
+      <% if @work.is_published %>
+        <%= link_to '作品の非公開', confirm_admin_work_path(way: "invalidate"), class: "btn btn-outline-danger" %>
+      <% else %>
+        <%= link_to '作品の公開', confirm_admin_work_path(way: "validate"), class: "btn btn-outline-danger" %>
+      <% end %>
+      <%= link_to '作品の削除', confirm_admin_work_path(way: "destroy"), class: "btn btn-outline-danger ml-5" %>
+    </div>
+  
 <% end %>

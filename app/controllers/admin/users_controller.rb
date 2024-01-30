@@ -10,12 +10,9 @@ class Admin::UsersController < ApplicationController
 
   def update
     user = User.find(params[:id])
-    if user.is_active == true
-      user.update(is_active: false)
-    else
-      user.update(is_active: true)
-    end
-    redirect_to admin_user_path(user), notice: "ユーザー情報を変更しました。"
+    status = user.is_active? ? false : true
+    user.update(is_active: status)
+    redirect_to admin_user_path(user), notice: "ユーザー情報を更新しました。"
   end
   
   def destroy
@@ -30,9 +27,9 @@ class Admin::UsersController < ApplicationController
     @way = params[:way]
     case @way
     when "validate"
-      @way_ja = "有効"
+      @way_ja = "有効に"
     when "invalidate"
-      @way_ja = "無効"
+      @way_ja = "無効に"
     when "destroy"
       @way_ja = "削除"
     end 

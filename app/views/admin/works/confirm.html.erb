@@ -1,0 +1,23 @@
+<%= render 'layouts/frame', type: :narrow do %>
+  <h4 class="text-center border-title" style="line-height: 40px">本当に<br><strong><%= @work.title %></strong>を<br><%= @way_ja %>しますか？</h4>
+  
+  <div class="d-flex-wrap">
+    <div class="mr-auto">
+      <%= link_to '戻る', admin_work_path(@work), class: "btn btn-outline-secondary" %>
+    </div>
+    <% case @way %>
+    <% when "invalidate" %>
+      <div>
+        <%= link_to '作品の非公開', admin_work_path(@work.id), method: :patch, data: {confirm: "本当に非公開にしますか？"}, class: "btn btn-danger" %>
+      </div>
+    <% when "validate" %>
+      <div>
+        <%= link_to '作品の公開', admin_work_path(@work.id), method: :patch, data: {confirm: "本当に公開ますか？"}, class: "btn btn-success" %>
+      </div>
+    <% when "destroy" %>
+      <span>
+        <%= link_to '作品の削除', admin_work_path(@work.id), method: :delete, data: {confirm: "本当に削除しますか？"}, class: "btn btn-danger" %>
+      </span>
+    <% end %> 
+  </div>
+<% end %>
