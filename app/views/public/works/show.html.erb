@@ -2,7 +2,7 @@
   <%= link_to "作品一覧に戻る", works_path %><br>
   <%= render 'shared/work', work: @work %>
 
-  <div style="display: flex; flex-wrap: wrap;">
+  <div class="d-flex-wrap">
     <span>
       <i class="fa-solid fa-eye"></i>
     </span>
@@ -19,7 +19,7 @@
     <% if @work.club.present? && @work.club.users.include?(current_user) || @work.user == current_user %>
       <%= link_to '作品の編集', edit_work_path(@work) %>
     <% else %>
-      <span style="margin-left: auto;">
+      <span class="ml-auto">
         <%= link_to '通報', report_work_path %>
       </span>
     <% end %>
@@ -28,7 +28,7 @@
   <div id="comment_form" class="border-top-solid">
     <p>コメント</p>
     <%= form_with model: [@work, WorkComment.new], local: false, method: :post do |f| %>
-      <div style="display: flex; align-items: center">
+      <div class="d-flex">
         <%= f.text_area :comment, style: "width: 80%;", rows: '1', class: "comment_textarea form-control" %>
         <%= f.submit "送信", class:"btn btn-submit" %>
       </div>

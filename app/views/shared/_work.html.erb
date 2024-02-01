@@ -1,6 +1,6 @@
 
   <!--実際に画像が動くところ-->
-  <div class="position-relative" style="left: 10%">
+  <div class="position-relative left-10">
     <% for nth_item in 0..work.items_qty %>
       <% for nth_image in 0..work.items[nth_item].images_qty do %>
         <!--1つ目のアイテムは最初から表示-->
@@ -11,11 +11,8 @@
     <% end %>
   </div>
   
-  <!--スペース用の空div-->
-  <div style="height: 350px"></div>
-  
   <!--タブ-->
-  <ul class="user-tab-menu">
+  <ul class="user-tab-menu mt-350">
     <% for i in 0..work.items_qty %>
       <% item = work.items[i] %>
       <li class="nav-item">
@@ -30,25 +27,21 @@
       
      <!--ラジオボックス-->
   <%= form_with model: work, url: download_works_path, method: :post do |f| %>
-    <div class="user-tab-contents text-center" style="padding-top: 20px; padding-bottom: 20px;">
+    <div class="user-tab-contents text-center radiobtn-layouts">
       <% for nth_item in 0..work.items_qty %> <!--work.itemsの数だけ繰り返し。-->
-        <span id="img<%= work.items[nth_item].id %>" class="area <% if nth_item == 0 %>active<% end %> ">   <!--item.imagesの数だけ繰り返し-->
+        <span id="img<%= work.items[nth_item].id %>" class="area <% if nth_item == 0 %>active<% end %> ">
             <% for nth_thumbnail in 0..work.items[nth_item].images_qty do %>  <!--item.imagesの数だけ繰り返し-->
               <!--1つ目のアイテムは最初から選択された状態にする-->
               <% if nth_thumbnail == 0 %>
-              
                 <%= f.radio_button :"item_number_#{nth_item}", nth_thumbnail, checked: true %>
                 <%= f.label :"item_number_#{nth_item}_#{nth_thumbnail}", class:"item_number_#{nth_item}_#{nth_thumbnail} active-thumbnail thumbnail-layouts" do %>
                   <%= image_tag work.items[nth_item].thumbnails[nth_thumbnail], size:"80x80", class: "btn" %>
                 <% end %>
-                
               <% else %>
-              
                 <%= f.radio_button :"item_number_#{nth_item}", nth_thumbnail %>
                 <%= f.label :"item_number_#{nth_item}_#{nth_thumbnail}", class:"item_number_#{nth_item}_#{nth_thumbnail} thumbnail-layouts" do %>
                   <%= image_tag work.items[nth_item].thumbnails[nth_thumbnail], size:"80x80", class: "btn" %>
                 <% end %>
-                
               <% end %>
             <% end %>
           
@@ -108,19 +101,21 @@
       <% end %>
     </p>
     
-    <% if not admin_signed_in? %>
-      <span id="favorite-buttons-<%= @work.id %>" class="ml-auto edit-link heart">
-        <%= render 'public/favorites/favorite', work: @work %>
-      </span>
+    <% unless admin_signed_in? %>
+      <% unless current_user == work.user || work.club && work.club.users.include?(current_user) %>
+        <span id="favorite-buttons-<%= @work.id %>" class="ml-auto edit-link heart">
+          <%= render 'public/favorites/favorite', work: @work %>
+        </span>
+      <% end %>
     <% end %>
   </div>
   
-  <p style="font-size: 24px;">
+  <p class="fs-24">
     <%= work.title %>
   </p>
   <p>
     <%= work.caption %>
   </p>
   
-  <p class="text-right" style="font-size: 14px;"><%= work.y_to_m %></p>
+  <p class="text-right fs-14"><%= work.y_to_m %></p>
   

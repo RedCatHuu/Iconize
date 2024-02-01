@@ -1,5 +1,5 @@
 <%= render 'layouts/frame', type: :narrow do %>
-  <h4 class="text-center border-title" style="line-height: 40px">本当に<br><strong><%= @user.name %></strong>さんのアカウントを<br><%= @way_ja %>にしますか？</h4>
+  <h4 class="text-center border-title" style="line-height: 40px">本当に<br><strong><%= @user.name %></strong>さんのアカウントを<br><%= @way_ja %>しますか？</h4>
   
   <div class="d-flex-wrap">
     <div class="mr-auto">
@@ -16,7 +16,7 @@
       </div>
     <% when "destroy" %>
       <span>
-        <%= link_to 'アカウントの削除', admin_user_path(@user.id), method: :delete, data: {confirm: "本当に削除しますか？"}, class: "btn btn-danger" %>/
+        <%= link_to 'アカウントの削除', admin_user_path(@user.id), method: :delete, data: {confirm: "本当に削除しますか？"}, class: "btn btn-danger" %>
       </span>
     <% end %> 
   </div>

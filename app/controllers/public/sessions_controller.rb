@@ -39,7 +39,7 @@ class Public::SessionsController < Devise::SessionsController
     return if user.nil?
     return unless user.valid_password?(params[:user][:password])
     if not user.is_active
-      redirect_to user_session_path, alert: "既に退会済みです。"
+      redirect_to user_session_path, alert: "アカウントは凍結中です。"
     end
   end
   

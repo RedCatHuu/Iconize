@@ -1,9 +1,11 @@
 @use "~bootstrap/scss/bootstrap" as *;
 
 .introduction{
-  margin-top: 20px;
-	@media only screen and (min-width: 992px) {
-    margin-top: 40px;
+  margin-top: 40px;
+  padding-left: 0;
+	@media screen and (max-width: 992px) {
+    margin-top: 20px;
+    padding: 0 40px;
   }
 }
 
@@ -13,4 +15,8 @@
   @include media-breakpoint-down(xs){
     margin-top: 20px;
 	}
+}
+
+.image-size{
+  width: 100%;
 }
