@@ -9,12 +9,13 @@
       <%= f.select :type, Report.types.keys.map { |type| [I18n.t("enums.report.type.#{type}"), type] }, {}, class: "form-control" %>
     </div>
     <div class="field mt-3">
-      <h6>内容を記述してください（1,000字まで）</h6>
-      <%= f.text_area :comment, class: "form-control", size: "1x5" %>
+      <h6>内容を記述してください。</h6>
+      <%= f.text_area :comment, class: "form-control text-limit-1000", size: "1x5" %>
+      <p class="text-right output-count">0/1,000字</p>
     </div>
     <div class="action">
       <%= f.hidden_field :which_work, :value => @work.id %>
-      <%= f.submit '報告する', 'data-confirm': "報告しますか？", class: "mt-3 btn btn-block btn-primary" %>
+      <%= f.submit '報告する', 'data-confirm': "報告しますか？", class: "mt-3 btn btn-block btn-primary add-disabled" %>
       <%= link_to 'キャンセル', work_path(@work), class: "btn btn-block btn-outline-secondary" %>
     </div>
   <% end %>

@@ -8,11 +8,12 @@
       <%= f.text_field :name, autofocus: true %>
     </div>
     <div class="form-group">
-      <%= f.label :introduction, 'サークル紹介（400字まで）' %><br>
-      <%= f.text_area :introduction, class: "form-control", size:"1x5" %>
+      <%= f.label :introduction, 'サークル紹介' %><br>
+      <%= f.text_area :introduction, class: "form-control text-limit-400", size:"1x5" %>
+      <p class="text-right output-count">0/400字</p>
     </div>
     <div class="form-group">
-      <%= f.submit "サークルを作成する", class:"btn btn-block btn-info mt-4" %>
+      <%= f.submit "サークルを作成する", class:"btn btn-block btn-info mt-4 add-disabled" %>
       <%= link_to 'キャンセル', request.referer, class: "btn btn-outline-secondary btn-block mt-4" %>
     </div>
   <% end %>

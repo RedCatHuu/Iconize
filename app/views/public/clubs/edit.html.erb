@@ -14,11 +14,12 @@
         <%= f.text_field :name %>
       </div>
       <div class="form-group">
-        <%= f.label :introduction, 'サークル紹介（400字まで）' %><br>
-        <%= f.text_area :introduction, class: "form-control", size:"1x5" %>
+        <%= f.label :introduction, 'サークル紹介' %><br>
+        <%= f.text_area :introduction, class: "form-control text-limit-400", size:"1x5" %>
+        <p class="text-right output-count"><%= @club.introduction.size %>/400字</p>
       </div>
       <div class="form-group">
-        <%= f.submit '変更を保存', class: "btn btn-info btn-block" %>
+        <%= f.submit '変更を保存', class: "btn btn-info btn-block add-disabled" %>
       </div>
       <%= link_to 'サークルの削除', club_path(@club), method: :delete, data:{confirm: "本当に削除しますか？"}, class: "btn btn-danger btn-block my-4" %>
       <%= link_to 'キャンセル', club_path(@club) %>

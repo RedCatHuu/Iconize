@@ -122,6 +122,36 @@ document.addEventListener("turbolinks:load", function() {
       }
     });
     
+    // 文字数カウント(文字制限を動的にする方法が不明なので、制限数に応じてコードを記述する必要あり)
+    $(".text-limit-400").on("keyup", function() {
+      let countNum = String($(this).val().length);
+      let output = $(".output-count")
+      output.text(countNum + "/400字");
+      if (countNum > 400){
+        output.addClass('over-limit');
+        $(".add-disabled").prop('disabled', true);
+      } else {
+        output.removeClass('over-limit');
+        $(".add-disabled").prop('disabled', false);
+      }
+    });
     
-  })
-})
+    $(".text-limit-1000").on("keyup", function() {
+      let countNum = String($(this).val().length);
+      let output = $(".output-count")
+      output.text(countNum + "/1,000字");
+      if (countNum > 1000){
+        output.addClass('over-limit');
+        $(".add-disabled").prop('disabled', true);
+      } else {
+        output.removeClass('over-limit');
+        $(".add-disabled").prop('disabled', false);
+      }
+    });
+    
+    
+    
+    
+  });
+});
+
