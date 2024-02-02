@@ -24,7 +24,7 @@ class Public::ClubsController < ApplicationController
     if club.save
       redirect_to club_path(club), notice: "サークルを作成しました。"
     else
-      flash[:alert] = "サークルの作成に失敗しました。"
+      flash.now[:alert] = "サークルの作成に失敗しました。"
       render :new
     end 
   end 

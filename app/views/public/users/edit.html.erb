@@ -1,7 +1,7 @@
 <%= render 'layouts/frame', type: :narrow do %>
-  <%= form_with model: @user, loacl: false do |f| %>
+  <%= form_with model: @user, local: false do |f| %>
     <%= render 'public/shared/error_messages', resource: @user %>
-    <!--エラーメッセージが出ない。-->
+    
       <h4 class="border-title text-center">プロフィールの編集</h4>
       <div class="form-gro">
         <%= image_tag @user.get_profile_image(100, 100), class: "rounded-circle" %>
@@ -16,13 +16,13 @@
         <%= f.text_field :name, class: "form-control" %>
       </div>
       <div class="form-group">
-        <%= f.label :introduction, '自己紹介（400字まで）' %><br>
-        <%= f.text_area :introduction, class: "form-control", size: "1x5" %>
+        <%= f.label :introduction, "自己紹介" %><br>
+        <%= f.text_area :introduction, class: "form-control text-limit-400", size: "1x5" %>
+        <p class="text-right output-count"><%= @user.introduction.size %>/400字</p>
       </div>
       <div class="form-group">
-        <%= f.submit '変更を保存', class: "btn btn-block btn-info" %>
+        <%= f.submit '変更を保存', class: "btn btn-block btn-info add-disabled" %>
       </div>
-    
       
       <%= link_to 'キャンセル', my_page_user_path %>
     

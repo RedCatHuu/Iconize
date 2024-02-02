@@ -4,7 +4,7 @@
     <%= render "public/shared/error_messages", resource: resource %>
     <h4 class="text-center border-title">サインアップ</h4>
     <div class="field">
-      <%= f.label :name, "ニックネーム" %><br />
+      <%= f.label :name, "ニックネーム（20字以内）" %><br />
       <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "form-control" %>
     </div>
     
