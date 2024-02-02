@@ -96,11 +96,12 @@
       <%= f.text_field :title %>
     </div>
     <div>
-      <%= f.label :caption, 'キャプション（400字まで）' %><br>
-      <%= f.text_area :caption, class: "form-control", size: "1x5" %>
+      <%= f.label :caption, 'キャプション' %><br>
+      <%= f.text_area :caption, class: "form-control text-limit-400", size: "1x5" %>
+      <p class="text-right output-count"><%= @work.caption.size %>/400字</p>
     </div>
     <div class="d-flex-wrap mt-4">
-      <%= f.submit '作品を編集', class: "btn btn-success" %>
+      <%= f.submit '作品を編集', class: "btn btn-success add-disabled" %>
       <%= link_to 'キャンセル', request.referer, class: "btn btn-outline-secondary ml-auto" %>
     </div>
     <div>
