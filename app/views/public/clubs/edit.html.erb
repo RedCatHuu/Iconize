@@ -4,6 +4,12 @@
       <h4 class="text-center border-title">
         サークル情報編集
       </h4>
+      <div class="justify-contents">
+        <%= image_tag @club.get_club_image(100, 100), class: "rounded-circle" %>
+        <div style="position: absolute; margin-top: 0;">
+          <%= image_tag "transparent.png", class: "rounded-circle display-image", size: "100x100" %>
+        </div>
+      </div>
       <div class="mt-4 justify-contents">
         <%= f.label :club_image, 'プロフィール画像', class: "btn btn-primary" %><br>
         <%= f.file_field :club_image, accept: "image/*", class: "input-image" %>

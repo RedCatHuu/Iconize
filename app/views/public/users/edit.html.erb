@@ -3,11 +3,12 @@
     <%= render 'public/shared/error_messages', resource: @user %>
     
       <h4 class="border-title text-center">プロフィールの編集</h4>
-      <div class="form-gro">
+      <div class="">
         <%= image_tag @user.get_profile_image(100, 100), class: "rounded-circle" %>
         <%= f.label :profile_image, 'プロフィール画像', class: "btn" do %>
           <i class="fa-solid fa-wrench fa-flip-horizontal fa-2xl wrench"></i>
         <% end %>
+        <%= image_tag "transparent.png", class: "user-image-preview rounded-circle" %>
         <p class="display-filename file-layouts"><%= @user.profile_image.filename %></p>
         <%= f.file_field :profile_image, accept: "image/*", class: "input-image" %>
       </div>
