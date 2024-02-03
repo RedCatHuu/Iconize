@@ -27,11 +27,6 @@ document.addEventListener("turbolinks:load", function() {
       event.preventDefault();
     });
     
-    // アップロードした画像のファイル名表示
-    $('.input-image').on('change', function () {
-      let file = $(this).prop('files')[0];
-      $('.display-filename').text(file.name);
-    });
     
     // 作品投稿画面のフォーム追加（アイテム欄）
     $('#add-form').on('click', function(){
@@ -150,6 +145,39 @@ document.addEventListener("turbolinks:load", function() {
     });
     
     
+    // アップロードした画像のファイル名表示
+    $('.input-image').on('change', function () {
+      let file = $(this).prop('files')[0];
+      $('.display-filename').text(file.name);
+    });
+    
+    // プレビュー(user.edit)
+    $('.input-image').on('change', function(event) {
+      var input = event.target;
+      var reader = new FileReader();
+  
+      reader.onload = function(){
+        var dataURL = reader.result;
+        var preview = $('.user-image-preview');
+        preview.attr('src', dataURL);
+      };
+  
+      // 選択されたファイルを読み込む
+      reader.readAsDataURL(input.files[0]);
+    });
+    
+    // プレビュー(user.edit以外)
+    $('.input-image').on('change', function(event) {
+      var input = event.target;
+      var reader = new FileReader();
+  
+      reader.onload = function(){
+        var dataURL = reader.result;
+        var preview = $('.display-image');
+        preview.attr('src', dataURL);
+      };
+      reader.readAsDataURL(input.files[0]);
+    });
     
     
   });
