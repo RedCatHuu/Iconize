@@ -1,6 +1,6 @@
 class Public::WorksController < ApplicationController
   
-  before_action :ensure_correct_user, only: [:edit, :update]
+  before_action :ensure_correct_user, only: [:edit, :update, :destroy]
   before_action :ensure_public?, only: [:show]
   before_action :authenticate_user!, except: [:index]
   
@@ -71,12 +71,10 @@ class Public::WorksController < ApplicationController
   end
   
   def edit
-    @work = Work.find(params[:id])
   end 
   
 
   def update
-    @work = Work.find(params[:id])
     
     unless @work.items[0].present?
       flash.now[:alert] = "アイテム欄を記入してください"
@@ -112,8 +110,7 @@ class Public::WorksController < ApplicationController
   end
 
   def destroy
-    work = Work.find(params[:id])
-    work.destroy
+    @work.destroy
     redirect_to works_path
   end
 
@@ -161,8 +158,8 @@ class Public::WorksController < ApplicationController
   
   def ensure_correct_user
     @work = Work.find(params[:id])
-    unless @work.user == current_user || @work.club.users.include?(current_user)
-      redirect_to works_path
+    unless @work.user == current_user || @work.club && @work.club.users.include?(current_user)
+      redirect_to works_path, alert: "不正なアクセスです。"
     end
   end
   

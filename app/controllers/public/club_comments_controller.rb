@@ -10,6 +10,9 @@ class Public::ClubCommentsController < ApplicationController
 
   def destroy
     comment = ClubComment.find(params[:id])
+    unless comment.user_id == current_user.id
+      return redirect_to club_path(comment.club_id)
+    end
     @club = comment.club
     comment.destroy
     @comments = ClubComment.where(club_id: @club.id).page(params[:page]).order(created_at: :desc).per(100)

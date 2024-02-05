@@ -2,7 +2,7 @@ class Public::UsersController < ApplicationController
   
   before_action :ensure_guest_user, only: [:edit]
   before_action :authenticate_user!
-  before_action :is_matching_login_user, only: [:edit, :update]
+  before_action :is_matching_login_user, only: [:edit, :update, :destroy]
   
   def show
     @user = User.find(params[:id])
@@ -14,12 +14,9 @@ class Public::UsersController < ApplicationController
   end
 
   def edit
-    is_matching_login_user
-    @user = User.find(params[:id])
   end
 
   def update
-    @user = User.find(params[:id])
     # @にしないとエラーに送れない
     if @user.update(user_params)
       redirect_to my_page_user_path(@user), notice: "ユーザー情報を更新しました。"
@@ -29,9 +26,8 @@ class Public::UsersController < ApplicationController
   end
 
   def destroy
-    user = User.find(params[:id])
-    Club.where(owner_id: user.id).destroy_all
-    user.destroy
+    Club.where(owner_id: @user.id).destroy_all
+    @user.destroy
     reset_session
     redirect_to root_path, notice: "退会しました。ご利用ありがとうございました。"
   end
@@ -43,9 +39,9 @@ class Public::UsersController < ApplicationController
   end 
   
   def is_matching_login_user
-    user = User.find(params[:id])
-    unless user.id == current_user.id
-      redirect_to my_page_user_path(current_user)
+    @user = User.find(params[:id])
+    unless @user.id == current_user.id
+      redirect_to my_page_user_path(current_user), alert: "不正なアクセスです。"
     end
   end
   
