@@ -1,6 +1,6 @@
 class Public::ClubsController < ApplicationController
   
-  before_action :ensure_correct_user, only: [:edit, :update, :permit]
+  before_action :ensure_correct_user, only: [:edit, :update, :destroy, :permit]
   before_action :authenticate_user!, except: [:index]
 
   def new
@@ -30,11 +30,9 @@ class Public::ClubsController < ApplicationController
   end 
 
   def edit
-    @club = Club.find(params[:id])
   end
 
   def update
-    @club = Club.find(params[:id])
     if @club.update(club_params)
       redirect_to club_path(@club), notice: "サークル情報を更新しました。"
     else
@@ -43,8 +41,7 @@ class Public::ClubsController < ApplicationController
   end
   
   def destroy
-    club = Club.find(params[:id])
-    if club.destroy
+    if @club.destroy
       redirect_to clubs_path, notice: "サークルを削除しました。"
     else
       redirect_to clubs_path
@@ -59,7 +56,6 @@ class Public::ClubsController < ApplicationController
   end
   
   def permit
-    @club = Club.find(params[:id])
     @users = @club.unpermited_users.order(created_at: :desc).page(params[:page]).per(24)
   end 
   
@@ -87,7 +83,7 @@ class Public::ClubsController < ApplicationController
   def ensure_correct_user
     @club = Club.find(params[:id])
     unless @club.owner_id == current_user.id
-      redirect_to clubs_path
+      redirect_to clubs_path, alert: "不正なアクセスです。"
     end
   end
   

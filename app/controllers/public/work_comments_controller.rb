@@ -10,6 +10,10 @@ class Public::WorkCommentsController < ApplicationController
 
   def destroy
     comment = WorkComment.find(params[:id])
+    # 他ユーザーのコメント削除防止
+    unless comment.user_id == current_user.id
+      return redirect_to work_path(comment.work)
+    end
     @work = comment.work
     comment.destroy
     @comments = WorkComment.where(work_id: @work.id).page(params[:page]).per(100)
