@@ -62,4 +62,8 @@ class User < ApplicationRecord
     email == GUEST_USER_EMAIL
   end
   
+  def active_for_authentication?
+    super && is_active?
+  end
+  
 end
