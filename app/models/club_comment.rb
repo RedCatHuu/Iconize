@@ -1,4 +1,7 @@
 class ClubComment < ApplicationRecord
+  
+  include Order
+  
   belongs_to :user
   belongs_to :club
   

@@ -7,14 +7,14 @@ class Public::ClubsController < ApplicationController
   end
 
   def index
-    @clubs = Club.order(created_at: :desc).page(params[:page]).per(24)
+    @clubs = Club.created_at_desc.page(params[:page]).per(24)
   end
 
   def show
     @club = Club.find(params[:id])
     @owner = User.find_by(id: @club.owner_id)
-    @club_works = Work.where(club_id: @club.id, is_published: true).order(created_at: :desc).page(params[:page]).per(24)
-    @comments = ClubComment.where(club_id: @club.id).page(params[:page]).order(created_at: :desc).per(100)
+    @club_works = Work.where(club_id: @club.id, is_published: true).created_at_desc.page(params[:page]).per(24)
+    @comments = ClubComment.where(club_id: @club.id).created_at_desc.page(params[:page]).per(100)
   end
   
   def create
@@ -46,17 +46,17 @@ class Public::ClubsController < ApplicationController
     else
       redirect_to clubs_path
       flash[:alert] = "削除に失敗しました。"
-      @clubs = Club.order(created_at: :desc).page(params[:page]).per(24)
+      @clubs = Club.created_at_desc.page(params[:page]).per(24)
     end 
   end
 
   def member
     @club = Club.find(params[:id])
-    @users = @club.users.order(created_at: :desc).page(params[:page]).per(24)
+    @users = @club.users.created_at_desc.page(params[:page]).per(24)
   end
   
   def permit
-    @users = @club.unpermited_users.order(created_at: :desc).page(params[:page]).per(24)
+    @users = @club.unpermited_users.created_at_desc.page(params[:page]).per(24)
   end 
   
   def accept
