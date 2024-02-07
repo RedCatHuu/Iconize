@@ -144,6 +144,22 @@ document.addEventListener("turbolinks:load", function() {
       }
     });
     
+    // フォームにおける動的文字数制限
+    $('.text-limit').on('keyup', function(){
+      let limit = parseInt($(this).data('limit'));
+      let countNum = $(this).val().length;
+      // 制限したいフォームが複数あるため、同一の親要素内にあるoutput-countクラスを探す。
+      let output = $(this).closest('.text-limit-container').find('.output-count');
+      output.text(countNum + '/' + limit + '字');
+      if(countNum > limit){
+        output.addClass('over-limit');
+        $('.add-disabled').prop('disabled', true);
+      } else {
+        output.removeClass('over-limit');
+        $('.add-disabled').prop('disabled', false);
+      }
+    })
+    
     
     // アップロードした画像のファイル名表示
     $('.input-image').on('change', function () {
