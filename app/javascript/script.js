@@ -145,18 +145,32 @@ document.addEventListener("turbolinks:load", function() {
     });
     
     // フォームにおける動的文字数制限
-    $('.text-limit').on('keyup', function(){
-      let limit = parseInt($(this).data('limit'));
+    $('.chara-limit').on('input', function(){
+      let limit = $(this).data('limit');
       let countNum = $(this).val().length;
       // 制限したいフォームが複数あるため、同一の親要素内にあるoutput-countクラスを探す。
-      let output = $(this).closest('.text-limit-container').find('.output-count');
+      let output = $(this).closest('.chara-limit-container').find('.output-count');
       output.text(countNum + '/' + limit + '字');
+      
+      let noTextareaOverLimit = true;
+  
+      $('.chara-limit').each(function() {
+        if ($(this).val().length > $(this).data('limit')) {
+          noTextareaOverLimit = false;
+          return false;
+        }
+      });
+      
       if(countNum > limit){
         output.addClass('over-limit');
-        $('.add-disabled').prop('disabled', true);
       } else {
         output.removeClass('over-limit');
+      }
+      
+      if(noTextareaOverLimit){
         $('.add-disabled').prop('disabled', false);
+      } else {
+        $('.add-disabled').prop('disabled', true);
       }
     })
     
