@@ -14,9 +14,10 @@
     <% nth_item = 0 %>
     <%= f.fields_for :items, @work.items do |item| %>
       <div class="border-bottom-dashed">
-        <div class="text-center">
+        <div class="text-center chara-limit-container">
           <%= item.label :genre, 'アイテムグループ名' %><br>
-          <%= item.text_field :genre %>
+          <%= item.text_field :genre, class: "chara-limit chara-limit-short", data: {limit: 20} %>
+          <p class="output-count over-limit" style="display: none;"></p>
         </div>
         
         <% for nth_image in 0..@work.items[nth_item].images_qty %>
@@ -53,9 +54,10 @@
     
       <div id="form-number-<%= nth_item %>" class="<%= nth_item == 0 ? 'active-form' : 'non-active-form' %> border-bottom-dashed">
         <%= f.fields_for :items, Work.new.items.build do |item| %>
-          <div class="text-center">
+          <div class="text-center chara-limit-container">
             <%= item.label :genre, 'アイテムグループ名' %><br>
-            <%= item.text_field :genre %>
+            <%= item.text_field :genre, class: "chara-limit chara-limit-short", data: {limit: 20} %>
+            <p class="output-count over-limit" style="display: none;"></p>
           </div>
           
           <% for nth_image in 0..9 %>
@@ -91,13 +93,14 @@
       </span>
     </div>
     
-    <div class="mt-4">
-      <%= f.label :title, '作品名（30字まで）' %><br>
-      <%= f.text_field :title %>
+    <div class="mt-4 chara-limit-container">
+      <%= f.label :title, '作品名' %><br>
+      <%= f.text_field :title, class: "chara-limit chara-limit-short", data: {limit: 30} %>
+      <p class="output-count over-limit" style="display: none;"></p>
     </div>
-    <div>
+    <div class="chara-limit-container">
       <%= f.label :caption, 'キャプション' %><br>
-      <%= f.text_area :caption, class: "form-control text-limit-400", size: "1x5" %>
+      <%= f.text_area :caption, class: "form-control chara-limit chara-limit-long", size: "1x5", data: {limit: 400} %>
       <p class="text-right output-count"><%= @work.caption.size %>/400字</p>
     </div>
     <div class="d-flex-wrap mt-4">

@@ -12,13 +12,14 @@
         <p class="display-filename file-layouts"><%= @user.profile_image.filename %></p>
         <%= f.file_field :profile_image, accept: "image/*", class: "input-image" %>
       </div>
-      <div class="form-group">
-        <%= f.label :name, 'ニックネーム（20字まで）' %><br>
-        <%= f.text_field :name, class: "form-control" %>
+      <div class="chara-limit-container">
+        <%= f.label :name, 'ニックネーム' %><br>
+        <%= f.text_field :name, class: "form-control chara-limit chara-limit-short", data: {limit: 20} %>
+        <p class="output-count over-limit" style="display: none;"></p>
       </div>
-      <div class="form-group">
+      <div class="chara-limit-container">
         <%= f.label :introduction, "自己紹介" %><br>
-        <%= f.text_area :introduction, class: "form-control text-limit-400", size: "1x5" %>
+        <%= f.text_area :introduction, class: "form-control chara-limit chara-limit-long", data: {limit: 400}, size: "1x5" %>
         <p class="text-right output-count"><%= @user.introduction.size %>/400字</p>
       </div>
       <div class="form-group">

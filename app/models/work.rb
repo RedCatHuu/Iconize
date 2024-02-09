@@ -1,5 +1,5 @@
 class Work < ApplicationRecord
-  
+  include Order
   
   validates :title, :thumbnail, presence: true
   validates :title, length: {maximum: 30}
@@ -53,5 +53,9 @@ class Work < ApplicationRecord
   def favorited_by?(user)
     self.favorites.exists?(user_id: user.id)
   end 
+  
+  def self.public
+    where(is_published: true)
+  end
   
 end

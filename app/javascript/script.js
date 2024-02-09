@@ -117,30 +117,54 @@ document.addEventListener("turbolinks:load", function() {
       }
     });
     
-    // 文字数カウント(文字制限を動的にする方法が不明なので、制限数に応じてコードを記述する必要あり)
-    $(".text-limit-400").on("keyup", function() {
-      let countNum = String($(this).val().length);
-      let output = $(".output-count")
-      output.text(countNum + "/400字");
-      if (countNum > 400){
+    
+    // 文字数制限（長い文字数）
+    $('.chara-limit-long').on('input', function(){
+      let limit = $(this).data('limit');
+      let countNum = $(this).val().length;
+      // 制限したいフォームが複数あるため、同一の親要素内にあるoutput-countクラスを探す。
+      let output = $(this).closest('.chara-limit-container').find('.output-count');
+      output.text(countNum + '/' + limit + '字');
+      
+      $('.chara-limit').each(function() {
+        if ($(this).val().length > $(this).data('limit')) {
+          $('.add-disabled').prop('disabled', true);
+          return false;
+        } else{
+          $('.add-disabled').prop('disabled', false);
+        }
+      });
+      
+      if(countNum > limit){
         output.addClass('over-limit');
-        $(".add-disabled").prop('disabled', true);
       } else {
         output.removeClass('over-limit');
-        $(".add-disabled").prop('disabled', false);
       }
+      
     });
     
-    $(".text-limit-1000").on("keyup", function() {
-      let countNum = String($(this).val().length);
-      let output = $(".output-count")
-      output.text(countNum + "/1,000字");
-      if (countNum > 1000){
-        output.addClass('over-limit');
-        $(".add-disabled").prop('disabled', true);
+    // 文字数制限（少ない文字数用）
+    $('.chara-limit-short').on('input', function(){
+      let limit = $(this).data('limit');
+      let countNum = $(this).val().length;
+      let output = $(this).closest('.chara-limit-container').find('.output-count');
+      let overLimit = 0;
+      overLimit = countNum - limit;
+      
+      $('.chara-limit').each(function() {
+        if ($(this).val().length > $(this).data('limit')) {
+          $('.add-disabled').prop('disabled', true);
+          return false;
+        } else{
+          $('.add-disabled').prop('disabled', false);
+        }
+      });
+      
+      if(countNum > limit){
+        output.css("display", "block");
+        output.text("あと" + overLimit + "文字短くしてください");
       } else {
-        output.removeClass('over-limit');
-        $(".add-disabled").prop('disabled', false);
+        output.css("display", "none");
       }
     });
     

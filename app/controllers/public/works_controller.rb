@@ -14,13 +14,13 @@ class Public::WorksController < ApplicationController
   end
   
   def index
-    @works_all = Work.where(is_published: true)
-    @works = Work.where(is_published: true).order(created_at: :desc).page(params[:page]).per(24)
+    @works_all = Work.public
+    @works = Work.public.created_at_desc.page(params[:page]).per(24)
   end
 
   def show
     @work = Work.find(params[:id])
-    @comments = WorkComment.where(work_id: @work.id).page(params[:page]).per(100)
+    @comments = WorkComment.where(work_id: @work.id).created_at_desc.page(params[:page]).per(100)
     unless ReadCount.where(created_at: Time.zone.now.all_day).find_by(user_id: current_user, work_id: @work.id)
       current_user.read_counts.create(work_id: @work.id)
     end 
