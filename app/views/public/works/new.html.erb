@@ -23,9 +23,10 @@
     
       <div id="form-number-<%= nth_form %>" class="<%= nth_form == 0 ? 'active-form' : 'non-active-form' %> border-bottom-dashed">
         <%= f.fields_for :items, Work.new.items.build do |item| %>
-          <div class="text-center">
+          <div class="text-center chara-limit-container">
             <%= item.label :genre, 'アイテムグループ名' %><br>
-            <%= item.text_field :genre %>
+            <%= item.text_field :genre, class: "chara-limit chara-limit-short", data: {limit: 20} %>
+            <p class="output-count over-limit" style="display: none;"></p>
           </div>
           
           <% for nth_image_form in 0..9 %>
@@ -60,13 +61,14 @@
       </span>
     </div>
     
-    <div class="mt-4 add-validation">
-      <%= f.label :title, '作品名（30字まで）' %><br>
-      <%= f.text_field :title %>
+    <div class="mt-4 chara-limit-container">
+      <%= f.label :title, '作品名' %><br>
+      <%= f.text_field :title, class: "chara-limit chara-limit-short", data: {limit: 30} %>
+      <p class="output-count over-limit" style="display: none;"></p>
     </div>
     <div class="chara-limit-container">
       <%= f.label :caption, 'キャプション' %><br>
-      <%= f.text_area :caption, class:"form-control chara-limit", data: {limit: 400}, size: "1x5" %>
+      <%= f.text_area :caption, class:"form-control chara-limit chara-limit-long", data: {limit: 400}, size: "1x5" %>
       <p class="text-right output-count">0/400字</p>
     </div>
     <div>
