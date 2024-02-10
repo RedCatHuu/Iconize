@@ -1,36 +1,36 @@
 <%= render 'layouts/frame', type: :narrow do %>
+
   <%= form_with model: @club, loacl: false do |f| %>
     <%= render 'public/shared/error_messages', resource: @club %>
-      <h4 class="text-center border-title">
-        サークル情報編集
-      </h4>
-      <div class="justify-contents">
-        <%= image_tag @club.get_club_image(100, 100), class: "rounded-circle" %>
-        <div style="position: absolute; margin-top: 0;">
-          <%= image_tag "transparent.png", class: "rounded-circle display-image", size: "100x100" %>
-        </div>
+    <h4 class="text-center border-title">
+      サークル情報編集
+    </h4>
+    <div class="justify-contents">
+      <%= image_tag @club.get_club_image(100, 100), class: "rounded-circle" %>
+      <div style="position: absolute; margin-top: 0;">
+        <%= image_tag "transparent.png", class: "rounded-circle display-image", size: "100x100" %>
       </div>
-      <div class="mt-4 justify-contents">
-        <%= f.label :club_image, 'プロフィール画像', class: "btn btn-primary" %><br>
-        <%= f.file_field :club_image, accept: "image/*", class: "input-image" %>
-        <p class="display-filename file-layouts"><%= @club.club_image.filename %></p>
-      </div>
-      <div class="form-group">
-        <%= f.label :name, 'サークル名（50字まで）' %><br>
-        <%= f.text_field :name %>
-      </div>
-      <div class="form-group">
-        <%= f.label :introduction, 'サークル紹介' %><br>
-        <%= f.text_area :introduction, class: "form-control text-limit-400", size:"1x5" %>
-        <p class="text-right output-count"><%= @club.introduction.size %>/400字</p>
-      </div>
-      <div class="form-group">
-        <%= f.submit '変更を保存', class: "btn btn-info btn-block add-disabled" %>
-      </div>
-      <%= link_to 'サークルの削除', club_path(@club), method: :delete, data:{confirm: "本当に削除しますか？"}, class: "btn btn-danger btn-block my-4" %>
-      <%= link_to 'キャンセル', club_path(@club) %>
-      
-      
-    
+    </div>
+    <div class="mt-4 justify-contents">
+      <%= f.label :club_image, 'プロフィール画像', class: "btn btn-primary" %><br>
+      <%= f.file_field :club_image, accept: "image/*", class: "input-image" %>
+      <p class="display-filename file-layouts"><%= @club.club_image.filename %></p>
+    </div>
+    <div class="form-group chara-limit-container">
+      <%= f.label :name, 'サークル名' %><br>
+      <%= f.text_field :name, class: "chara-limit chara-limit-short", data: {limit: 50} %>
+      <p class="output-count over-limit" style="display: none;"></p>
+    </div>
+    <div class="form-group chara-limit-container">
+      <%= f.label :introduction, 'サークル紹介' %><br>
+      <%= f.text_area :introduction, class: "form-control chara-limit chara-limit-long", data: {limit: 400}, size:"1x5" %>
+      <p class="text-right output-count"><%= @club.introduction.size %>/400字</p>
+    </div>
+    <div class="form-group">
+      <%= f.submit '変更を保存', class: "btn btn-info btn-block add-disabled" %>
+    </div>
+    <%= link_to 'サークルの削除', club_path(@club), method: :delete, data:{confirm: "本当に削除しますか？"}, class: "btn btn-danger btn-block my-4" %>
+    <%= link_to 'キャンセル', club_path(@club) %>
   <% end %>
+  
 <% end %>

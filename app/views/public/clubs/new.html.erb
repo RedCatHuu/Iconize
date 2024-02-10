@@ -3,13 +3,14 @@
   
   <h4 class="border-title text-center">サークル作成画面</h4>
   <%= form_with model: Club.new do |f| %>
-    <div class="form-group">
-      <%= f.label :name, 'サークル名（50字まで）' %><br>
-      <%= f.text_field :name, autofocus: true %>
+    <div class="form-group chara-limit-container">
+      <%= f.label :name, 'サークル名' %><br>
+      <%= f.text_field :name, autofocus: true, class: "chara-limit chara-limit-short", data: {limit: 50} %>
+      <p class="output-count over-limit" style="display: none;"></p>
     </div>
-    <div class="form-group">
+    <div class="form-group chara-limit-container">
       <%= f.label :introduction, 'サークル紹介' %><br>
-      <%= f.text_area :introduction, class: "form-control text-limit-400", size:"1x5" %>
+      <%= f.text_area :introduction, class: "form-control chara-limit chara-limit-long", data: {limit: 400}, size:"1x5" %>
       <p class="text-right output-count">0/400字</p>
     </div>
     <div class="form-group">
