@@ -2,6 +2,6 @@
 <div class="search form-validation">
   <i class="fas fa-search"></i>
   <%= form_with url: target_path, method: :get, local: true do |f| %>
-    <%= f.text_field :word, class: "add-validation" %>
+    <%= f.text_field :word, class: "add-validation", value: @words %>
   <% end %>
 </div>
