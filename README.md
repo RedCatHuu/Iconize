@@ -23,7 +23,8 @@
 * 自分の描いた絵を見せたいとき。
 ​
 ## 設計書
-<!--テーマを設定・提出する時点では不要です-->
+ER図
+![ポートフォリオER図 drawio](https://github.com/RedCatHuu/Iconize/assets/148026462/37a57d2f-32ff-4e78-9a94-a4ce2fcd8432)
 ​
 ## 開発環境
 - OS：Linux(CentOS)
