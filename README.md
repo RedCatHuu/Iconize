@@ -24,7 +24,7 @@
 ​
 ## 設計書
 ER図
-![ポートフォリオER図 drawio](https://github.com/RedCatHuu/Iconize/assets/148026462/37a57d2f-32ff-4e78-9a94-a4ce2fcd8432)
+![ER図](https://github.com/RedCatHuu/Iconize/assets/148026462/8dfd352a-8ad1-4315-acab-4f510a055371)
 ​
 ## 開発環境
 - OS：Linux(CentOS)
